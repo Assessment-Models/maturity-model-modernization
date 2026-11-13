@@ -1,0 +1,37 @@
+id: dea:maturity-modernization
+repo_id: maturity-model-modernization
+type: maturity-model
+name: Architecture Modernization Maturity Model
+domain: modernization
+version: 1.0.0
+metamodel_version: 1.0.0
+status: stable
+owner: Modernisation Lead
+steward: Modernisation Lead
+effective_date: 2026-08-21
+review_date: 2027-02-21
+description: 'Architecture Modernization Maturity Model — assesses the capability to modernise legacy
+  estates and platforms: strategy, sequencing, execution and technical-debt reduction.'
+score_scheme: dea-maturity-v2
+band_reference:
+  id: dea:maturity-bands-v2
+  version: 1.0.0
+  organization: technehub-labs
+  repository: dea-metamodel
+scale_levels:
+- L0
+- L1
+- L2
+- L3
+- L4
+relationships:
+- source_id: dea:maturity-modernization
+  target_id: dea:maturity-bands-v2
+  relationship_type: scored-by-v2-bands
+- source_id: dea:maturity-modernization
+  target_id: dea:pattern-strangler-fig
+  relationship_type: references
+tags:
+- maturity-model
+- modernization
+- v2-canonical

@@ -1,0 +1,103 @@
+id: dea:scale-modernization-v1
+version: 1.0.0
+metamodel_version: 1.0.0
+name: Architecture Modernization Maturity Model Scale (5-level)
+description: 'Model-owned scale for the Architecture Modernization Maturity Model. Five levels (L0..L4)
+  scored against the canonical v2 band instance (dea:maturity-bands-v2 v1.0.0): non-linear band widths
+  20/25/25/18/12 with per-level effort multipliers 1.0 → 6.0. Linear topology, exponential progression.
+  Level semantics are carried verbatim from the authoritative source; only the scoring fields differ between
+  the frozen v1-alpha lineage and the canonical v2 scheme.'
+status: stable
+ordering: ascending
+progression:
+  topology: linear
+  function: exponential
+levels:
+- id: L0
+  ordinal: 0
+  name: Emergent
+  definition: Practice exists but is person-dependent and informal
+  characteristics:
+  - Legacy systems replaced in big-bang rewrites
+  - No assessment of modernisation readiness
+  - Business stakeholders surprised by project outcomes
+  - No consistent migration pattern across initiatives
+  expected_practices:
+  - Modernisation strategy documented and approved by leadership
+  - Migration patterns (e.g., strangler-fig) documented and shared
+  - Readiness assessment performed before each major modernisation
+  evidence_expectations:
+  - Multiple failed big-bang rewrite attempts
+  - No documented migration playbook
+  - Modernisation cost overruns are common
+  short_description: Modernisation happens opportunistically
+- id: L1
+  ordinal: 1
+  name: Structured
+  definition: Documented, agreed, but inconsistently enforced
+  characteristics:
+  - Modernisation roadmap published but not enforced
+  - Some strangler-fig applications in progress
+  - Decomposition patterns documented but not standardised
+  - Coexistence strategy between old and new unclear
+  expected_practices:
+  - Modernisation backlogs tracked in shared register
+  - Decomposition pattern library has ≥ 3 entries
+  - Coexistence strategy documented per migration wave
+  evidence_expectations:
+  - Strangler-fig pattern used in at least one production migration
+  - Migration waves have explicit exit criteria
+  - Dual-running period is planned, not reactive
+  short_description: Strategy exists but execution is inconsistent
+- id: L2
+  ordinal: 2
+  name: Systematic
+  definition: Formal, tooling-enabled, governance active
+  characteristics:
+  - All modernisations use documented patterns
+  - Wave planning with risk-adjusted roadmap
+  - Metrics tracked — time-to-replace, business continuity
+  - Anti-corruption layer pattern is standard
+  expected_practices:
+  - Modernisation metrics on leadership dashboard
+  - All legacy systems have modernisation roadmap entry
+  - Anti-corruption layer reuse ≥ 80% of migrations
+  evidence_expectations:
+  - Quarterly modernisation progress report
+  - Pattern reuse tracked in dea-cli
+  - Lessons learned captured per wave
+  short_description: Modernisation is managed as a portfolio
+- id: L3
+  ordinal: 3
+  name: Adaptive
+  definition: Metrics-driven; organisation senses and responds
+  characteristics:
+  - Modernisation ROI calculated per project
+  - Velocity of modernisation measured and improved
+  - Failure modes catalogued and mitigated
+  - Cost of legacy technical debt quantified
+  expected_practices:
+  - Modernisation ROI > 2x within 24 months
+  - Technical debt trend decreasing year-over-year
+  - Modernisation velocity improving each wave
+  evidence_expectations:
+  - ROI dashboard per modernisation
+  - Predictive models for modernisation duration
+  - Cost-of-delay calculated for legacy systems
+  short_description: Outcomes predicted and measured
+- id: L4
+  ordinal: 4
+  name: Self-Optimising
+  definition: Continuous improvement is autonomous, not programme-driven
+  characteristics:
+  - Modernisation is part of ongoing architecture practice
+  - New patterns evaluated in modernisation context first
+  - Industry leadership in modernisation practice
+  - Open-source contributions of modernisation tooling
+  expected_practices:
+  - None — continuous improvement is the practice
+  evidence_expectations:
+  - Internal modernisation conferences or community-of-practice
+  - Contributions to upstream modernisation tooling
+  - Patterns published externally
+  short_description: Continuous modernisation as a discipline

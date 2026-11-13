@@ -1,0 +1,27 @@
+id: maturity-model-modernization
+type: maturity-model
+name: Architecture Modernization Maturity Model
+description: 'Architecture Modernization Maturity Model — assesses the capability to modernise legacy
+  estates and platforms: strategy, sequencing, execution and technical-debt reduction.'
+version: 1.0.0
+conformance:
+  contract:
+    id: maturity-scale-contract
+  source:
+    organization: technehub-labs
+    repository: dea-metamodel
+  version: '1.0'
+dependencies:
+- id: dea-maturity-bands-v2
+  reference: v1.0.0
+compatibility:
+  metamodel:
+    minimum: 1.0.0
+    maximum: <2.0.0
+  contracts:
+  - id: maturity-scale-contract
+    version: ^1.0
+  - id: maturity-model-contract
+    version: ^1.0
+  - id: conformance-contract
+    version: ^1.0
