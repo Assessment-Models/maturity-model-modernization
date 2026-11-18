@@ -5,7 +5,7 @@
 This repository is the home of **architecture modernization assessment** under the Assessment-Models organisation. It carries two coordinated assets:
 
 1. **AMAF, the Architecture Modernization Assessment Framework** (new, scaffold slice). A common, architecture-agnostic framework for assessing architecture modernization: what needs to modernize, why, how significantly, and toward what desired state, then contextualized into the specific architecture domains, capabilities, decisions, and interventions required to realize it.
-2. **The Architecture Modernization Maturity Model** (`dea:maturity-modernization`, 1.0.0 stable). The governed maturity model assessing the organisation's *capability to modernise* legacy estates and platforms: strategy, sequencing, execution, and technical-debt reduction.
+2. **The Architecture Modernization Maturity Model** (`dea:maturity-modernization`, 1.1.0 stable). The governed maturity model assessing the organisation's *capability to modernise* legacy estates and platforms: strategy, sequencing, execution, and technical-debt reduction.
 
 The two assets are deliberately distinct, and the distinction is load-bearing: AMAF assesses the **modernization need of architectures**; the maturity model assesses the **maturity of the modernization practice**. Under AMAF, maturity is an input, not the organizing principle: practice capability feeds dimension D7 (Adaptability & Modernization Readiness) and shapes the modernization path. See [`docs/realization/maturity-vs-modernization.md`](docs/realization/maturity-vs-modernization.md).
 
