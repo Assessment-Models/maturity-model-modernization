@@ -1,0 +1,62 @@
+site_name: AMAF
+site_description: Architecture Modernization Assessment Framework - one modernization assessment foundation, multiple architectural interpretations, coordinated realization.
+repo_url: https://github.com/Assessment-Models/maturity-model-modernization
+repo_name: Assessment-Models/maturity-model-modernization
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - content.code.copy
+markdown_extensions:
+  - admonitions
+  - pymdownx.highlight
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+nav:
+  - Framework:
+      - The Problem: docs/framework/01-the-problem.md
+      - Conceptual Model: docs/framework/02-conceptual-model.md
+      - Central Proposition: docs/framework/03-central-proposition.md
+  - Taxonomy:
+      - Overview: docs/taxonomy/overview.md
+      - D1 Strategic Alignment & Relevance: docs/taxonomy/d1-strategic-alignment.md
+      - D2 Drivers & Environmental Context: docs/taxonomy/d2-drivers-context.md
+      - D3 Architecture Baseline & Condition: docs/taxonomy/d3-architecture-baseline.md
+      - D4 Architectural Fitness & Performance: docs/taxonomy/d4-fitness-performance.md
+      - D5 Structural Integrity & Complexity: docs/taxonomy/d5-structural-integrity.md
+      - D6 Exposure, Risk & Sustainability: docs/taxonomy/d6-exposure-risk.md
+      - D7 Adaptability & Modernization Readiness: docs/taxonomy/d7-adaptability-readiness.md
+      - D8 Target State & Modernization Value: docs/taxonomy/d8-target-state-value.md
+  - Methodology:
+      - Assessment Scales & Attributes: docs/methodology/assessment-scales.md
+      - The Evidence Model: docs/methodology/evidence-model.md
+      - Interpretation Logic: docs/methodology/interpretation-logic.md
+      - Prioritization & Decision Logic: docs/methodology/prioritization.md
+  - Contextualization:
+      - Fan-Out Model: docs/contextualization/fan-out-model.md
+      - Domain Packs: docs/contextualization/domain-packs.md
+  - Metamodel:
+      - Entities: docs/metamodel/entities.md
+      - Relationships: docs/metamodel/relationships.md
+      - The Criterion Model: docs/metamodel/criterion-model.md
+  - Realization:
+      - Assessment Outputs: docs/realization/outputs.md
+      - Maturity vs Modernization: docs/realization/maturity-vs-modernization.md
+      - Model Structure & Sequence: docs/realization/model-structure.md
+  - Examples:
+      - Integration Architecture: docs/examples/integration-architecture.md

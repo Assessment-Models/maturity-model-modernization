@@ -1,0 +1,496 @@
+# AMAF Criterion Catalog (seed)
+#
+# The normative home for assessment criteria as modeled propositions.
+# Seed status (v0.1.0): one starter criterion per subdimension across D1-D8,
+# plus one fully modeled exemplar (D5.2.1). Full propositions, applicability
+# rules, evidence requirements, and domain applicability are completed per
+# ROADMAP.md slice S1.
+#
+# Conventions:
+# - Criterion identifiers never encode an architecture discipline.
+# - Domain applicability is a relationship, not part of the criterion identity.
+# - assessment_type: condition | demand | exposure | readiness | target
+# - status: modeled (full attributes) | draft (proposition only)
+
+catalog: ama-framework
+version: 0.1.0
+status: seed
+
+scale:
+  id: five-point
+  levels:
+    - { value: 1, label: Inadequate, meaning: "Material deficiency; fails expectations or creates significant exposure." }
+    - { value: 2, label: Weak, meaning: "Partially adequate; significant limitations, weaknesses or improvement needs exist." }
+    - { value: 3, label: Adequate, meaning: "Generally satisfies current expectations, with identified deficiencies or opportunities." }
+    - { value: 4, label: Strong, meaning: "Performs well; limited weaknesses and well-managed improvement needs." }
+    - { value: 5, label: Leading, meaning: "Highly effective, optimized or strategically advanced relative to defined expectations." }
+
+criticality_scale:
+  - low
+  - medium
+  - high
+  - critical
+
+confidence_scale:
+  - low      # assertion-level evidence only
+  - medium   # some direct evidence, incomplete coverage
+  - high     # direct, sufficient, corroborated evidence
+
+dimensions:
+  - id: D1
+    name: Strategic Alignment & Relevance
+    objective: Determine whether the architecture remains relevant to the organization's strategy, value proposition, operating model, and future ambition.
+    subdimensions:
+      - id: D1.1
+        name: Strategic Alignment
+        criteria:
+          - id: D1.1.1
+            name: Strategy alignment
+            proposition: The architecture demonstrably supports the organization's strategy, objectives, strategic priorities, and investment direction.
+            assessment_type: condition
+            status: draft
+      - id: D1.2
+        name: Business Relevance
+        criteria:
+          - id: D1.2.1
+            name: Business model relevance
+            proposition: The architecture remains relevant to the business model, value proposition, products, services, and stakeholder needs.
+            assessment_type: condition
+            status: draft
+      - id: D1.3
+        name: Value Contribution
+        criteria:
+          - id: D1.3.1
+            name: Value contribution
+            proposition: The architecture contributes demonstrably to value creation, value delivery, value capture, and business outcomes.
+            assessment_type: condition
+            status: draft
+      - id: D1.4
+        name: Future Alignment
+        criteria:
+          - id: D1.4.1
+            name: Future strategic support
+            proposition: The architecture is able to support anticipated strategic direction and future business models.
+            assessment_type: demand
+            status: draft
+      - id: D1.5
+        name: Priority & Criticality
+        criteria:
+          - id: D1.5.1
+            name: Strategic criticality
+            proposition: The importance of the architecture to strategic execution and business continuity is established and accepted.
+            assessment_type: criticality
+            status: draft
+
+  - id: D2
+    name: Drivers & Environmental Context
+    objective: Understand the forces that necessitate or create an opportunity for modernization.
+    subdimensions:
+      - id: D2.1
+        name: Business Drivers
+        criteria:
+          - id: D2.1.1
+            name: Business drivers identified
+            proposition: Business forces (growth, expansion, transformation, efficiency, market positioning, operating model change) creating modernization pressure are identified and understood.
+            assessment_type: condition
+            status: draft
+      - id: D2.2
+        name: Technology Drivers
+        criteria:
+          - id: D2.2.1
+            name: Technology drivers identified
+            proposition: Technology forces (evolution, platform shifts, obsolescence, innovation, emerging patterns) creating modernization pressure are identified and understood.
+            assessment_type: condition
+            status: draft
+      - id: D2.3
+        name: Regulatory & Compliance Drivers
+        criteria:
+          - id: D2.3.1
+            name: Compliance drivers identified
+            proposition: Legal, regulatory, policy, audit, standards, and compliance requirements affecting the architecture are identified and their implications understood.
+            assessment_type: exposure
+            status: draft
+      - id: D2.4
+        name: Stakeholder Drivers
+        criteria:
+          - id: D2.4.1
+            name: Stakeholder drivers identified
+            proposition: Customer expectations, workforce needs, partner requirements, and stakeholder experience demands are identified and understood.
+            assessment_type: demand
+            status: draft
+      - id: D2.5
+        name: Environmental Change
+        criteria:
+          - id: D2.5.1
+            name: Environmental change understood
+            proposition: Competitive dynamics, market shifts, ecosystem changes, and disruptive forces relevant to the architecture are identified and understood.
+            assessment_type: demand
+            status: draft
+      - id: D2.6
+        name: Modernization Trigger
+        criteria:
+          - id: D2.6.1
+            name: Trigger characterized
+            proposition: The event, constraint, threshold, initiative, failure, opportunity, or decision triggering modernization is identified and characterized, including its time horizon.
+            assessment_type: condition
+            status: draft
+
+  - id: D3
+    name: Architecture Baseline & Condition
+    objective: Establish what exists, what it comprises, how it is constituted, and its current condition.
+    subdimensions:
+      - id: D3.1
+        name: Architecture Inventory
+        criteria:
+          - id: D3.1.1
+            name: Inventory completeness
+            proposition: An inventory of architectural elements exists that is complete, visible, and classified for the assessment scope.
+            assessment_type: condition
+            status: draft
+      - id: D3.2
+        name: Architecture Representation
+        criteria:
+          - id: D3.2.1
+            name: Representation fidelity
+            proposition: Architectural models and documentation exist with sufficient availability, accuracy, fidelity, and consistency to support assessment.
+            assessment_type: condition
+            status: draft
+      - id: D3.3
+        name: Architecture State
+        criteria:
+          - id: D3.3.1
+            name: Declared vs implemented state
+            proposition: The actual deployed, operational, and realized architecture is known and reconciled against the declared architecture.
+            assessment_type: condition
+            status: draft
+      - id: D3.4
+        name: Lifecycle Condition
+        criteria:
+          - id: D3.4.1
+            name: Lifecycle condition
+            proposition: The age, lifecycle stage, support status, maintenance condition, and obsolescence position of critical elements is established.
+            assessment_type: condition
+            status: draft
+      - id: D3.5
+        name: Architecture Coverage
+        criteria:
+          - id: D3.5.1
+            name: Concern coverage
+            proposition: The baseline covers the relevant business, technical, operational, and stakeholder concerns for the assessment scope.
+            assessment_type: condition
+            status: draft
+      - id: D3.6
+        name: Baseline Integrity
+        criteria:
+          - id: D3.6.1
+            name: Baseline reliability
+            proposition: "The baseline is reliable: evidenced, dependency-aware, owned, and traceable to its sources."
+            assessment_type: condition
+            status: draft
+
+  - id: D4
+    name: Architectural Fitness & Performance
+    objective: Evaluate whether the architecture is fit for its intended purpose and performs adequately under existing and anticipated conditions.
+    subdimensions:
+      - id: D4.1
+        name: Functional Adequacy
+        criteria:
+          - id: D4.1.1
+            name: Functional adequacy
+            proposition: The architecture fulfills its intended functions, responsibilities, and requirements.
+            assessment_type: condition
+            status: draft
+      - id: D4.2
+        name: Performance & Efficiency
+        criteria:
+          - id: D4.2.1
+            name: Performance adequacy
+            proposition: Throughput, responsiveness, resource efficiency, capacity, and utilization meet existing and anticipated requirements.
+            assessment_type: condition
+            status: draft
+      - id: D4.3
+        name: Quality Attributes
+        criteria:
+          - id: D4.3.1
+            name: Quality attribute fulfillment
+            proposition: Applicable quality attributes (reliability, availability, resilience, scalability, maintainability, usability) satisfy requirements.
+            assessment_type: condition
+            status: draft
+      - id: D4.4
+        name: Interoperability & Integration
+        criteria:
+          - id: D4.4.1
+            name: Integration capability
+            proposition: Compatibility, connectivity, interface integrity, integration capability, and exchange meet the organization's integration needs.
+            assessment_type: condition
+            status: draft
+      - id: D4.5
+        name: Operational Effectiveness
+        criteria:
+          - id: D4.5.1
+            name: Operational effectiveness
+            proposition: The architecture effectively supports operations, execution, management, and service delivery.
+            assessment_type: condition
+            status: draft
+      - id: D4.6
+        name: Requirement Fulfillment
+        criteria:
+          - id: D4.6.1
+            name: Requirement fulfillment
+            proposition: The architecture is adequate against functional, non-functional, stakeholder, and contextual requirements.
+            assessment_type: condition
+            status: draft
+
+  - id: D5
+    name: Structural Integrity & Complexity
+    objective: Evaluate the internal composition, coherence, relationships, dependencies, and structural characteristics of the architecture.
+    subdimensions:
+      - id: D5.1
+        name: Architectural Coherence
+        criteria:
+          - id: D5.1.1
+            name: Coherence of elements
+            proposition: Architecture elements, principles, patterns, and structures are consistent with one another.
+            assessment_type: condition
+            status: draft
+      - id: D5.2
+        name: Coupling & Dependencies
+        criteria:
+          - id: D5.2.1
+            name: Independence of change
+            proposition: Architectural components can be modified, deployed, or evolved with a degree of independence appropriate to their responsibilities and change requirements.
+            assessment_type: condition
+            status: modeled
+            definition: >-
+              The extent to which dependencies and coupling between architectural elements permit
+              independent change appropriate to each element's responsibilities.
+            assessment_intent: >-
+              Evaluates the extent to which dependencies and coupling between architectural elements
+              constrain change, increase risk, or create disproportionate modernization effort.
+            assessment_question: >-
+              Can components be modified, deployed, or evolved without change propagating beyond
+              what their responsibilities justify?
+            applicability_rule: >-
+              Assess for any scope containing two or more architectural elements with runtime,
+              data, or lifecycle dependencies.
+            assessment_method: >-
+              Qualitative review of dependency and integration maps, corroborated by quantitative
+              change-impact and release history where available.
+            scale_reference: five-point
+            evidence_requirements:
+              - Dependency and integration maps
+              - Change impact analysis
+              - Release and deployment history
+              - Failure propagation records
+              - Engineering observations
+              - Architecture models
+            interpretation_guidance: >-
+              Score against the independence the components' responsibilities require, not against
+              an absolute decoupling ideal. High coupling on a stable, rarely-changed interface is
+              less severe than modest coupling on a hot path of change.
+            modernization_relevance: >-
+              Excessive coupling may indicate a need for boundary restructuring, dependency
+              reduction, component separation, interface modernization, platform changes, or
+              architectural redesign. Coupling findings also constrain modernization sequencing
+              (input to D7 changeability).
+            domain_applicability:
+              - enterprise
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+            related_criteria: [D5.5.1, D7.1.1, D7.3.1]
+      - id: D5.3
+        name: Complexity
+        criteria:
+          - id: D5.3.1
+            name: Complexity proportionality
+            proposition: Structural, conceptual, technical, operational, and cognitive complexity remain proportionate to the problem the architecture solves and within organizational capacity.
+            assessment_type: condition
+            status: draft
+      - id: D5.4
+        name: Fragmentation & Duplication
+        criteria:
+          - id: D5.4.1
+            name: Fragmentation and redundancy
+            proposition: Redundancy, overlap, inconsistency, proliferation, and fragmentation are known and managed.
+            assessment_type: condition
+            status: draft
+      - id: D5.5
+        name: Modularity & Separation
+        criteria:
+          - id: D5.5.1
+            name: Modularity and separation of concerns
+            proposition: Boundaries, encapsulation, cohesion, separation of concerns, and composability support independent reasoning about parts of the architecture.
+            assessment_type: condition
+            status: draft
+      - id: D5.6
+        name: Architectural Integrity
+        criteria:
+          - id: D5.6.1
+            name: Conformance to architectural intent
+            proposition: The realized architecture conforms to architectural intent, standards, patterns, and constraints.
+            assessment_type: condition
+            status: draft
+
+  - id: D6
+    name: Exposure, Risk & Sustainability
+    objective: Determine the vulnerabilities, liabilities, risks, and future sustainability implications of maintaining or evolving the architecture.
+    subdimensions:
+      - id: D6.1
+        name: Technology & Lifecycle Risk
+        criteria:
+          - id: D6.1.1
+            name: Technology lifecycle exposure
+            proposition: Obsolescence, end-of-life exposure, vendor dependency, skills scarcity, and support limitations are known and within tolerance.
+            assessment_type: exposure
+            status: draft
+      - id: D6.2
+        name: Security & Trust
+        criteria:
+          - id: D6.2.1
+            name: Security and trust exposure
+            proposition: Security weaknesses, privacy exposure, trustworthiness, access control, and integrity risks are known and within tolerance.
+            assessment_type: exposure
+            status: draft
+      - id: D6.3
+        name: Operational Risk
+        criteria:
+          - id: D6.3.1
+            name: Operational risk exposure
+            proposition: Failure exposure, continuity, recoverability, operational dependencies, and service disruption risk are known and within tolerance.
+            assessment_type: exposure
+            status: draft
+      - id: D6.4
+        name: Economic Exposure
+        criteria:
+          - id: D6.4.1
+            name: Economic sustainability
+            proposition: Cost of ownership, maintenance burden, cost inefficiency, licensing, and investment sustainability are known and within tolerance.
+            assessment_type: exposure
+            status: draft
+      - id: D6.5
+        name: Compliance & Governance Risk
+        criteria:
+          - id: D6.5.1
+            name: Compliance and governance exposure
+            proposition: Regulatory exposure, governance failures, standards deviations, and auditability risks are known and within tolerance.
+            assessment_type: exposure
+            status: draft
+      - id: D6.6
+        name: Sustainability
+        criteria:
+          - id: D6.6.1
+            name: Long-term viability
+            proposition: Long-term viability, environmental impact, maintainability, and lifecycle sustainability are established and acceptable.
+            assessment_type: exposure
+            status: draft
+
+  - id: D7
+    name: Adaptability & Modernization Readiness
+    objective: Assess how easily the architecture can evolve and how prepared the organization is to undertake modernization.
+    subdimensions:
+      - id: D7.1
+        name: Changeability
+        criteria:
+          - id: D7.1.1
+            name: Ease of change
+            proposition: Architecture elements can be modified at an ease, speed, cost, and risk appropriate to the change they must undergo.
+            assessment_type: changeability
+            status: draft
+      - id: D7.2
+        name: Extensibility
+        criteria:
+          - id: D7.2.1
+            name: Extensibility
+            proposition: The architecture can accommodate new capabilities, requirements, technologies, and use cases without structural rework.
+            assessment_type: changeability
+            status: draft
+      - id: D7.3
+        name: Migration & Transition
+        criteria:
+          - id: D7.3.1
+            name: Transition feasibility
+            proposition: The architecture can transition from current to target state with manageable disruption.
+            assessment_type: changeability
+            status: draft
+      - id: D7.4
+        name: Engineering & Delivery Readiness
+        criteria:
+          - id: D7.4.1
+            name: Delivery capacity
+            proposition: Development, engineering, automation, testing, deployment, and delivery capacity is sufficient to execute modernization.
+            assessment_type: readiness
+            status: draft
+      - id: D7.5
+        name: Organizational Readiness
+        criteria:
+          - id: D7.5.1
+            name: Organizational capacity
+            proposition: Skills, ownership, governance, sponsorship, resources, and operating readiness are sufficient to sustain modernization.
+            assessment_type: readiness
+            status: draft
+      - id: D7.6
+        name: Modernization Constraints
+        criteria:
+          - id: D7.6.1
+            name: Constraint exposure
+            proposition: Dependencies, contractual obligations, legacy constraints, funding, policy, and transition barriers are known and their effect on modernization options understood.
+            assessment_type: exposure
+            status: draft
+
+  - id: D8
+    name: Target State & Modernization Value
+    objective: Determine the desired architectural state and evaluate the modernization opportunity, options, and expected outcomes.
+    subdimensions:
+      - id: D8.1
+        name: Target State Definition
+        criteria:
+          - id: D8.1.1
+            name: Target state definition
+            proposition: The desired future architecture is defined with clarity, completeness, and viability.
+            assessment_type: target
+            status: draft
+      - id: D8.2
+        name: Modernization Objectives
+        criteria:
+          - id: D8.2.1
+            name: Objectives and measurable outcomes
+            proposition: Modernization objectives and the measurable outcomes they are intended to achieve are defined.
+            assessment_type: target
+            status: draft
+      - id: D8.3
+        name: Solution Alternatives
+        criteria:
+          - id: D8.3.1
+            name: Alternatives evaluated
+            proposition: Modernization alternatives and approaches are identified and evaluated.
+            assessment_type: target
+            status: draft
+      - id: D8.4
+        name: Value & Benefits
+        criteria:
+          - id: D8.4.1
+            name: Value expectation
+            proposition: Expected business, operational, strategic, financial, technical, and stakeholder value from modernization is articulated.
+            assessment_type: target
+            status: draft
+      - id: D8.5
+        name: Investment & Economics
+        criteria:
+          - id: D8.5.1
+            name: Economics understood
+            proposition: Investment requirements, costs, benefits, economics, affordability, and trade-offs are understood.
+            assessment_type: target
+            status: draft
+      - id: D8.6
+        name: Modernization Path
+        criteria:
+          - id: D8.6.1
+            name: Path defined
+            proposition: Sequencing, transition strategy, dependencies, incremental change, migration, and realization roadmap are defined.
+            assessment_type: target
+            status: draft

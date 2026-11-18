@@ -32,6 +32,32 @@ entry. Semver applies:
    README `## Status` line and `standard.yaml` must always agree — the
    repository-standard conformance workflow fails the build on drift.
 
+## Contributing to the AMAF
+
+The Architecture Modernization Assessment Framework (docs corpus, criterion
+catalog, methodology, and instrument) evolves under the same discipline, with
+its own conventions:
+
+1. Check `ROADMAP.md` for the current slice and its drill-down areas.
+2. Criteria are modeled propositions, not questions: definition, intent,
+   assessment type, applicability, evidence requirements, interpretation
+   guidance, and domain applicability. Criterion IDs are stable and never
+   encode architecture disciplines; domain applicability is a relationship.
+3. Do not introduce composite modernization scores as primary outputs, and
+   do not collapse condition, criticality, future demand, and changeability
+   into one measure.
+4. Keep the taxonomy docs and the criterion catalog synchronized: they
+   describe the same model.
+5. The maturity model assets (`model.yaml`, `standard.yaml`, `VERSION`,
+   `maturity/`, `examples/`, `scripts/`) are governed by the rules above;
+   AMAF work must not disturb their contracts or version coherence.
+6. The assessment app is intentionally dependency-free and client-side; keep
+   it runnable by opening `index.html` directly.
+
+AMAF framework and catalog changes are recorded in `CHANGELOG.md` under
+`[Unreleased]` until an AMAF versioning scheme is formalised (ROADMAP slice
+S9).
+
 ## Registering a release
 
 After a release is tagged, add or update the registration record under
