@@ -8,7 +8,7 @@ Each slice states its goal, the drill-down areas (the high-level inputs that nee
 
 | Slice | Name | Status |
 |-------|------|--------|
-| S0 | Revamp scaffold | done (this change) |
+| S0 | Revamp scaffold | done |
 | S1 | Normative taxonomy & criterion catalog | next |
 | S2 | Assessment mechanics | planned |
 | S3 | Interpretation & prioritization logic | planned |
@@ -18,6 +18,20 @@ Each slice states its goal, the drill-down areas (the high-level inputs that nee
 | S7 | Validation & worked examples | planned |
 | S8 | Docs site launch | planned |
 | S9 | Governance & asset registration | planned |
+
+## Maturity model track
+
+The slices above track the AMAF build-out. The maturity model advances on its
+own release track under the change-control rules in CONTRIBUTING.md:
+
+| Milestone | Scope | Status |
+|-----------|-------|--------|
+| M1 | Full-fledged model (v1.1.0): criteria catalog, scoring model, worked examples, scoring CLI | done |
+
+M1 notes: the model moved from scale-plus-example to a full assessment
+instrument. The catalog's `readiness_assessment` criterion and the AMAF's D7
+dimension are the integration point: practice maturity feeds AMAF readiness
+evidence in both directions (slice S7 calibrates this).
 
 ## S0 · Revamp scaffold (done)
 

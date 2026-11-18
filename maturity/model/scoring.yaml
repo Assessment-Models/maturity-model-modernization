@@ -1,0 +1,64 @@
+# Scoring model for the Architecture Modernization Maturity Model (v1.1.0).
+#
+# Defines how criterion scores (0-100) become a practice result: weighted-mean
+# aggregation, canonical v2 band resolution, and the effort-adjusted value.
+# Band widths and effort multipliers are canonical upstream
+# (dea:maturity-bands-v2 v1.0.0, technehub-labs/dea-metamodel); the band table
+# below is a machine-checked mirror, and scripts/local_validate.py fails the
+# build if it ever drifts from the canonical constants. Do not edit the band
+# table without a change request against the upstream owner.
+id: dea:scoring-modernization-v1
+model: dea:maturity-modernization
+version: 1.1.0
+status: stable
+name: Architecture Modernization Maturity Model Scoring Model
+description: 'Weighted-mean scoring over the criteria catalog, resolved against the canonical v2 bands with effort-adjusted value.'
+criteria_reference:
+  id: dea:criteria-modernization-v1
+  path: maturity/model/criteria.yaml
+criterion_scale:
+  range: [0, 100]
+  anchors: '0 = practice contradicted or absent, 25 = emergent and person-dependent, 50 = documented and inconsistently enforced, 75 = systematic, tooling-enabled and governed, 100 = self-optimising and continuous'
+aggregation:
+  method: weighted_mean
+  formula: 'aggregated_score = sum(score_i * weight_i) / sum(weight_i) over applicable criteria'
+  practice_area_scores: 'Computed per practice area with the same weighted mean; reported alongside the aggregate and never combined into a different composite.'
+  not_applicable: 'A criterion may be marked not_applicable with a reason; it is dropped and the remaining weights are renormalised.'
+  minimum_applicable_criteria: 10
+  rounding: 'Round half up to 2 decimals.'
+band_resolution:
+  canonical_source:
+    id: dea:maturity-bands-v2
+    version: 1.0.0
+    organization: technehub-labs
+    repository: dea-metamodel
+  note: 'Machine-checked mirror of the canonical v2 bands; see the header comment. Each band maps to one level of maturity/scale.yaml.'
+  bands:
+  - id: level-1-emergent
+    name: Emergent
+    range: [0, 20]
+    effort_multiplier: 1.0
+    scale_level: L0
+  - id: level-2-structured
+    name: Structured
+    range: [21, 45]
+    effort_multiplier: 1.5
+    scale_level: L1
+  - id: level-3-systematic
+    name: Systematic
+    range: [46, 70]
+    effort_multiplier: 2.5
+    scale_level: L2
+  - id: level-4-adaptive
+    name: Adaptive
+    range: [71, 88]
+    effort_multiplier: 4.0
+    scale_level: L3
+  - id: level-5-self-optimising
+    name: Self-Optimising
+    range: [89, 100]
+    effort_multiplier: 6.0
+    scale_level: L4
+effort_adjusted_value:
+  definition: 'effort_adjusted_value = aggregated_score * effort_multiplier of the resolved band, rounded to 2 decimals'
+  purpose: 'An effort-weighted value signal for comparing assessments; it is a derived signal, not a maturity level.'

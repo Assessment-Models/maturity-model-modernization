@@ -1,19 +1,43 @@
 id: modernization-worked-example
 model: dea:maturity-modernization
-version: 1.0.0
-description: Worked scoring example for the modernization maturity model. Illustrative only — not a real
-  organisation's assessment. Shows the native 0-100 aggregation, canonical v2 band resolution and the
-  effort-adjusted value.
-aggregated_score: 62
-resolved_band: level-3-systematic
-effort_adjusted_value: 155.0
+version: 1.1.0
+description: 'Worked scoring example for the modernization maturity model. Illustrative only, not a real organisation assessment. Scores all 15 criteria of the 1.1.0 catalog, aggregates by weighted mean, resolves the canonical v2 band and applies the effort multiplier. Aggregation maths: (65*10 + 58*10 + 50*10 + 70*8 + 66*8 + 60*7 + 63*7 + 68*5 + 74*5 + 63*5 + 61*5 + 58*6 + 52*4 + 64*5 + 63*5) / 100 = 62.0'
 criterion_scores:
-- criterion: example-criterion-1
+- criterion: strategy_documented
+  score: 65
+- criterion: portfolio_visibility
   score: 58
-- criterion: example-criterion-2
-  score: 64
-- criterion: example-criterion-3
-  score: 62
-- criterion: example-criterion-4
+- criterion: roi_discipline
+  score: 50
+- criterion: pattern_library
+  score: 70
+- criterion: wave_planning
   score: 66
-aggregation: mean of criterion scores (illustrative weights omitted)
+- criterion: coexistence_strategy
+  score: 60
+- criterion: exit_criteria
+  score: 63
+- criterion: modernization_metrics
+  score: 68
+- criterion: pattern_reuse
+  score: 74
+- criterion: lessons_learned
+  score: 63
+- criterion: readiness_assessment
+  score: 61
+- criterion: debt_quantified
+  score: 58
+- criterion: cost_of_delay
+  score: 52
+- criterion: velocity_trend
+  score: 64
+- criterion: outcome_verification
+  score: 63
+aggregation:
+  method: weighted_mean
+  weights_source: maturity/model/criteria.yaml
+aggregated_score: 62.0
+resolved_band: level-3-systematic
+resolved_level: L2
+effort_adjusted_value: 155.0
+notes: 'Profile: pattern and execution practice is strong (pattern reuse 74, pattern library 70, metrics 68); investment economics lags (ROI discipline 50, cost of delay 52). Consistent with a Systematic practice still building quantified-outcome muscle.'

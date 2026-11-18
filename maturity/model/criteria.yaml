@@ -1,0 +1,265 @@
+# Criteria catalog for the Architecture Modernization Maturity Model (v1.1.0).
+#
+# Additive over the 1.0.0 scale: level semantics remain owned by
+# maturity/scale.yaml and band definitions remain canonical upstream
+# (dea:maturity-bands-v2, technehub-labs/dea-metamodel). This catalog
+# decomposes the scale's characteristics, expected practices and evidence
+# expectations into 15 independently assessable criteria across 4 practice
+# areas, each with observable anchors per level. Anchors restate the scale's
+# semantics at criterion granularity; they never contradict it.
+id: dea:criteria-modernization-v1
+model: dea:maturity-modernization
+version: 1.1.0
+status: stable
+name: Architecture Modernization Maturity Model Criteria Catalog
+description: '15 criteria across 4 practice areas, scored 0-100 and aggregated by the scoring model (maturity/model/scoring.yaml) into the canonical v2 bands.'
+scale_reference:
+  id: dea:scale-modernization-v1
+  path: maturity/scale.yaml
+band_reference:
+  id: dea:maturity-bands-v2
+  version: 1.0.0
+  organization: technehub-labs
+  repository: dea-metamodel
+practice_areas:
+- id: strategy-direction
+  name: Strategy & Direction
+  description: 'Whether modernisation is guided by an approved strategy, a visible portfolio and verified investment logic.'
+  criteria:
+  - id: strategy_documented
+    name: Modernisation strategy documented and approved
+    weight: 10
+    definition: 'A leadership-approved modernisation strategy exists, is documented, and initiatives trace to it.'
+    assessment_question: 'Is there a documented, approved modernisation strategy that initiatives trace to?'
+    evidence:
+    - Modernisation strategy document with approval record
+    - Initiative business cases tracing to strategy goals
+    - Leadership review minutes
+    level_anchors:
+      L0: 'No documented strategy; modernisation happens as opportunistic big-bang rewrites driven by individuals.'
+      L1: 'A roadmap is published but not enforced; initiatives may proceed without tracing to it.'
+      L2: 'Strategy is documented and approved by leadership; initiatives are checked against it at intake.'
+      L3: 'Strategy is metrics-driven; ROI per initiative feeds sequencing and portfolio decisions.'
+      L4: 'Strategy evolves continuously as part of ongoing architecture practice; modernisation is business as usual.'
+  - id: portfolio_visibility
+    name: Portfolio visibility of legacy estate
+    weight: 10
+    definition: 'Every legacy system in the estate has a visible modernisation roadmap entry.'
+    assessment_question: 'Can the organisation show, for each legacy system, its modernisation status and planned direction?'
+    evidence:
+    - Modernisation register or roadmap by system
+    - System inventory with disposition (retain, replatform, replace, retire)
+    - Quarterly portfolio review records
+    level_anchors:
+      L0: 'No consistent view of which legacy systems exist or need modernisation.'
+      L1: 'A shared modernisation backlog register exists but is incomplete or stale.'
+      L2: 'All legacy systems have a modernisation roadmap entry, reviewed quarterly.'
+      L3: 'Roadmap entries carry quantified debt and cost-of-delay inputs that drive prioritisation.'
+      L4: 'The portfolio is continuously re-evaluated; new systems enter the modernisation practice by default.'
+  - id: roi_discipline
+    name: ROI discipline on modernisation investment
+    weight: 10
+    definition: 'Modernisation return on investment is calculated, tracked, and used to steer investment.'
+    assessment_question: 'Is ROI calculated per modernisation initiative and used in decisions?'
+    evidence:
+    - ROI model per initiative
+    - Benefits realisation tracking
+    - Investment decision records
+    level_anchors:
+      L0: 'No ROI calculation; spend is approved ad hoc and outcomes surprise stakeholders.'
+      L1: 'Business cases exist for some initiatives but benefits are rarely verified afterwards.'
+      L2: 'Business cases are mandatory and benefits are reviewed at wave completion.'
+      L3: 'ROI is measured per project and exceeds 2x within 24 months; results shape the portfolio.'
+      L4: 'Investment allocation self-corrects from verified outcome data across the whole portfolio.'
+- id: sequencing-patterns
+  name: Sequencing & Migration Patterns
+  description: 'How modernisation is ordered into waves and executed through documented, reused migration patterns.'
+  criteria:
+  - id: pattern_library
+    name: Migration pattern library
+    weight: 8
+    definition: 'A documented library of migration patterns (strangler fig, anti-corruption layer, branch by abstraction and others) is maintained and reused.'
+    assessment_question: 'Are migration patterns documented, shared, and reused across initiatives?'
+    evidence:
+    - Pattern library entries
+    - Migration design documents referencing patterns
+    - Pattern reuse metrics
+    level_anchors:
+      L0: 'No documented migration patterns; each initiative invents its own approach.'
+      L1: 'Some patterns are documented but not standardised; the library has fewer than 3 entries or is unused.'
+      L2: 'A pattern library with at least 3 documented patterns is the standard reference for all migrations.'
+      L3: 'Pattern selection is data-driven; failure modes per pattern are catalogued and feed the library.'
+      L4: 'New patterns are evaluated in the modernisation context first and contributed back externally.'
+  - id: wave_planning
+    name: Risk-adjusted wave planning
+    weight: 8
+    definition: 'Modernisation is sequenced into risk-adjusted waves with explicit scope and order.'
+    assessment_question: 'Is the modernisation roadmap organised into waves with risk-adjusted sequencing?'
+    evidence:
+    - Wave plans with risk assessments
+    - Roadmap with sequencing rationale
+    - Wave retrospectives
+    level_anchors:
+      L0: 'No wave planning; single big-bang replacements dominate.'
+      L1: 'Waves are identified informally; the sequencing rationale is undocumented.'
+      L2: 'Wave planning with a risk-adjusted roadmap is standard practice across the portfolio.'
+      L3: 'Wave sequencing optimises measured velocity and ROI, adjusted from prior wave outcomes.'
+      L4: 'Wave boundaries dissolve into continuous, incremental modernisation governed by architecture practice.'
+  - id: coexistence_strategy
+    name: Legacy/new coexistence strategy
+    weight: 7
+    definition: 'Coexistence between legacy and modernised elements is designed per migration, not improvised.'
+    assessment_question: 'Is old/new coexistence (data, interfaces, operations) designed per migration wave?'
+    evidence:
+    - Coexistence designs per wave
+    - Cutover and dual-running plans
+    - Data reconciliation approach
+    level_anchors:
+      L0: 'Coexistence is not considered; cutovers are unplanned.'
+      L1: 'A coexistence strategy is documented for some waves but unclear across initiatives.'
+      L2: 'A coexistence strategy is documented per migration wave as standard practice.'
+      L3: 'Coexistence costs and duration are predicted from prior wave data.'
+      L4: 'Coexistence is a first-class architecture capability with reusable facilities.'
+  - id: exit_criteria
+    name: Wave exit criteria and dual-running discipline
+    weight: 7
+    definition: 'Migration waves have explicit exit criteria and a planned, non-reactive dual-running period.'
+    assessment_question: 'Do waves define when legacy is retired, with dual-running planned rather than reactive?'
+    evidence:
+    - Wave exit criteria
+    - Decommissioning records
+    - Time-to-replace metrics
+    level_anchors:
+      L0: 'No exit criteria; legacy lingers after rewrites with no retirement plan.'
+      L1: 'Exit criteria exist for some waves; dual-running happens reactively.'
+      L2: 'All waves have explicit exit criteria; dual-running is planned, not reactive.'
+      L3: 'Exit criteria are measurable and time-to-replace per wave is tracked against prediction.'
+      L4: 'Retirement of legacy is continuous and verified; the estate carries no undocumented legacy.'
+- id: execution-operations
+  name: Execution & Operations
+  description: 'Whether modernisation execution is measured, reused, and improved through captured learning.'
+  criteria:
+  - id: modernization_metrics
+    name: Modernisation metrics tracked and visible
+    weight: 5
+    definition: 'Modernisation metrics (time-to-replace, business continuity, velocity) are tracked and visible to leadership.'
+    assessment_question: 'Are modernisation metrics on a leadership dashboard?'
+    evidence:
+    - Dashboard extracts
+    - Quarterly progress reports
+    - Metric definitions and data sources
+    level_anchors:
+      L0: 'No modernisation metrics; success is anecdotal.'
+      L1: 'Some metrics are collected per initiative but not aggregated or reviewed.'
+      L2: 'Modernisation metrics are on a leadership dashboard and reviewed quarterly.'
+      L3: 'Metrics are predictive; duration models guide commitments.'
+      L4: 'Metrics drive autonomous improvement actions without programme intervention.'
+  - id: pattern_reuse
+    name: Pattern and anti-corruption layer reuse
+    weight: 5
+    definition: 'Migrations reuse proven patterns and anti-corruption layers instead of rebuilding them.'
+    assessment_question: 'What share of migrations reuse standard patterns and shared facilities such as anti-corruption layers?'
+    evidence:
+    - Pattern reuse tracking
+    - Shared anti-corruption layer components
+    - Migration design reviews
+    level_anchors:
+      L0: 'No reuse; every migration builds its own integration approach.'
+      L1: 'Reuse is incidental and person-dependent.'
+      L2: 'Anti-corruption layer reuse in at least 80% of migrations that need one.'
+      L3: 'The reuse rate is measured per wave and improving.'
+      L4: 'Shared facilities evolve automatically from accumulated pattern experience.'
+  - id: lessons_learned
+    name: Lessons learned and failure mode management
+    weight: 5
+    definition: 'Lessons learned are captured per wave and failure modes are catalogued and mitigated.'
+    assessment_question: 'Are per-wave retrospectives captured and turned into mitigations?'
+    evidence:
+    - Wave retrospective records
+    - Failure mode catalogue
+    - Applied mitigations in later waves
+    level_anchors:
+      L0: 'No retrospectives; failures repeat.'
+      L1: 'Retrospectives happen occasionally but findings are not retained or applied.'
+      L2: 'Lessons learned are captured per wave and applied to the pattern library and plans.'
+      L3: 'Failure modes are catalogued with mitigations and feed predictive planning.'
+      L4: 'Learning loops are continuous and contribute to external practice (publications, tooling).'
+  - id: readiness_assessment
+    name: Readiness assessment before major modernisations
+    weight: 5
+    definition: 'Modernisation readiness is assessed before each major modernisation initiative.'
+    assessment_question: 'Is a readiness assessment performed before major modernisations start?'
+    evidence:
+    - Readiness assessment reports
+    - Go/no-go decision records
+    - 'AMAF dimension D7 profile, or equivalent readiness evidence'
+    level_anchors:
+      L0: 'No readiness assessment; initiatives start on optimism.'
+      L1: 'Readiness is discussed informally for some initiatives.'
+      L2: 'A readiness assessment (including practice maturity) is required before each major modernisation.'
+      L3: 'Readiness assessments are quantified and calibrate wave commitments and risk buffers.'
+      L4: 'Readiness signals are sensed continuously from practice telemetry, not per-project reviews.'
+- id: debt-outcomes
+  name: Technical Debt & Outcomes
+  description: 'Whether legacy debt economics are quantified and modernisation outcomes are verified.'
+  criteria:
+  - id: debt_quantified
+    name: Legacy technical debt quantified and trended
+    weight: 6
+    definition: 'Legacy technical debt is quantified per system and its trend is tracked.'
+    assessment_question: 'Is the cost of legacy technical debt quantified and trending?'
+    evidence:
+    - Debt quantification model
+    - Debt trend reports
+    - Portfolio decisions citing debt data
+    level_anchors:
+      L0: 'Technical debt is not discussed as a quantified concern.'
+      L1: 'Debt is listed qualitatively in backlogs without cost estimates.'
+      L2: 'Debt is quantified for major systems and visible in portfolio decisions.'
+      L3: 'The cost of legacy technical debt is quantified and decreasing year over year.'
+      L4: 'Debt levels are managed within continuous tolerance bands, not programmes.'
+  - id: cost_of_delay
+    name: Cost of delay for legacy systems
+    weight: 4
+    definition: 'Cost of delay is calculated for legacy systems and informs sequencing.'
+    assessment_question: 'Does the organisation know what it loses per period of continued legacy operation?'
+    evidence:
+    - Cost-of-delay calculations
+    - Sequencing decisions citing delay cost
+    - Benefits models
+    level_anchors:
+      L0: 'Cost of delay is not a concept in use.'
+      L1: 'Delay costs are acknowledged qualitatively for urgent cases only.'
+      L2: 'Cost of delay is calculated for prioritised systems and used in wave ordering.'
+      L3: 'Cost of delay is calculated portfolio-wide and drives sequencing economics.'
+      L4: 'Delay economics are embedded in continuous investment decisions.'
+  - id: velocity_trend
+    name: Modernisation velocity measured and improving
+    weight: 5
+    definition: 'The velocity of modernisation is measured and improving wave over wave.'
+    assessment_question: 'Is modernisation velocity measured and improving?'
+    evidence:
+    - Velocity metrics per wave
+    - Duration prediction models
+    - Trend reports
+    level_anchors:
+      L0: 'Velocity is not measured.'
+      L1: 'Velocity is visible per initiative but not compared over time.'
+      L2: 'Velocity is measured across waves and reported with the portfolio.'
+      L3: 'Velocity improves each wave; predictive models estimate duration.'
+      L4: 'Velocity is self-sustaining; modernisation capacity scales without programme pressure.'
+  - id: outcome_verification
+    name: Outcome and benefits verification
+    weight: 5
+    definition: 'Realised outcomes (continuity, value, ROI) are verified after each modernisation.'
+    assessment_question: 'Are claimed modernisation benefits verified after completion?'
+    evidence:
+    - Benefits realisation reports
+    - Continuity verification records
+    - Post-implementation reviews
+    level_anchors:
+      L0: 'Outcomes are not verified; business stakeholders are surprised by project outcomes.'
+      L1: 'Outcomes are reviewed informally for some initiatives.'
+      L2: 'Benefits and continuity are verified at wave exit against the business case.'
+      L3: 'ROI is verified per modernisation, with predictive benefit models calibrated by results.'
+      L4: 'Outcome verification is continuous and feeds external practice benchmarking.'

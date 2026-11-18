@@ -3,7 +3,7 @@ repo_id: maturity-model-modernization
 type: maturity-model
 name: Architecture Modernization Maturity Model
 domain: modernization
-version: 1.0.0
+version: 1.1.0
 metamodel_version: 1.0.0
 status: stable
 owner: Modernisation Lead
@@ -31,6 +31,12 @@ relationships:
 - source_id: dea:maturity-modernization
   target_id: dea:pattern-strangler-fig
   relationship_type: references
+artifacts:
+  scale: maturity/scale.yaml
+  criteria_catalog: maturity/model/criteria.yaml
+  scoring_model: maturity/model/scoring.yaml
+  worked_examples: examples/
+  scoring_cli: scripts/score_assessment.py
 tags:
 - maturity-model
 - modernization

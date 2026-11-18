@@ -50,7 +50,14 @@ AMAF's central proposition separates **the assessment of modernization** (common
 
 ## The maturity model (established asset)
 
-`dea:maturity-modernization` assesses the capability to modernise: five levels (L0..L4) scored against the canonical v2 bands.
+`dea:maturity-modernization` assesses the capability to modernise: five levels (L0..L4) scored against the canonical v2 bands. As of 1.1.0 the model is full-fledged: **15 criteria across 4 practice areas**, each with a definition, assessment question, evidence expectations, weight, and observable level anchors L0-L4 coherent with the scale ([`maturity/model/criteria.yaml`](maturity/model/criteria.yaml)); a **scoring model** that aggregates the 0-100 criterion scores by weighted mean, resolves the canonical v2 band, and derives the effort-adjusted value ([`maturity/model/scoring.yaml`](maturity/model/scoring.yaml)); two **worked examples** ([`examples/`](examples/)); and a **scoring CLI** ([`scripts/score_assessment.py`](scripts/score_assessment.py)).
+
+| Practice area | Weight | Criteria |
+|---|---|---|
+| Strategy & Direction | 30 | strategy documented and approved, portfolio visibility, ROI discipline |
+| Sequencing & Migration Patterns | 30 | pattern library, wave planning, coexistence strategy, exit criteria |
+| Execution & Operations | 20 | metrics visibility, pattern reuse, lessons learned, readiness assessment |
+| Technical Debt & Outcomes | 20 | debt quantified, cost of delay, velocity trend, outcome verification |
 
 | Band id | Name | Range | Width | Effort multiplier | Legacy (v1) name |
 |---|---|---|---|---|---|
@@ -68,7 +75,7 @@ This repository is the independent home of the `dea:maturity-modernization` matu
 
 ## Status
 
-`1.0.0` · stable — canonical v2 bands, independently released
+`1.1.0` · stable — canonical v2 bands, independently released
 
 (maturity model version, coherent with `model.yaml`, `standard.yaml` and `VERSION`; see [`CHANGELOG.md`](CHANGELOG.md). The AMAF content is a revamp scaffold: framework catalog v0.1.0, developed per [`ROADMAP.md`](ROADMAP.md).)
 
@@ -96,20 +103,23 @@ maturity-model-modernization/
 │   └── examples/                   # worked end-to-end examples
 ├── maturity/                       # the governed maturity model
 │   ├── scale.yaml                  # model-owned scale (L0..L4)
-│   └── model/modernization.yaml
+│   └── model/
+│       ├── modernization.yaml      # model register
+│       ├── criteria.yaml           # criteria catalog: 4 areas, 15 criteria, L0-L4 anchors
+│       └── scoring.yaml            # scoring model: weighted mean, v2 band mirror, EAV
 ├── tools/                          # AMAF instrument surface
-│   ├── criterion-catalog/         # criterion catalog (YAML) and scoring template
-│   ├── interview-guide/           # discovery and evidence-gathering guides
+│   ├── criterion-catalog/          # criterion catalog (YAML) and scoring template
+│   ├── interview-guide/            # discovery and evidence-gathering guides
 │   └── assessment-app/             # interactive assessment instrument (client-side)
 ├── framework/                      # AMAF formal model artifacts (scaffold, per ROADMAP S6)
-├── examples/                       # worked scoring example (maturity model)
-├── scripts/                        # local_validate.py (Level 1 validator)
+├── examples/                       # worked scoring examples (maturity model)
+├── scripts/                        # local_validate.py (Level 1) and score_assessment.py
 └── .github/workflows/              # local model CI, contract conformance, docs site
 ```
 
 ## CI levels
 
-1. **Level 1, local model CI** (`local-model-ci.yml`): runs `scripts/local_validate.py`, manifest contract, handshake shape, scale integrity, register-to-scale resolution, worked-example scoring math against the canonical v2 bands.
+1. **Level 1, local model CI** (`local-model-ci.yml`): runs `scripts/local_validate.py`: manifest contract, handshake shape, scale integrity, register-to-scale resolution and version coherence, criteria catalog (identity, fully formed criteria, weights summing to 100), scoring model (weighted-mean contract, machine-checked mirror of the canonical v2 bands), and every worked example's scoring math.
 2. **Level 2, contract conformance** (`contract-conformance.yml`): reuses `Assessment-Models/assessment-ci` to resolve the §15 handshake against the published contract suite at the pinned `dea-metamodel` release.
 3. **Level 3, ecosystem CI**: the registration record in `Assessment-Models/assessment-registry` is resolved by the ecosystem validator on every registry pull request.
 
@@ -120,7 +130,7 @@ A documentation-site workflow (`.github/workflows/docs.yml`) publishes the AMAF 
 1. Read the [`MANIFESTO.md`](MANIFESTO.md) for the full AMAF thesis, or [`docs/framework/02-conceptual-model.md`](docs/framework/02-conceptual-model.md) for the short version.
 2. Browse the [assessment taxonomy](docs/taxonomy/overview.md) (D1 through D8).
 3. Open `tools/assessment-app/index.html` in a browser to try the assessment instrument against a real or hypothetical architecture.
-4. For the maturity model: `maturity/scale.yaml`, worked example in `examples/`, validated by `scripts/local_validate.py`.
+4. For the maturity model: browse the [criteria catalog](maturity/model/criteria.yaml), then score an assessment with `python scripts/score_assessment.py examples/modernization-2026.yaml` (or `examples/payments-platform-2026.yaml`). Validate everything locally with `python scripts/local_validate.py`.
 5. Track what lands next in [`ROADMAP.md`](ROADMAP.md).
 
 ## Provenance
