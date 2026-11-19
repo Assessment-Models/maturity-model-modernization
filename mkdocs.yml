@@ -61,6 +61,7 @@ nav:
       - The Criterion Model: metamodel/criterion-model.md
   - Realization:
       - Assessment Outputs: realization/outputs.md
+      - Output Templates: realization/output-templates.md
       - Maturity vs Modernization: realization/maturity-vs-modernization.md
       - Model Structure & Sequence: realization/model-structure.md
   - Examples:

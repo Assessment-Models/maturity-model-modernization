@@ -77,7 +77,7 @@ This repository is the independent home of the `dea:maturity-modernization` matu
 
 `1.1.0` · stable — canonical v2 bands, independently released
 
-(maturity model version, coherent with `model.yaml`, `standard.yaml` and `VERSION`; see [`CHANGELOG.md`](CHANGELOG.md). The AMAF content is a revamp scaffold: framework catalog v0.3.0, developed per [`ROADMAP.md`](ROADMAP.md).)
+(maturity model version, coherent with `model.yaml`, `standard.yaml` and `VERSION`; see [`CHANGELOG.md`](CHANGELOG.md). The AMAF content is a revamp scaffold: framework catalog v0.4.0, developed per [`ROADMAP.md`](ROADMAP.md).)
 
 ## Repository layout
 

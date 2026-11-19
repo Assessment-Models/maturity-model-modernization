@@ -68,6 +68,12 @@ Where a term is also a modeled entity, its authoritative structural description 
 
 **Priority** — The rank-weighted ordering of opportunities per the [prioritization logic](../methodology/prioritization.md), which combines criticality, gap, exposure, readiness, and changeability evidence.
 
+**Severity** — The rule-derived import of a finding on the ordered scale minor, moderate, material, severe. Severity is derived from score band, gap, criticality overlay, and tolerance per the [interpretation logic](../methodology/interpretation-logic.md), never from intuition, and never averaged across results.
+
+**Preparatory initiative** — A staged initiative ahead of a critical but difficult opportunity that builds readiness, mitigates risk, or cleans the baseline, closing the constraint findings that limit it. It changes the path, never the priority.
+
+**Dependency edge** — The recorded relationship between two opportunities: enables (closing one materially reduces the cost, risk, or scope of the other) or blocks (one cannot proceed until the other is resolved). Edges cite their basis; the dependency map is acyclic, and a cycle is a recorded sequencing conflict.
+
 **Profile** — The assessed pattern across dimensions: which regions of the taxonomy carry findings, qualifying-in or qualifying-out modernization moves.
 
 ## Context

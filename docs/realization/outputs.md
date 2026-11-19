@@ -32,3 +32,5 @@ The framework produces defined outputs that allow assessment results to be trans
 ## Traceability requirement
 
 Every element of every output traces back through the chain: criterion result, evidence, finding, opportunity, objective, intervention, initiative, outcome, value realization. An output statement that cannot be traced to assessment evidence is an assertion, not an assessment finding.
+
+Recording templates for Findings, Opportunities, and Priorities are defined in [output templates](output-templates.md), per the [interpretation logic](../methodology/interpretation-logic.md) and [prioritization logic](../methodology/prioritization.md).

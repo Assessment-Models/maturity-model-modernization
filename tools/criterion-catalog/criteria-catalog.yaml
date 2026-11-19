@@ -19,10 +19,14 @@
 #   slice S2): scoring anchors per type, confidence assignment, evidence
 #   sufficiency, aggregation (band profiles only), gap and weighting rules,
 #   and the D7 maturity model bridge.
+# - interpretation_rules carries the normative interpretation mechanics
+#   (ROADMAP.md slice S3): finding derivation classes and severity, opportunity
+#   synthesis, prioritization factor anchors and profile conditions, dependency
+#   mapping, and the preparatory-initiative pattern.
 # - Terminology follows docs/framework/glossary.md.
 
 catalog: ama-framework
-version: 0.3.0
+version: 0.4.0
 status: normative
 
 scales:
@@ -157,6 +161,139 @@ assessment_rules:
     reporting: >-
       Maturity results appear in AMAF reports as evidence references and
       calibration context only, never as substituted criterion results.
+
+interpretation_rules:
+  version: 1
+  source: >-
+    Machine-readable interpretation and prioritization mechanics, matching the
+    prose in docs/methodology/interpretation-logic.md and
+    docs/methodology/prioritization.md; recording templates in
+    docs/realization/output-templates.md.
+  findings:
+    confidence_floor: medium
+    low_confidence_handling: >-
+      Low-confidence results are carried as unverified observations; they may
+      direct evidence gathering, never found a finding alone.
+    single_uncorroborated_extreme_basis: false
+    classes:
+      deficiency: Applicable condition or target result at score 2 or below.
+      exposure: Applicable exposure result at score 2 or below.
+      demand: >-
+        Applicable demand result at score 2 or below against recorded
+        anticipated demand.
+      constraint: >-
+        Applicable changeability or readiness result at score 2 or below;
+        constrains the path, not the need.
+      strength: >-
+        Applicable result at score 4 or above with high confidence; an asset,
+        never an action item.
+    provenance: >-
+      Every finding cites the criterion result ids and evidence items it
+      draws on; a finding without basis is an assertion.
+    not_findings: >-
+      Inapplicable, deferred, and out-of-scope results are recorded decisions,
+      not findings; an adequate result with no set target is not a finding.
+    overshoot: >-
+      An overshoot of two or more produces a deliberate-excess review note;
+      a sustained overshoot becomes a constraint finding against the target
+      rationale.
+  severity:
+    scale: [minor, moderate, material, severe]
+    derivation:
+      severe: >-
+        A basis result at score 1; or a positive gap of 3 or more; or exposure
+        outside stated tolerance on a subject region carrying high or critical
+        criticality.
+      material: >-
+        A basis result at score 2 with high or critical criticality overlay;
+        or committed future demand unmet; or a positive gap of 2 on a
+        below-adequacy result.
+      moderate: >-
+        A basis result at score 2 without further escalation; or a positive
+        gap of 2 on a result otherwise adequate today.
+      minor: >-
+        Any other qualifying finding, such as an adequate result with a set
+        target above it.
+    composition: >-
+      Highest severity among basis results, with the distribution reported;
+      never averaged; strengths carry no severity.
+    no_arithmetic: >-
+      Severity orders attention; it is never added, averaged, or converted
+      into a score.
+  opportunity_synthesis:
+    combination_test: >-
+      Findings combine into one opportunity when a single course of change
+      would close their target gaps together.
+    forbidden:
+      - merging by dimension convenience
+      - splitting an opportunity to mirror the taxonomy
+      - merging findings with incompatible change themes
+    required_content:
+      - theme and statement
+      - finding ids (results and evidence through them)
+      - dimensions drawn on
+      - gap profile closed
+      - target position
+      - option set
+      - significance per factor
+    significance: per-factor qualitative anchors, never a single number
+    strength_only_opportunities: false
+    parked_findings_rule: >-
+      Every severe or material finding is drawn into an opportunity or parked
+      with a recorded reason; low-basis opportunities are deferred pending
+      evidence, not discarded.
+  prioritization:
+    factors:
+      - strategic importance
+      - modernization need
+      - future demand
+      - exposure
+      - value potential
+      - urgency
+      - feasibility
+      - readiness
+      - dependency
+    factor_levels: [low, medium, high]
+    factor_derivation: >-
+      Each factor level cites the findings, results, or records that ground
+      it; an uncited level is an opinion, not a rating.
+    profiles:
+      critical: >-
+        Need high, strategic importance high, and at least one material or
+        severe exposure finding within the opportunity.
+      strategic: >-
+        Future demand high, value potential medium or higher, and a defined
+        target position.
+      risk_driven: >-
+        Exposure high, need medium or higher, with a lifecycle, viability, or
+        operational driver rather than demand.
+      opportunity_driven: >-
+        Value potential high, feasibility medium or higher, and no severe
+        exposure finding within the opportunity.
+    assignment:
+      dominance_order: [critical, strategic, risk_driven, opportunity_driven]
+      primary_profile: first satisfied in dominance order; rationale recorded
+      secondary_profiles: recorded, never merged
+      none_satisfied: >-
+        Reported as standby with a recorded review date; never force-fit.
+    ordering: >-
+      Primary profile, then severity basis, then dependency order; ties
+      remain ties with the owner decision recorded; no composite rank.
+    dependency:
+      kinds: [enables, blocks]
+      edge_basis: every edge cites the finding, result, or shared element grounding it
+      acyclic: true
+      cycle_handling: a cycle is a recorded sequencing conflict, resolved by rescoping or decomposition
+    preparatory_pattern:
+      applies_when: >-
+        Critical profile (or material or severe severity) with readiness or
+        feasibility low.
+      steps:
+        - record the readiness or feasibility gap as constraint findings
+        - define a preparatory initiative with its own target and success criterion
+        - stage the opportunity into increments whose first stage fits current readiness
+        - set a re-assessment gate before each subsequent increment commits
+      effect: the opportunity keeps its priority and profile; only the path changes.
 
 domains:
   - { id: enterprise, name: Enterprise Architecture }

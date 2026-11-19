@@ -123,6 +123,47 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `tools/README.md`: criterion-catalog status row updated to normative v0.3.0
   with the assessment rules.
 
+### Added (S3: interpretation and prioritization logic)
+
+- Interpretation and prioritization logic expanded to normative status under
+  `docs/methodology/`:
+  - `interpretation-logic.md`: finding derivation rules (basis and provenance,
+    medium-confidence findings floor, five finding classes: deficiency,
+    exposure, demand, constraint, strength; corroboration carry-over,
+    non-findings, overshoot handling), finding severity semantics (minor,
+    moderate, material, severe, derived by rule from score band, gap,
+    criticality overlay, and tolerance; never averaged), opportunity
+    synthesis rules (combination test, no dimensional convenience, required
+    content, strengths inform but never found, no finding parked silently),
+    and a worked example from scored criteria through findings to one
+    opportunity.
+  - `prioritization.md`: qualitative anchors for all nine priority factors
+    (each level cites its basis), explicit profile assignment conditions for
+    the Critical, Strategic, Risk-Driven, and Opportunity-Driven profiles with
+    a dominance order, recorded secondary profiles, standby instead of
+    forced fit, dependency mapping (enables/blocks edges with cited basis,
+    acyclic map), the mandatory preparatory-initiative pattern for
+    critical-but-difficult opportunities, and ordered-set keys (profile,
+    severity, dependency; ties remain ties; no composite rank).
+  - `docs/realization/output-templates.md`: recording templates (YAML) for
+    findings, opportunities, and priorities, with the worked example filling
+    all three.
+- `interpretation_rules` (version 1) in the criterion catalog: the
+  machine-readable form of all interpretation mechanics (finding classes and
+  severity derivation, opportunity synthesis, factor levels and profiles,
+  assignment and ordering, dependency kinds, preparatory pattern).
+- Glossary entries: severity, preparatory initiative, dependency edge.
+
+### Changed (S3)
+
+- Criterion catalog version 0.3.0 to 0.4.0 (additive: `interpretation_rules`
+  section; all 49 criteria and their attributes unchanged verbatim).
+- `docs/realization/outputs.md`: links to the output templates and the two
+  normative methodology pages.
+- Docs site navigation: Output Templates entry under Realization.
+- `tools/README.md`: criterion-catalog status row updated to normative v0.4.0
+  with assessment rules and interpretation rules.
+
 ### Added (repository operations)
 
 - `.github/workflows/release-tagging.yml`: idempotent workflow that tags released

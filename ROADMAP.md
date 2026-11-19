@@ -11,8 +11,8 @@ Each slice states its goal, the drill-down areas (the high-level inputs that nee
 | S0 | Revamp scaffold | done |
 | S1 | Normative taxonomy & criterion catalog | done |
 | S2 | Assessment mechanics | done |
-| S3 | Interpretation & prioritization logic | next |
-| S4 | Architecture domain contextualization packs | planned |
+| S3 | Interpretation & prioritization logic | done |
+| S4 | Architecture domain contextualization packs | next |
 | S5 | Assessment instrument v1 | planned |
 | S6 | Metamodel formalization | planned |
 | S7 | Validation & worked examples | planned |
@@ -75,7 +75,7 @@ Scales and attributes are defined; the mechanics of using them are not yet fully
 
 **Status: complete (catalog v0.3.0).** Four mechanics pages under docs/methodology; normative `assessment_rules` (version 1) in the catalog; scale semantics, confidence, sufficiency, aggregation, gap, weighting, and the D7 maturity bridge are rule-complete.
 
-## S3 · Interpretation & prioritization logic
+## S3 · Interpretation & prioritization logic (done)
 
 The flow from results to findings to opportunities to priorities is framed conceptually; the derivation rules need elaboration.
 
@@ -91,6 +91,8 @@ The flow from results to findings to opportunities to priorities is framed conce
 **Deliverables**: `docs/methodology/interpretation-logic.md` and `docs/methodology/prioritization.md` expanded to normative status; output templates for findings, opportunities, and priorities.
 
 **Done when**: an assessment can move from scored criteria to a prioritized opportunity set by documented rule, with a worked example.
+
+**Status: complete (catalog v0.4.0).** `interpretation-logic.md` and `prioritization.md` are normative: finding derivation and severity, opportunity synthesis, nine factor anchors, explicit profile assignment conditions, dependency mapping, and the preparatory-initiative pattern are rule-complete; `interpretation_rules` (version 1) in the catalog; output templates for findings, opportunities, and priorities under `docs/realization/`; a worked example runs from scored criteria to a prioritized set.
 
 ## S4 · Architecture domain contextualization packs
 
