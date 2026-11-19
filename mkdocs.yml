@@ -55,6 +55,16 @@ nav:
   - Contextualization:
       - Fan-Out Model: contextualization/fan-out-model.md
       - Domain Packs: contextualization/domain-packs.md
+      - Enterprise Pack: contextualization/domain-packs/enterprise.md
+      - Business Pack: contextualization/domain-packs/business.md
+      - Information Systems Pack: contextualization/domain-packs/information-systems.md
+      - Data Pack: contextualization/domain-packs/data.md
+      - Technology Pack: contextualization/domain-packs/technology.md
+      - Systems Pack: contextualization/domain-packs/systems.md
+      - Service Pack: contextualization/domain-packs/service.md
+      - Software Pack: contextualization/domain-packs/software.md
+      - Solution Pack: contextualization/domain-packs/solution.md
+      - Implementation Pack: contextualization/domain-packs/implementation.md
   - Metamodel:
       - Entities: metamodel/entities.md
       - Relationships: metamodel/relationships.md

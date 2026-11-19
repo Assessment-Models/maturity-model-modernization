@@ -87,3 +87,5 @@ Where a term is also a modeled entity, its authoritative structural description 
 **Trigger** — The specific event, constraint, threshold, initiative, failure, opportunity, or decision that converts background pressure into committed modernization consideration, characterized with its time horizon (D2.6).
 
 **Contextualization** — The instantiation of the framework for a specific architecture domain, scope, or organization pattern, via domain packs and scope declarations.
+
+**Domain pack** — The contextualization asset for one architecture domain: a concern catalog, vocabulary mapping, evidence sources, intervention patterns, and implication templates that turn common findings into domain implications without re-scoring. See the [domain pack index](../contextualization/domain-packs.md).

@@ -12,8 +12,8 @@ Each slice states its goal, the drill-down areas (the high-level inputs that nee
 | S1 | Normative taxonomy & criterion catalog | done |
 | S2 | Assessment mechanics | done |
 | S3 | Interpretation & prioritization logic | done |
-| S4 | Architecture domain contextualization packs | next |
-| S5 | Assessment instrument v1 | planned |
+| S4 | Architecture domain contextualization packs | done |
+| S5 | Assessment instrument v1 | next |
 | S6 | Metamodel formalization | planned |
 | S7 | Validation & worked examples | planned |
 | S8 | Docs site launch | planned |
@@ -94,7 +94,7 @@ The flow from results to findings to opportunities to priorities is framed conce
 
 **Status: complete (catalog v0.4.0).** `interpretation-logic.md` and `prioritization.md` are normative: finding derivation and severity, opportunity synthesis, nine factor anchors, explicit profile assignment conditions, dependency mapping, and the preparatory-initiative pattern are rule-complete; `interpretation_rules` (version 1) in the catalog; output templates for findings, opportunities, and priorities under `docs/realization/`; a worked example runs from scored criteria to a prioritized set.
 
-## S4 · Architecture domain contextualization packs
+## S4 · Architecture domain contextualization packs (done)
 
 Each of the ten-plus architecture domains currently has a contextualization focus row. Each needs a full pack.
 
@@ -110,6 +110,8 @@ Each of the ten-plus architecture domains currently has a contextualization focu
 **Deliverables**: `docs/contextualization/domain-packs/<domain>.md` for enterprise, business, information systems, data, technology, systems, service, software, solution, and implementation architecture.
 
 **Done when**: the integration example can be re-derived purely from the domain packs.
+
+**Status: complete.** Ten domain packs under `docs/contextualization/domain-packs/` (enterprise, business, information systems, data, technology, systems, service, software, solution, implementation), each with a concern catalog, vocabulary mapping, evidence sources, intervention patterns, implication templates, and a worked implication; the domain-pack index fixes the finding-to-implication derivation rule and the overlap representation; the integration example is re-derived purely from the packs (its re-derivation table maps every implication to its pack and template).
 
 ## S5 · Assessment instrument v1
 

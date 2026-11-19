@@ -43,12 +43,30 @@ The opportunity fans out into domain-specific modernization implications:
 | Data Architecture | Standardize data exchange, semantics, and ownership |
 | Service Architecture | Establish consistent service contracts, discoverability, and governance |
 | Software Architecture | Introduce modular integration components and decoupled interfaces |
+| Systems Architecture | Clarify system boundaries and manage integration dependencies as explicit, verifiable interfaces |
 | Technology Architecture | Modernize integration platforms, runtime, connectivity, and tooling |
 | Solution Architecture | Define target integration patterns and solution boundaries |
 | Implementation Architecture | Automate configuration, testing, deployment, and operational realization |
 
 ## The point of the example
 
-This is the intended behavior of the framework: **one modernization opportunity, a shared assessment basis, and multiple contextualized architectural implications.** The domain rows are not nine separate assessments; they are linked interpretations of the same evidence.
+This is the intended behavior of the framework: **one modernization opportunity, a shared assessment basis, and multiple contextualized architectural implications.** The domain rows are not separate assessments; they are linked interpretations of the same evidence.
 
-Once the domain packs ([S4](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/ROADMAP.md)) are complete, this example should be re-derivable purely from the packs, which becomes its validation test.
+## Re-derivation from the domain packs
+
+The domain packs ([slice S4](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/ROADMAP.md)) are complete, and this example is re-derivable purely from them, per the derivation rules of the [domain pack index](../contextualization/domain-packs.md). Each implication is produced by the finding class template of its pack, instantiated with the worked example's basis findings:
+
+| Architecture | Implication | Derived from |
+|--------------|-------------|--------------|
+| [Enterprise](../contextualization/domain-packs/enterprise.md) | Align ecosystem integration strategy and investment | Deficiency and demand templates, basis F-1, F-5 |
+| [Business](../contextualization/domain-packs/business.md) | Simplify partner onboarding and cross-business interaction | Deficiency and demand templates, basis F-1, F-5 |
+| [Information Systems](../contextualization/domain-packs/information-systems.md) | Reduce integration redundancy and system dependency | Deficiency template, basis F-1, F-2 |
+| [Data](../contextualization/domain-packs/data.md) | Standardize data exchange, semantics, and ownership | Deficiency template, basis F-1, F-2 |
+| [Technology](../contextualization/domain-packs/technology.md) | Modernize integration platforms, runtime, connectivity, and tooling | Deficiency template, basis F-1; constraint F-6 stages it |
+| [Systems](../contextualization/domain-packs/systems.md) | Clarify system boundaries and manage integration dependencies as explicit, verifiable interfaces | Constraint and exposure templates, basis F-3, F-4 |
+| [Service](../contextualization/domain-packs/service.md) | Establish consistent service contracts, discoverability, and governance | Deficiency template, basis F-1, F-2 |
+| [Software](../contextualization/domain-packs/software.md) | Introduce modular integration components and decoupled interfaces | Deficiency template, basis F-1, F-3; constraint F-6 stages it |
+| [Solution](../contextualization/domain-packs/solution.md) | Define target integration patterns and solution boundaries | Deficiency template, basis F-1, F-7 |
+| [Implementation](../contextualization/domain-packs/implementation.md) | Automate configuration, testing, deployment, and operational realization | Constraint and demand templates, basis F-1, F-2, F-6 |
+
+The derivation is the validation test: every implication above is the pack's worked implication, produced by its templates with no step that is not in the pack or the [interpretation logic](../methodology/interpretation-logic.md).

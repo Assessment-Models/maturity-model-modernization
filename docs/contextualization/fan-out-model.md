@@ -57,4 +57,4 @@ For instance, modernization of customer onboarding may simultaneously require:
 
 The common assessment is the source of truth for the modernization opportunity. Architecture-specific assessments are **linked interpretations and elaborations** of that opportunity, not independently competing assessments.
 
-Full per-domain concern catalogs, vocabulary mappings, evidence sources, and intervention patterns are being built as domain packs per [ROADMAP.md](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/ROADMAP.md) slice S4; see [domain-packs.md](domain-packs.md).
+Full per-domain concern catalogs, vocabulary mappings, evidence sources, and intervention patterns live in the domain packs ([slice S4](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/ROADMAP.md), complete); see [domain-packs.md](domain-packs.md).

@@ -164,6 +164,38 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `tools/README.md`: criterion-catalog status row updated to normative v0.4.0
   with assessment rules and interpretation rules.
 
+### Added (S4: architecture domain contextualization packs)
+
+- Ten domain packs under `docs/contextualization/domain-packs/`, one per
+  architecture domain (enterprise, business, information systems, data,
+  technology, systems, service, software, solution, implementation). Each
+  pack carries the same structure: domain scope, a concern catalog with the
+  dimensions each concern reads, vocabulary mapping of common terms into
+  domain vocabulary, domain evidence sources, intervention patterns mapped
+  to the finding classes they address, implication templates per finding
+  class, a worked implication for the integration example with its basis
+  findings, and cross-domain overlap links recorded as relationships.
+- The implication derivation rule in the domain-pack index: a finding reaches
+  a domain with its class, severity, and basis; the concern catalog positions
+  it, the class template produces the statement, and provenance (opportunity,
+  domain, basis, template) is preserved. The pack never re-scores.
+- Cross-domain overlap representation: implications belong to exactly one
+  pack, share the opportunity identifier and their own finding basis, and
+  record co-occurrence links rather than duplicating each other's statements.
+
+### Changed (S4)
+
+- `docs/contextualization/domain-packs.md`: scaffold replaced by the pack
+  index with the ten packs, the derivation rule, and overlap representation.
+- `docs/examples/integration-architecture.md`: the fan-out table now covers
+  all ten domains (Systems Architecture row added), and a re-derivation
+  section maps every implication to the pack and template that produce it;
+  the done-when for the packs (re-derivation purely from the packs) is met.
+- `docs/contextualization/fan-out-model.md`: the packs-complete pointer
+  updated.
+- Docs site navigation: ten pack entries under Contextualization.
+- Glossary: domain pack entry.
+
 ### Added (repository operations)
 
 - `.github/workflows/release-tagging.yml`: idempotent workflow that tags released
