@@ -98,6 +98,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `docs.yml`: added `actions/configure-pages@v5` with `enablement: true`, so
   the workflow enables the GitHub Pages site itself instead of failing with a
   404 at deployment time.
+- `release-tagging.yml`: pushing a tag at a historical commit whose workflow
+  files differ from `main` is refused for the job token (`workflows`
+  permission is never granted to `GITHUB_TOKEN`); the tagger now detects this
+  rejection, prints the exact manual tagging command, and continues, so the
+  workflow stays green for current and future releases. `v1.1.0` still needs a
+  manual `git tag v1.1.0 fed38e2 && git push origin v1.1.0` from a local clone.
 
 ## [1.1.0] — 2026-11-18
 

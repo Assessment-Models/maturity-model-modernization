@@ -42,7 +42,15 @@ jobs:
             fi
             echo "Tagging $tag at $sha"
             git tag "$tag" "$sha"
-            git push origin "$tag"
+            if ! git push origin "$tag" > push.err 2>&1; then
+              cat push.err
+              if grep -q 'workflows permission' push.err; then
+                git tag -d "$tag" > /dev/null 2>&1 || true
+                echo "::warning title=Manual tag required::CI cannot push $tag because the tagged commit modifies workflow files, which the job token is not allowed to do. Tag it from a local clone instead: git tag $tag $sha && git push origin $tag"
+                continue
+              fi
+              exit 1
+            fi
           done
       - name: Surface tagger output on failure
         if: failure()
