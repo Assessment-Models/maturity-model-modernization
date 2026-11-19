@@ -95,8 +95,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `docs.yml`: the docs build step surfaces mkdocs error output as check-run
   annotations for remote visibility, and the workflow re-runs when its own
   definition changes.
-- `release-tagging.yml`: added `workflows: write` permission; pushing a tag
-  whose tree contains workflow files is rejected without it.
+- `docs.yml`: added `actions/configure-pages@v5` with `enablement: true`, so
+  the workflow enables the GitHub Pages site itself instead of failing with a
+  404 at deployment time.
 
 ## [1.1.0] — 2026-11-18
 
