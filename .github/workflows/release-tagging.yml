@@ -7,7 +7,7 @@ name: Release tagging
 on:
   push:
     branches: [main]
-    paths: ['CHANGELOG.md']
+    paths: ['CHANGELOG.md', '.github/workflows/release-tagging.yml']
   workflow_dispatch:
 
 permissions:
@@ -23,7 +23,7 @@ jobs:
       - name: Tag released versions lacking tags
         run: |
           set -eu
-          mapfile -t versions < <(sed -n 's/^## \[\([0-9][^\]]*\)\].*/\1/p' CHANGELOG.md)
+          mapfile -t versions < <(grep -E '^## \[[0-9]' CHANGELOG.md | grep -Eo '\[[0-9.]+\]' | tr -d '[]' | sort -urV)
           if [ "${#versions[@]}" -eq 0 ]; then
             echo "No released versions found in CHANGELOG.md"
             exit 0

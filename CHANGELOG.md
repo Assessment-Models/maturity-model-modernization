@@ -86,6 +86,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `.github/workflows/release-tagging.yml`: idempotent workflow that tags released
   versions (sections `## [x.y.z]` in `CHANGELOG.md`) at the commit that introduced
   each release note, closing the missing v1.1.0 tag.
+- Fix in `release-tagging.yml`: the sed pattern extracting released versions from
+  `CHANGELOG.md` built an empty character class on GNU sed and matched nothing,
+  so the workflow always exited without tagging; extraction now uses grep/tr.
+- `docs.yml`: the docs build step surfaces mkdocs error output as check-run
+  annotations for remote visibility, and the workflow re-runs when its own
+  definition changes.
 
 ## [1.1.0] — 2026-11-18
 
