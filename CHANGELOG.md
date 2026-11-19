@@ -196,6 +196,34 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Docs site navigation: ten pack entries under Contextualization.
 - Glossary: domain pack entry.
 
+### Added (S5: assessment instrument v1)
+
+- Assessment instrument v1 under `tools/assessment-app/` (self-contained,
+  dependency-free): catalog-driven multi-subject assessment instances with
+  structured evidence capture, rule-based confidence suggestion and
+  extreme-score corroboration caps, band-profile dashboards partitioned by
+  assessment type with criticality overlays, finding candidates with
+  suggested severity under the findings floor rule, JSON import/export and
+  CSV export aligned to the scoring template, and local-first persistence.
+- Machine export of the criterion catalog
+  (`tools/criterion-catalog/criteria-catalog.json`) plus
+  `export-catalog.py` (stdlib only): validates catalog invariants and
+  regenerates the JSON export and the app's embedded copy in one step.
+- `tools/assessment-app/selftest.js`: node smoke test locking the rules and
+  formats against the catalog and the scoring template (gap semantics,
+  confidence assignment, corroboration, band profiles, finding classes and
+  severity, CSV header equality, JSON round trip).
+
+### Changed (S5)
+
+- `tools/assessment-app/index.html`: rebuilt from the v0.1 single file into
+  the v1 multi-file app; average-based dimension summary cards removed
+  (arithmetic means are never findings, per the aggregation rules).
+- `tools/README.md`: assessment app row now v1; catalog JSON export and
+  exporter documented; trajectory section updated to delivered.
+- Root README quick start: points the instrument step at v1 capabilities.
+- ROADMAP slice status: S5 done, S6 (metamodel formalization) next.
+
 ### Added (repository operations)
 
 - `.github/workflows/release-tagging.yml`: idempotent workflow that tags released

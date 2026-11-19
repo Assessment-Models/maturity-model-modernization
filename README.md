@@ -129,7 +129,7 @@ A documentation-site workflow (`.github/workflows/docs.yml`) publishes the AMAF 
 
 1. Read the [`MANIFESTO.md`](MANIFESTO.md) for the full AMAF thesis, or [`docs/framework/02-conceptual-model.md`](docs/framework/02-conceptual-model.md) for the short version.
 2. Browse the [assessment taxonomy](docs/taxonomy/overview.md) (D1 through D8).
-3. Open `tools/assessment-app/index.html` in a browser to try the assessment instrument against a real or hypothetical architecture.
+3. Open `tools/assessment-app/index.html` in a browser to run the assessment instrument (v1) against a real or hypothetical architecture: score, capture evidence, view rule-based band profiles, export JSON or scoring-template CSV.
 4. For the maturity model: browse the [criteria catalog](maturity/model/criteria.yaml), then score an assessment with `python scripts/score_assessment.py examples/modernization-2026.yaml` (or `examples/payments-platform-2026.yaml`). Validate everything locally with `python scripts/local_validate.py`.
 5. Track what lands next in [`ROADMAP.md`](ROADMAP.md).
 

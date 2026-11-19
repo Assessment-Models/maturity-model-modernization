@@ -1,0 +1,93 @@
+/* AMAF assessment instrument v1 styles */
+:root {
+  --ink: #1c2430;
+  --muted: #5b6b7c;
+  --line: #d7dee7;
+  --bg: #f7f9fb;
+  --card: #ffffff;
+  --accent: #0f5d5d;
+  --accent-soft: #e3efef;
+  --warn: #8a5b00;
+  --warn-soft: #fdf3dd;
+  --bad: #a33020;
+  --bad-soft: #fbe7e3;
+  --good: #1e6b34;
+  --good-soft: #e6f3ea;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font: 15px/1.45 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--ink); background: var(--bg); }
+
+.topbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 10px 18px; background: var(--card); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 5; }
+.brand strong { color: var(--accent); margin-right: 10px; }
+.badge { background: var(--accent-soft); color: var(--accent); border-radius: 10px; padding: 2px 10px; font-size: 12px; }
+.tabs { display: flex; flex-wrap: wrap; gap: 4px; }
+.tabs button { border: 1px solid var(--line); background: transparent; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 14px; color: var(--muted); }
+.tabs button.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+main { max-width: 1180px; margin: 0 auto; padding: 18px; }
+.tab { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 18px 20px; }
+.hidden { display: none; }
+h2 { margin-top: 4px; font-size: 20px; }
+h3 { margin-top: 22px; }
+.hint { color: var(--muted); font-size: 13px; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-bottom: 14px; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+
+.form-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+.form-grid label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); }
+.form-grid label.wide { grid-column: 1 / -1; }
+input[type="text"], input[type="date"], select { padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; font-size: 14px; background: #fff; color: var(--ink); }
+
+.table { border-collapse: collapse; width: 100%; margin: 10px 0; }
+.table th, .table td { border: 1px solid var(--line); padding: 6px 8px; text-align: left; vertical-align: top; font-size: 14px; }
+.table th { background: var(--bg); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+
+.btn { border: 1px solid var(--accent); background: var(--accent); color: #fff; border-radius: 6px; padding: 6px 14px; font-size: 14px; cursor: pointer; }
+.btn.secondary, .btn.outline { background: transparent; color: var(--accent); border-color: var(--accent); }
+.btn.danger { background: transparent; color: var(--bad); border-color: var(--bad); }
+.btn.small { padding: 2px 8px; font-size: 12px; }
+
+/* scoring */
+.dim { border: 1px solid var(--line); border-radius: 8px; margin-bottom: 14px; overflow: hidden; }
+.dim-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 14px; background: var(--bg); cursor: pointer; }
+.dim-head h3 { margin: 0; font-size: 15px; }
+.dim-body { padding: 0 12px 12px; }
+.sub { border-top: 1px dashed var(--line); padding-top: 8px; margin-top: 8px; }
+.sub h4 { margin: 2px 0 8px; font-size: 13px; color: var(--muted); }
+.crit-row { display: grid; grid-template-columns: minmax(200px, 2.4fr) 84px 62px 62px 86px 90px 92px 40px; gap: 6px; align-items: center; padding: 6px 4px; border-bottom: 1px solid var(--line); font-size: 13px; }
+.crit-row:last-child { border-bottom: none; }
+.crit-name { display: flex; flex-direction: column; }
+.crit-name small { color: var(--muted); font-size: 11px; }
+.crit-name button.linklike { border: none; background: none; color: var(--accent); cursor: pointer; padding: 0; font-size: 11px; text-align: left; }
+.crit-controls select { font-size: 12px; padding: 3px 4px; width: 100%; }
+.gap-cell { text-align: center; font-weight: 600; }
+.gap-shortfall { color: var(--bad); }
+.gap-overshoot { color: var(--warn); }
+.gap-ok { color: var(--good); }
+.crit-details { background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 10px; margin: 6px 0; }
+.crit-details textarea { width: 100%; border: 1px solid var(--line); border-radius: 6px; padding: 6px; font: 13px/1.4 inherit; }
+.crit-details .prose { font-size: 12px; color: var(--muted); margin: 4px 0; }
+.conf-note { font-size: 12px; color: var(--warn); }
+.conf-note.ok { color: var(--good); }
+
+/* evidence */
+.ev-item { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; display: grid; grid-template-columns: minmax(200px, 2fr) 110px 1fr 130px 120px 60px; gap: 8px; align-items: center; }
+.ev-item input, .ev-item select { width: 100%; }
+.tag { display: inline-block; border-radius: 10px; padding: 1px 8px; font-size: 11px; background: var(--bg); border: 1px solid var(--line); color: var(--muted); }
+.tag.direct { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+.tag.conflicts { background: var(--bad-soft); color: var(--bad); border-color: var(--bad); }
+
+/* profiles */
+.prof-dim { border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; }
+.prof-dim h3 { margin: 0 0 6px; font-size: 15px; }
+.prof-table th, .prof-table td { font-size: 12px; padding: 3px 7px; }
+.distrib { margin: 2px 0; font-size: 13px; }
+.distrib b.low { color: var(--bad); }
+.distrib b.high { color: var(--good); }
+.cand { border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 6px; padding: 8px 12px; margin: 8px 0; font-size: 13px; background: #fff; }
+.cand.deficiency, .cand.exposure, .cand.demand, .cand.constraint { border-left-color: var(--bad); }
+.cand.strength { border-left-color: var(--good); }
+.cand .cls-tag { font-size: 11px; text-transform: uppercase; color: var(--muted); margin-right: 8px; }
+.cand .warn-line { color: var(--warn); font-size: 12px; }
+.finding { border: 1px solid var(--line); border-left: 4px solid var(--warn); border-radius: 6px; padding: 8px 12px; margin: 8px 0; font-size: 13px; }
+.finding textarea { width: 100%; min-height: 44px; border: 1px solid var(--line); border-radius: 6px; padding: 6px; font: 13px/1.4 inherit; }

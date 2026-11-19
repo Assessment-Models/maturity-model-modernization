@@ -1,323 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AMAF Assessment Instrument</title>
-<!--
-  AMAF Assessment Instrument v0.1
-  Self-contained, dependency-free client-side tool.
-  Scores the seed criterion catalog (mirrors tools/criterion-catalog/criteria-catalog.yaml).
-  Roadmap: catalog-driven loading, multi-subject instances, structured evidence records,
-  profile dashboards, JSON/CSV import (see ROADMAP.md slice S5).
--->
-<style>
-  :root {
-    --bg: #f6f7f9; --panel: #ffffff; --ink: #1c2733; --muted: #66707d;
-    --line: #dde2e8; --accent: #2456a6; --accent-soft: #eaf0fa;
-    --warn: #b3541e; --ok: #2e7d4f;
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; font: 15px/1.55 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--ink); }
-  header { background: var(--panel); border-bottom: 1px solid var(--line); padding: 18px 28px; position: sticky; top: 0; z-index: 5; }
-  header h1 { margin: 0 0 2px; font-size: 19px; }
-  header .sub { color: var(--muted); font-size: 13px; }
-  .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-  main { max-width: 980px; margin: 0 auto; padding: 24px 20px 80px; }
-  .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
-  .meta label { font-size: 12px; color: var(--muted); display: block; }
-  .meta input { display: block; padding: 7px 10px; border: 1px solid var(--line); border-radius: 6px; font-size: 14px; min-width: 220px; }
-  .summary { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 12px; margin-bottom: 26px; }
-  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
-  .card h3 { margin: 0 0 6px; font-size: 13px; color: var(--muted); font-weight: 600; }
-  .card .big { font-size: 21px; font-weight: 700; }
-  .bar { height: 6px; border-radius: 3px; background: var(--line); margin-top: 8px; overflow: hidden; }
-  .bar > div { height: 100%; background: var(--accent); }
-  .dim { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; margin-bottom: 18px; }
-  .dim-head { padding: 14px 18px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-  .dim-head h2 { margin: 0; font-size: 16px; }
-  .dim-head .obj { color: var(--muted); font-size: 12.5px; }
-  .sub { padding: 14px 18px 4px; }
-  .sub h3 { margin: 0 0 4px; font-size: 14px; }
-  .sub .crit-prop { color: var(--muted); font-size: 13px; margin: 0 0 10px; }
-  .crit { border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; margin: 0 0 14px; background: #fbfcfe; }
-  .crit-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-  .crit-head .id { font-family: ui-monospace, Consolas, monospace; font-size: 12px; color: var(--accent); background: var(--accent-soft); padding: 1px 7px; border-radius: 4px; }
-  .crit-head .name { font-weight: 600; font-size: 14px; }
-  .crit-head .type { margin-left: auto; font-size: 11.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
-  .crit-head .prop { flex-basis: 100%; color: var(--muted); font-size: 13px; margin-top: 2px; }
-  .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-top: 10px; }
-  .field label { font-size: 11.5px; color: var(--muted); display: block; margin-bottom: 3px; }
-  select, textarea, input[type=text] { width: 100%; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; font-size: 14px; font-family: inherit; background: #fff; color: var(--ink); }
-  textarea { resize: vertical; min-height: 44px; }
-  .applicable { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); padding-top: 12px; }
-  .crit.inapplicable { opacity: .45; }
-  .gap { font-weight: 700; }
-  .gap.g0 { color: var(--ok); } .gap.g1 { color: var(--warn); } .gap.g2 { color: #b02a2a; }
-  button { border: 1px solid var(--accent); background: var(--accent); color: #fff; padding: 7px 14px; border-radius: 7px; font-size: 13.5px; cursor: pointer; }
-  button.secondary { background: #fff; color: var(--accent); }
-  button:hover { filter: brightness(1.06); }
-  footer { max-width: 980px; margin: 0 auto; padding: 0 20px 40px; color: var(--muted); font-size: 12.5px; }
-  @media print { header .toolbar, .applicable { display: none; } body { background: #fff; } }
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AMAF Assessment Instrument v1</title>
+<link rel="stylesheet" href="app.css">
 </head>
 <body>
-<header>
-  <h1>AMAF Assessment Instrument <span style="color:var(--muted);font-weight:400;font-size:13px">v0.1</span></h1>
-  <div class="sub">Architecture Modernization Assessment Framework · seed criterion catalog · scores are evidence-based, low scores do not automatically imply modernization</div>
-  <div class="toolbar">
-    <button onclick="exportJSON()">Export JSON</button>
-    <button class="secondary" onclick="exportCSV()">Export CSV</button>
-    <button class="secondary" onclick="saveLocal()">Save (local)</button>
-    <button class="secondary" onclick="loadLocal()">Load (local)</button>
-    <button class="secondary" onclick="clearAll()">Clear</button>
+<header class="topbar">
+  <div class="brand">
+    <strong>AMAF Assessment Instrument</strong>
+    <span class="badge" id="catalog-badge">catalog</span>
   </div>
+  <nav class="tabs" id="tabs">
+    <button data-tab="instance" class="active">Instance &amp; Subjects</button>
+    <button data-tab="scoring">Scoring</button>
+    <button data-tab="evidence">Evidence</button>
+    <button data-tab="profiles">Profiles &amp; Findings</button>
+    <button data-tab="io">Storage &amp; Export</button>
+  </nav>
 </header>
 
 <main>
-  <div class="meta">
-    <div><label for="assessmentId">Assessment ID</label><input id="assessmentId" type="text" placeholder="e.g., AMAF-2026-001"></div>
-    <div><label for="subject">Assessment subject</label><input id="subject" type="text" placeholder="Architecture / portfolio / system in scope"></div>
-    <div><label for="assessor">Assessor(s)</label><input id="assessor" type="text" placeholder="Name(s)"></div>
-    <div><label for="assessDate">Date</label><input id="assessDate" type="text" placeholder="YYYY-MM-DD"></div>
+
+<section id="tab-instance" class="tab">
+  <h2>Assessment instance</h2>
+  <div class="form-grid">
+    <label>Assessment id <input id="f-assessment-id" type="text" placeholder="e.g. ACME-2026-integration"></label>
+    <label>Organization <input id="f-organization" type="text"></label>
+    <label>Assessment date <input id="f-date" type="date"></label>
+    <label class="wide">Scope statement <input id="f-scope" type="text" placeholder="What is assessed, at which level, and what is out of scope"></label>
   </div>
-  <div class="summary" id="summary"></div>
-  <div id="catalog"></div>
+
+  <h3>Subjects</h3>
+  <p class="hint">Results are recorded per subject. Each subject is scored against the same criterion catalog; profiles never mix subjects.</p>
+  <table class="table" id="subjects-table">
+    <thead><tr><th>Subject id</th><th>Subject name</th><th></th></tr></thead>
+    <tbody></tbody>
+  </table>
+  <button id="add-subject" class="btn">Add subject</button>
+</section>
+
+<section id="tab-scoring" class="tab hidden">
+  <div class="toolbar">
+    <label>Subject <select id="scoring-subject"></select></label>
+    <span class="hint" id="scoring-summary"></span>
+  </div>
+  <div id="scoring-wrap"></div>
+</section>
+
+<section id="tab-evidence" class="tab hidden">
+  <div class="toolbar">
+    <label>Subject <select id="evidence-subject"></select></label>
+    <label>Criterion <select id="evidence-criterion"></select></label>
+    <button id="add-evidence" class="btn">Link evidence item</button>
+  </div>
+  <p class="hint">Confidence is suggested per the catalog rules: high needs two or more independent items with at least one direct; medium needs one direct item or two or more agreeing indirect items from independent sources; conflicts cap at low; condition items older than 12 months downgrade one level.</p>
+  <div id="evidence-list"></div>
+</section>
+
+<section id="tab-profiles" class="tab hidden">
+  <div class="toolbar">
+    <label>Subject <select id="profiles-subject"></select></label>
+    <span class="hint">Band profiles only. No averages are computed as findings, per the aggregation rules.</span>
+  </div>
+  <div id="profiles-wrap"></div>
+</section>
+
+<section id="tab-io" class="tab hidden">
+  <h2>Storage</h2>
+  <p class="hint">Autosaved locally per assessment id. Export JSON for interchange; export CSV in the scoring template format.</p>
+  <div class="actions">
+    <button id="btn-export-json" class="btn">Export JSON</button>
+    <button id="btn-export-csv" class="btn">Export CSV (scoring template)</button>
+    <label class="btn">Import JSON <input id="file-import-json" type="file" accept="application/json" hidden></label>
+    <button id="btn-new-instance" class="btn">New instance</button>
+  </div>
+  <h3>Saved instances</h3>
+  <table class="table" id="saved-instances">
+    <thead><tr><th>Assessment id</th><th>Organization</th><th>Date</th><th>Subjects</th><th>Results</th><th></th></tr></thead>
+    <tbody></tbody>
+  </table>
+  <div id="validate-out" class="hint"></div>
+</section>
+
 </main>
 
-<footer>
-  AMAF · one modernization assessment foundation, multiple architectural interpretations, coordinated realization.
-  Method: <code>docs/methodology/</code> · catalog: <code>tools/criterion-catalog/criteria-catalog.yaml</code> · roadmap: <code>ROADMAP.md</code>.
-  Data stays in your browser (localStorage) until exported.
-</footer>
-
-<script>
-// Seed catalog mirroring tools/criterion-catalog/criteria-catalog.yaml (v0.1.0).
-const SCALE = {1:"Inadequate",2:"Weak",3:"Adequate",4:"Strong",5:"Leading"};
-const CRITICALITY = ["low","medium","high","critical"];
-const CONFIDENCE = ["low","medium","high"];
-
-const CATALOG = [
- {id:"D1",name:"Strategic Alignment & Relevance",objective:"Why modernization matters and the strategic outcomes it should enable.",subs:[
-  {id:"D1.1",name:"Strategic Alignment",criteria:[{id:"D1.1.1",name:"Strategy alignment",type:"condition",prop:"The architecture demonstrably supports the organization's strategy, objectives, strategic priorities, and investment direction."}]},
-  {id:"D1.2",name:"Business Relevance",criteria:[{id:"D1.2.1",name:"Business model relevance",type:"condition",prop:"The architecture remains relevant to the business model, value proposition, products, services, and stakeholder needs."}]},
-  {id:"D1.3",name:"Value Contribution",criteria:[{id:"D1.3.1",name:"Value contribution",type:"condition",prop:"The architecture contributes demonstrably to value creation, value delivery, value capture, and business outcomes."}]},
-  {id:"D1.4",name:"Future Alignment",criteria:[{id:"D1.4.1",name:"Future strategic support",type:"demand",prop:"The architecture is able to support anticipated strategic direction and future business models."}]},
-  {id:"D1.5",name:"Priority & Criticality",criteria:[{id:"D1.5.1",name:"Strategic criticality",type:"criticality",prop:"The importance of the architecture to strategic execution and business continuity is established and accepted."}]}]},
- {id:"D2",name:"Drivers & Environmental Context",objective:"Forces creating the need or opportunity to modernize.",subs:[
-  {id:"D2.1",name:"Business Drivers",criteria:[{id:"D2.1.1",name:"Business drivers identified",type:"condition",prop:"Business forces (growth, expansion, transformation, efficiency, market positioning, operating model change) creating modernization pressure are identified and understood."}]},
-  {id:"D2.2",name:"Technology Drivers",criteria:[{id:"D2.2.1",name:"Technology drivers identified",type:"condition",prop:"Technology forces (evolution, platform shifts, obsolescence, innovation, emerging patterns) creating modernization pressure are identified and understood."}]},
-  {id:"D2.3",name:"Regulatory & Compliance Drivers",criteria:[{id:"D2.3.1",name:"Compliance drivers identified",type:"exposure",prop:"Legal, regulatory, policy, audit, standards, and compliance requirements affecting the architecture are identified and their implications understood."}]},
-  {id:"D2.4",name:"Stakeholder Drivers",criteria:[{id:"D2.4.1",name:"Stakeholder drivers identified",type:"demand",prop:"Customer expectations, workforce needs, partner requirements, and stakeholder experience demands are identified and understood."}]},
-  {id:"D2.5",name:"Environmental Change",criteria:[{id:"D2.5.1",name:"Environmental change understood",type:"demand",prop:"Competitive dynamics, market shifts, ecosystem changes, and disruptive forces relevant to the architecture are identified and understood."}]},
-  {id:"D2.6",name:"Modernization Trigger",criteria:[{id:"D2.6.1",name:"Trigger characterized",type:"condition",prop:"The event, constraint, threshold, initiative, failure, opportunity, or decision triggering modernization is identified and characterized, including its time horizon."}]}]},
- {id:"D3",name:"Architecture Baseline & Condition",objective:"What exists, what it comprises, and its current condition.",subs:[
-  {id:"D3.1",name:"Architecture Inventory",criteria:[{id:"D3.1.1",name:"Inventory completeness",type:"condition",prop:"An inventory of architectural elements exists that is complete, visible, and classified for the assessment scope."}]},
-  {id:"D3.2",name:"Architecture Representation",criteria:[{id:"D3.2.1",name:"Representation fidelity",type:"condition",prop:"Architectural models and documentation exist with sufficient availability, accuracy, fidelity, and consistency to support assessment."}]},
-  {id:"D3.3",name:"Architecture State",criteria:[{id:"D3.3.1",name:"Declared vs implemented state",type:"condition",prop:"The actual deployed, operational, and realized architecture is known and reconciled against the declared architecture."}]},
-  {id:"D3.4",name:"Lifecycle Condition",criteria:[{id:"D3.4.1",name:"Lifecycle condition",type:"condition",prop:"The age, lifecycle stage, support status, maintenance condition, and obsolescence position of critical elements is established."}]},
-  {id:"D3.5",name:"Architecture Coverage",criteria:[{id:"D3.5.1",name:"Concern coverage",type:"condition",prop:"The baseline covers the relevant business, technical, operational, and stakeholder concerns for the assessment scope."}]},
-  {id:"D3.6",name:"Baseline Integrity",criteria:[{id:"D3.6.1",name:"Baseline reliability",type:"condition",prop:"The baseline is reliable: evidenced, dependency-aware, owned, and traceable to its sources."}]}]},
- {id:"D4",name:"Architectural Fitness & Performance",objective:"Whether the architecture is fit for its intended purpose.",subs:[
-  {id:"D4.1",name:"Functional Adequacy",criteria:[{id:"D4.1.1",name:"Functional adequacy",type:"condition",prop:"The architecture fulfills its intended functions, responsibilities, and requirements."}]},
-  {id:"D4.2",name:"Performance & Efficiency",criteria:[{id:"D4.2.1",name:"Performance adequacy",type:"condition",prop:"Throughput, responsiveness, resource efficiency, capacity, and utilization meet existing and anticipated requirements."}]},
-  {id:"D4.3",name:"Quality Attributes",criteria:[{id:"D4.3.1",name:"Quality attribute fulfillment",type:"condition",prop:"Applicable quality attributes (reliability, availability, resilience, scalability, maintainability, usability) satisfy requirements."}]},
-  {id:"D4.4",name:"Interoperability & Integration",criteria:[{id:"D4.4.1",name:"Integration capability",type:"condition",prop:"Compatibility, connectivity, interface integrity, integration capability, and exchange meet the organization's integration needs."}]},
-  {id:"D4.5",name:"Operational Effectiveness",criteria:[{id:"D4.5.1",name:"Operational effectiveness",type:"condition",prop:"The architecture effectively supports operations, execution, management, and service delivery."}]},
-  {id:"D4.6",name:"Requirement Fulfillment",criteria:[{id:"D4.6.1",name:"Requirement fulfillment",type:"condition",prop:"The architecture is adequate against functional, non-functional, stakeholder, and contextual requirements."}]}]},
- {id:"D5",name:"Structural Integrity & Complexity",objective:"Coherence, dependencies, coupling, and accumulated complexity.",subs:[
-  {id:"D5.1",name:"Architectural Coherence",criteria:[{id:"D5.1.1",name:"Coherence of elements",type:"condition",prop:"Architecture elements, principles, patterns, and structures are consistent with one another."}]},
-  {id:"D5.2",name:"Coupling & Dependencies",criteria:[{id:"D5.2.1",name:"Independence of change",type:"condition",prop:"Architectural components can be modified, deployed, or evolved with a degree of independence appropriate to their responsibilities and change requirements."}]},
-  {id:"D5.3",name:"Complexity",criteria:[{id:"D5.3.1",name:"Complexity proportionality",type:"condition",prop:"Structural, conceptual, technical, operational, and cognitive complexity remain proportionate to the problem the architecture solves and within organizational capacity."}]},
-  {id:"D5.4",name:"Fragmentation & Duplication",criteria:[{id:"D5.4.1",name:"Fragmentation and redundancy",type:"condition",prop:"Redundancy, overlap, inconsistency, proliferation, and fragmentation are known and managed."}]},
-  {id:"D5.5",name:"Modularity & Separation",criteria:[{id:"D5.5.1",name:"Modularity and separation of concerns",type:"condition",prop:"Boundaries, encapsulation, cohesion, separation of concerns, and composability support independent reasoning about parts of the architecture."}]},
-  {id:"D5.6",name:"Architectural Integrity",criteria:[{id:"D5.6.1",name:"Conformance to architectural intent",type:"condition",prop:"The realized architecture conforms to architectural intent, standards, patterns, and constraints."}]}]},
- {id:"D6",name:"Exposure, Risk & Sustainability",objective:"Vulnerabilities, liabilities, and sustainability implications.",subs:[
-  {id:"D6.1",name:"Technology & Lifecycle Risk",criteria:[{id:"D6.1.1",name:"Technology lifecycle exposure",type:"exposure",prop:"Obsolescence, end-of-life exposure, vendor dependency, skills scarcity, and support limitations are known and within tolerance."}]},
-  {id:"D6.2",name:"Security & Trust",criteria:[{id:"D6.2.1",name:"Security and trust exposure",type:"exposure",prop:"Security weaknesses, privacy exposure, trustworthiness, access control, and integrity risks are known and within tolerance."}]},
-  {id:"D6.3",name:"Operational Risk",criteria:[{id:"D6.3.1",name:"Operational risk exposure",type:"exposure",prop:"Failure exposure, continuity, recoverability, operational dependencies, and service disruption risk are known and within tolerance."}]},
-  {id:"D6.4",name:"Economic Exposure",criteria:[{id:"D6.4.1",name:"Economic sustainability",type:"exposure",prop:"Cost of ownership, maintenance burden, cost inefficiency, licensing, and investment sustainability are known and within tolerance."}]},
-  {id:"D6.5",name:"Compliance & Governance Risk",criteria:[{id:"D6.5.1",name:"Compliance and governance exposure",type:"exposure",prop:"Regulatory exposure, governance failures, standards deviations, and auditability risks are known and within tolerance."}]},
-  {id:"D6.6",name:"Sustainability",criteria:[{id:"D6.6.1",name:"Long-term viability",type:"exposure",prop:"Long-term viability, environmental impact, maintainability, and lifecycle sustainability are established and acceptable."}]}]},
- {id:"D7",name:"Adaptability & Modernization Readiness",objective:"How easily the architecture can evolve and how prepared the organization is.",subs:[
-  {id:"D7.1",name:"Changeability",criteria:[{id:"D7.1.1",name:"Ease of change",type:"changeability",prop:"Architecture elements can be modified at an ease, speed, cost, and risk appropriate to the change they must undergo."}]},
-  {id:"D7.2",name:"Extensibility",criteria:[{id:"D7.2.1",name:"Extensibility",type:"changeability",prop:"The architecture can accommodate new capabilities, requirements, technologies, and use cases without structural rework."}]},
-  {id:"D7.3",name:"Migration & Transition",criteria:[{id:"D7.3.1",name:"Transition feasibility",type:"changeability",prop:"The architecture can transition from current to target state with manageable disruption."}]},
-  {id:"D7.4",name:"Engineering & Delivery Readiness",criteria:[{id:"D7.4.1",name:"Delivery capacity",type:"readiness",prop:"Development, engineering, automation, testing, deployment, and delivery capacity is sufficient to execute modernization."}]},
-  {id:"D7.5",name:"Organizational Readiness",criteria:[{id:"D7.5.1",name:"Organizational capacity",type:"readiness",prop:"Skills, ownership, governance, sponsorship, resources, and operating readiness are sufficient to sustain modernization."}]},
-  {id:"D7.6",name:"Modernization Constraints",criteria:[{id:"D7.6.1",name:"Constraint exposure",type:"exposure",prop:"Dependencies, contractual obligations, legacy constraints, funding, policy, and transition barriers are known and their effect on modernization options understood."}]}]},
- {id:"D8",name:"Target State & Modernization Value",objective:"The desired state, alternatives, expected value, and direction.",subs:[
-  {id:"D8.1",name:"Target State Definition",criteria:[{id:"D8.1.1",name:"Target state definition",type:"target",prop:"The desired future architecture is defined with clarity, completeness, and viability."}]},
-  {id:"D8.2",name:"Modernization Objectives",criteria:[{id:"D8.2.1",name:"Objectives and measurable outcomes",type:"target",prop:"Modernization objectives and the measurable outcomes they are intended to achieve are defined."}]},
-  {id:"D8.3",name:"Solution Alternatives",criteria:[{id:"D8.3.1",name:"Alternatives evaluated",type:"target",prop:"Modernization alternatives and approaches are identified and evaluated."}]},
-  {id:"D8.4",name:"Value & Benefits",criteria:[{id:"D8.4.1",name:"Value expectation",type:"target",prop:"Expected business, operational, strategic, financial, technical, and stakeholder value from modernization is articulated."}]},
-  {id:"D8.5",name:"Investment & Economics",criteria:[{id:"D8.5.1",name:"Economics understood",type:"target",prop:"Investment requirements, costs, benefits, economics, affordability, and trade-offs are understood."}]},
-  {id:"D8.6",name:"Modernization Path",criteria:[{id:"D8.6.1",name:"Path defined",type:"target",prop:"Sequencing, transition strategy, dependencies, incremental change, migration, and realization roadmap are defined."}]}]}
-];
-
-const state = {}; // criterionId -> {applicable, score, criticality, confidence, target, evidence, commentary, recommendation}
-
-function init() {
-  CATALOG.forEach(d => d.subs.forEach(s => s.criteria.forEach(c => {
-    state[c.id] = {applicable:true, score:"", criticality:"medium", confidence:"low", target:"", evidence:"", commentary:"", recommendation:""};
-  })));
-}
-
-function render() {
-  const el = document.getElementById("catalog");
-  el.innerHTML = CATALOG.map(d => `
-    <section class="dim">
-      <div class="dim-head">
-        <h2>${d.id} · ${d.name}</h2>
-        <span class="obj">${d.objective}</span>
-      </div>
-      ${d.subs.map(s => `
-        <div class="sub">
-          <h3>${s.id} ${s.name}</h3>
-          ${s.criteria.map(c => critHTML(c)).join("")}
-        </div>`).join("")}
-    </section>`).join("");
-  el.querySelectorAll("[data-crit]").forEach(node => {
-    const id = node.dataset.crit;
-    node.addEventListener("input", () => { syncFromDOM(id); renderSummary(); });
-  });
-  el.querySelectorAll('[data-crit][type=checkbox]').forEach(cb => {
-    cb.addEventListener("change", () => { syncFromDOM(cb.dataset.crit); renderAll(); });
-  });
-  renderSummary();
-}
-
-function critHTML(c) {
-  const st = state[c.id];
-  const opts = v => `<option value="">-</option>` + Object.keys(SCALE).map(k => `<option value="${k}" ${String(st[v])===k?"selected":""}>${k} · ${SCALE[k]}</option>`).join("");
-  const selOpts = (arr, v) => arr.map(o => `<option ${st[v]===o?"selected":""}>${o}</option>`).join("");
-  return `
-  <div class="crit ${st.applicable?"":"inapplicable"}">
-    <div class="crit-head">
-      <span class="id">${c.id}</span>
-      <span class="name">${c.name}</span>
-      <span class="type">${c.type}</span>
-      <span class="prop">${c.prop}</span>
-    </div>
-    <label class="applicable"><input type="checkbox" data-crit="${c.id}" ${st.applicable?"checked":""}> Applicable to this scope</label>
-    <div class="row">
-      <div class="field"><label>Score</label><select data-crit="${c.id}" data-field="score">${opts("score")}</select></div>
-      <div class="field"><label>Criticality</label><select data-crit="${c.id}" data-field="criticality">${selOpts(CRITICALITY,"criticality")}</select></div>
-      <div class="field"><label>Confidence</label><select data-crit="${c.id}" data-field="confidence">${selOpts(CONFIDENCE,"confidence")}</select></div>
-      <div class="field"><label>Target</label><select data-crit="${c.id}" data-field="target">${opts("target")}</select></div>
-      <div class="field"><label>Gap</label><div style="padding-top:8px" class="gap" id="gap-${c.id}">${gapText(c.id)}</div></div>
-    </div>
-    <div class="row">
-      <div class="field"><label>Evidence (sources, artifacts, metrics)</label><textarea data-crit="${c.id}" data-field="evidence">${st.evidence}</textarea></div>
-      <div class="field"><label>Commentary</label><textarea data-crit="${c.id}" data-field="commentary">${st.commentary}</textarea></div>
-      <div class="field"><label>Recommendation</label><input type="text" data-crit="${c.id}" data-field="recommendation" value="${st.recommendation.replace(/"/g,"&quot;")}"></div>
-    </div>
-  </div>`;
-}
-
-function syncFromDOM(id) {
-  const st = state[id];
-  document.querySelectorAll(`[data-crit="${id}"]`).forEach(n => {
-    if (n.type === "checkbox") st.applicable = n.checked;
-    else if (n.dataset.field) st[n.dataset.field] = n.value;
-  });
-  const g = document.getElementById("gap-" + id);
-  if (g) g.innerHTML = gapText(id);
-  const box = n => { const el = n.closest(".crit"); if (el) el.classList.toggle("inapplicable", !state[n.dataset.crit].applicable); };
-  document.querySelector(`[data-crit="${id}"][type=checkbox]`) && box(document.querySelector(`[data-crit="${id}"][type=checkbox]`));
-}
-
-function gapText(id) {
-  const st = state[id];
-  if (!st.applicable) return '<span style="color:var(--muted)">n/a</span>';
-  if (st.score === "" || st.target === "") return "set score + target";
-  const g = Number(st.target) - Number(st.score);
-  return `<span class="g${g<=0?0:(g<=1?1:2)}">${g > 0 ? "+" + g : g}</span>`;
-}
-
-function dimStats(d) {
-  const rows = d.subs.flatMap(s => s.criteria.map(c => ({...state[c.id]}))).filter(r => r.applicable && r.score !== "");
-  const gaps = rows.filter(r => r.target !== "");
-  return {
-    n: rows.length,
-    avg: rows.length ? rows.reduce((a,r) => a + Number(r.score), 0) / rows.length : null,
-    gap: gaps.length ? gaps.reduce((a,r) => a + (Number(r.target) - Number(r.score)), 0) / gaps.length : null,
-    weak: rows.filter(r => Number(r.score) <= 2).length
-  };
-}
-
-function renderSummary() {
-  document.getElementById("summary").innerHTML = CATALOG.map(d => {
-    const s = dimStats(d);
-    const pct = s.avg ? Math.round(s.avg / 5 * 100) : 0;
-    return `<div class="card">
-      <h3>${d.id} · ${d.name}</h3>
-      <div class="big">${s.avg ? s.avg.toFixed(1) : "-"}/5</div>
-      <div style="font-size:12.5px;color:var(--muted)">avg gap ${s.gap===null?"-":(s.gap>0?"+":"")+s.gap.toFixed(1)} · ${s.weak} of ${s.n} scored weak or worse</div>
-      <div class="bar"><div style="width:${pct}%"></div></div>
-    </div>`;
-  }).join("");
-}
-
-function renderAll() { render(); }
-
-// ---- persistence and export ----
-function meta() {
-  return {
-    assessmentId: document.getElementById("assessmentId").value,
-    subject: document.getElementById("subject").value,
-    assessor: document.getElementById("assessor").value,
-    date: document.getElementById("assessDate").value
-  };
-}
-function setMeta(m) {
-  document.getElementById("assessmentId").value = m.assessmentId || "";
-  document.getElementById("subject").value = m.subject || "";
-  document.getElementById("assessor").value = m.assessor || "";
-  document.getElementById("assessDate").value = m.date || "";
-}
-function exportJSON() {
-  const payload = { framework: "AMAF", catalogVersion: "0.1.0", meta: meta(), results: state };
-  download(JSON.stringify(payload, null, 2), "amaf-assessment.json", "application/json");
-}
-function csvEsc(s) { s = String(s ?? ""); return /[",\n]/.test(s) ? '"' + s.replace(/"/g,'""') + '"' : s; }
-function exportCSV() {
-  const m = meta();
-  const header = ["assessment_id","subject","dimension","subdimension","criterion_id","criterion","applicable","score","score_label","criticality","confidence","target","gap","evidence","commentary","recommendation"];
-  const lines = [header.join(",")];
-  CATALOG.forEach(d => d.subs.forEach(sd => sd.criteria.forEach(c => {
-    const r = state[c.id];
-    if (!r.applicable && !r.score && !r.evidence && !r.commentary) return;
-    const gap = (r.applicable && r.score !== "" && r.target !== "") ? Number(r.target) - Number(r.score) : "";
-    lines.push([csvEsc(m.assessmentId),csvEsc(m.subject),csvEsc(d.id+" "+d.name),csvEsc(sd.id+" "+sd.name),c.id,c.name,r.applicable?"yes":"no",r.score,SCALE[r.score]||"",r.criticality,r.confidence,r.target,gap,csvEsc(r.evidence),csvEsc(r.commentary),csvEsc(r.recommendation)].join(","));
-  })));
-  download(lines.join("\n"), "amaf-assessment.csv", "text/csv");
-}
-function download(content, name, type) {
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(new Blob([content], {type}));
-  a.download = name; a.click(); URL.revokeObjectURL(a.href);
-}
-function saveLocal() { localStorage.setItem("amaf-v01", JSON.stringify({meta: meta(), results: state})); toast("Saved locally."); }
-function loadLocal() {
-  const raw = localStorage.getItem("amaf-v01");
-  if (!raw) { toast("Nothing saved yet."); return; }
-  const data = JSON.parse(raw);
-  setMeta(data.meta || {});
-  Object.assign(state, data.results || {});
-  renderAll();
-  toast("Loaded.");
-}
-function clearAll() {
-  if (!confirm("Clear all scores, evidence, and metadata?")) return;
-  setMeta({});
-  init();
-  renderAll();
-}
-function toast(msg) { const t = document.createElement("div"); t.textContent = msg; t.style.cssText = "position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1c2733;color:#fff;padding:9px 18px;border-radius:8px;font-size:14px;z-index:99"; document.body.appendChild(t); setTimeout(() => t.remove(), 1800); }
-
-init();
-render();
-</script>
+<script src="catalog.js"></script>
+<script src="logic.js"></script>
+<script src="ui.js"></script>
 </body>
 </html>
