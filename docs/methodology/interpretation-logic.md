@@ -33,4 +33,4 @@ flowchart TD
 
 The full integration architecture worked example lives in [`docs/examples/integration-architecture.md`](../examples/integration-architecture.md). It shows how eight assessment concerns combine into one modernization opportunity that fans out into nine architecture-specific implications.
 
-Finding derivation rules (which result and evidence combinations constitute a finding, and finding severity semantics) and opportunity synthesis rules are being formalized per [ROADMAP.md](../../ROADMAP.md) slice S3.
+Finding derivation rules (which result and evidence combinations constitute a finding, and finding severity semantics) and opportunity synthesis rules are being formalized per [ROADMAP.md](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/ROADMAP.md) slice S3.

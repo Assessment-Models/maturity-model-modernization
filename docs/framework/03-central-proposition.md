@@ -34,4 +34,4 @@ The framework formalizes as distinct but interconnected artifacts:
 7. Modernization realization model (objectives to decisions, capabilities, initiatives, transition plans, outcomes, value).
 8. Assessment instrument and validation.
 
-The recommended sequence is to formalize the normative taxonomy and criterion catalog first, before scoring or maturity progression, to validate that the assessment covers architecture modernization holistically rather than prematurely locking into an assessment instrument. See [ROADMAP.md](../../ROADMAP.md).
+The recommended sequence is to formalize the normative taxonomy and criterion catalog first, before scoring or maturity progression, to validate that the assessment covers architecture modernization holistically rather than prematurely locking into an assessment instrument. See [ROADMAP.md](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/ROADMAP.md).

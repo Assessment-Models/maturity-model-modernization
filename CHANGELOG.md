@@ -75,6 +75,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   overview status states the taxonomy is complete and normative.
 - `mkdocs.yml`: corrected the markdown extension `admonition` (was `admonitions`),
   which aborted `mkdocs build --strict` and blocked the GitHub Pages deployment.
+- Docs pages: 24 relative links that escaped the docs directory (13 to
+  `ROADMAP.md`, 11 to the criterion catalog) replaced with absolute GitHub
+  URLs, clearing the `mkdocs build --strict` link warnings that also blocked
+  the Pages deployment.
 - `tools/README.md`: criterion-catalog status row updated to normative v0.2.0.
 
 ### Added (repository operations)

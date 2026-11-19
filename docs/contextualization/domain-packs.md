@@ -1,6 +1,6 @@
 # Domain Packs (Scaffold)
 
-Each architecture domain gets a contextualization pack that turns a common finding into a domain-specific interpretation. The packs are the drill-down of the [fan-out model](fan-out-model.md) and are built per [ROADMAP.md](../../ROADMAP.md) slice S4.
+Each architecture domain gets a contextualization pack that turns a common finding into a domain-specific interpretation. The packs are the drill-down of the [fan-out model](fan-out-model.md) and are built per [ROADMAP.md](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/ROADMAP.md) slice S4.
 
 ## Pack structure (template)
 

@@ -34,4 +34,4 @@ The framework is modeled as a taxonomy and assessment metamodel rather than main
 
 This structure permits the framework to evolve independently from individual assessment instances, assessed architectures, modernization initiatives, and execution plans. It preserves traceability from the assessment criterion through evidence, findings, modernization objectives, architecture decisions, initiatives, and outcomes.
 
-Entity schemas, identifiers, and lifecycle definitions are being formalized per [ROADMAP.md](../../ROADMAP.md) slice S6.
+Entity schemas, identifiers, and lifecycle definitions are being formalized per [ROADMAP.md](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/ROADMAP.md) slice S6.

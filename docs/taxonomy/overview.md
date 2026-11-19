@@ -30,8 +30,8 @@ Each dimension carries:
 
 - Dimensions: `D1`-`D8`.
 - Subdimensions: `D<n>.<m>` (e.g., `D5.2` Coupling & Dependencies).
-- Criteria: stable IDs assigned in the [criterion catalog](../../tools/criterion-catalog/criteria-catalog.yaml); architecture disciplines are never encoded into criterion identifiers or definitions. Domain applicability is a separate relationship.
+- Criteria: stable IDs assigned in the [criterion catalog](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/tools/criterion-catalog/criteria-catalog.yaml); architecture disciplines are never encoded into criterion identifiers or definitions. Domain applicability is a separate relationship.
 
 ## Status
 
-The taxonomy is complete and normative. Every criterion is fully modeled in the [criterion catalog](../../tools/criterion-catalog/criteria-catalog.yaml) (v0.2.0, status: normative): definition, assessment intent, assessment question, assessment type, applicability rule, assessment method, evidence requirements, interpretation guidance, modernization relevance, and domain applicability. The catalog is the normative source for all criteria; these taxonomy docs carry the narrative context around it. Terminology follows the [glossary](../framework/glossary.md).
+The taxonomy is complete and normative. Every criterion is fully modeled in the [criterion catalog](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/tools/criterion-catalog/criteria-catalog.yaml) (v0.2.0, status: normative): definition, assessment intent, assessment question, assessment type, applicability rule, assessment method, evidence requirements, interpretation guidance, modernization relevance, and domain applicability. The catalog is the normative source for all criteria; these taxonomy docs carry the narrative context around it. Terminology follows the [glossary](../framework/glossary.md).

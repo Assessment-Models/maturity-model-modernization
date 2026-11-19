@@ -36,4 +36,4 @@ A low assessment score does **not** automatically imply a modernization requirem
 - An obsolete component may score poorly but be immaterial to the organization.
 - A seemingly healthy architecture may warrant substantial modernization because it cannot support a critical strategic direction.
 
-Scale semantics per assessment type (condition vs demand vs readiness vs target criteria), evidence confidence levels, and aggregation rules are being formalized per [ROADMAP.md](../../ROADMAP.md) slice S2.
+Scale semantics per assessment type (condition vs demand vs readiness vs target criteria), evidence confidence levels, and aggregation rules are being formalized per [ROADMAP.md](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/ROADMAP.md) slice S2.

@@ -51,4 +51,4 @@ The opportunity fans out into domain-specific modernization implications:
 
 This is the intended behavior of the framework: **one modernization opportunity, a shared assessment basis, and multiple contextualized architectural implications.** The domain rows are not nine separate assessments; they are linked interpretations of the same evidence.
 
-Once the domain packs ([S4](../../ROADMAP.md)) are complete, this example should be re-derivable purely from the packs, which becomes its validation test.
+Once the domain packs ([S4](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/ROADMAP.md)) are complete, this example should be re-derivable purely from the packs, which becomes its validation test.

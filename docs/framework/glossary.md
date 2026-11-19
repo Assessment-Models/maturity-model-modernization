@@ -16,7 +16,7 @@ Where a term is also a modeled entity, its authoritative structural description 
 
 **Subdimension** — A named subdivision of a dimension (`D<n>.<m>`), collecting criteria that share a concern (coupling, operational risk, and so on).
 
-**Criterion** — A stable, independently assessable unit in the [criterion catalog](../../tools/criterion-catalog/criteria-catalog.yaml), identified as `D<n>.<m>.<k>`. Each criterion is a modeled proposition with a full attribute set: definition, assessment intent, assessment question, assessment type, applicability rule, assessment method, scale reference, evidence requirements, interpretation guidance, modernization relevance, domain applicability, and related criteria.
+**Criterion** — A stable, independently assessable unit in the [criterion catalog](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/tools/criterion-catalog/criteria-catalog.yaml), identified as `D<n>.<m>.<k>`. Each criterion is a modeled proposition with a full attribute set: definition, assessment intent, assessment question, assessment type, applicability rule, assessment method, scale reference, evidence requirements, interpretation guidance, modernization relevance, domain applicability, and related criteria.
 
 **Proposition** — The affirmative statement a criterion makes about the subject. A criterion score expresses how true the proposition holds for the subject, on the five-point scale.
 

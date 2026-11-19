@@ -36,4 +36,4 @@ A modernization opportunity may be highly critical but difficult to execute. Suc
 - Capability development.
 - Staged modernization.
 
-Readiness shapes the **path** (preparation, staging, sequencing), while priority factors establish the **need**. Qualitative anchors for each factor, profile assignment conditions, and dependency mapping (enabler/blocker relationships between opportunities) are being formalized per [ROADMAP.md](../../ROADMAP.md) slice S3.
+Readiness shapes the **path** (preparation, staging, sequencing), while priority factors establish the **need**. Qualitative anchors for each factor, profile assignment conditions, and dependency mapping (enabler/blocker relationships between opportunities) are being formalized per [ROADMAP.md](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/ROADMAP.md) slice S3.

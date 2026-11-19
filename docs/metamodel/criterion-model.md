@@ -48,4 +48,4 @@ The architecture discipline is **not** encoded into the criterion identifier or 
 
 This permits a common criterion to be reused in Enterprise Architecture, Business Architecture, Data Architecture, and Software Architecture, while domain-specific criteria can be introduced where genuinely necessary.
 
-The criterion catalog ([`tools/criterion-catalog/`](../../tools/criterion-catalog/criteria-catalog.yaml)) is the normative home for modeled criteria. See [ROADMAP.md](../../ROADMAP.md) slice S1 for the completion plan.
+The criterion catalog ([`tools/criterion-catalog/`](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/tools/criterion-catalog/criteria-catalog.yaml)) is the normative home for modeled criteria. See [ROADMAP.md](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/ROADMAP.md) slice S1 for the completion plan.
