@@ -2,6 +2,8 @@
 
 **Assessment objective**: understand the forces that necessitate or create an opportunity for modernization.
 
+*Normative source: the fully modeled criteria for this dimension (definitions, assessment questions, applicability rules, evidence requirements, interpretation guidance, and domain applicability) live in the [criterion catalog](../../tools/criterion-catalog/criteria-catalog.yaml).*
+
 ## Subdimensions and assessment criteria
 
 | Subdimension | Assessment criteria |

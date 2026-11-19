@@ -2,6 +2,8 @@
 
 **Assessment objective**: determine whether the architecture remains relevant to the organization's strategy, value proposition, operating model, and future ambition.
 
+*Normative source: the fully modeled criteria for this dimension (definitions, assessment questions, applicability rules, evidence requirements, interpretation guidance, and domain applicability) live in the [criterion catalog](../../tools/criterion-catalog/criteria-catalog.yaml).*
+
 ## Subdimensions and assessment criteria
 
 | Subdimension | Assessment criteria |

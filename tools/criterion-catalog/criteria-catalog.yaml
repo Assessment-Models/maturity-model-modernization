@@ -1,29 +1,35 @@
-# AMAF Criterion Catalog (seed)
+# AMAF Criterion Catalog
 #
-# The normative home for assessment criteria as modeled propositions.
-# Seed status (v0.1.0): one starter criterion per subdimension across D1-D8,
-# plus one fully modeled exemplar (D5.2.1). Full propositions, applicability
-# rules, evidence requirements, and domain applicability are completed per
-# ROADMAP.md slice S1.
+# The normative home for assessment criteria as modeled propositions
+# (ROADMAP.md slice S1, complete). Every criterion carries the full modeled
+# attribute set: definition, assessment intent, assessment question,
+# assessment type, applicability rule, assessment method, scale reference,
+# evidence requirements, interpretation guidance, modernization relevance,
+# and domain applicability relationships.
 #
 # Conventions:
 # - Criterion identifiers never encode an architecture discipline.
 # - Domain applicability is a relationship, not part of the criterion identity.
-# - assessment_type: condition | demand | exposure | readiness | target
-# - status: modeled (full attributes) | draft (proposition only)
+# - assessment_type: condition | demand | exposure | readiness | target |
+#   criticality | changeability (the four evidence types of the framework:
+#   condition, criticality, future demand, changeability, are assessed
+#   separately and never collapsed into one measure).
+# - status: modeled (full attributes) | draft (deprecated once S1 completed)
+# - Terminology follows docs/framework/glossary.md.
 
 catalog: ama-framework
-version: 0.1.0
-status: seed
+version: 0.2.0
+status: normative
 
-scale:
-  id: five-point
-  levels:
-    - { value: 1, label: Inadequate, meaning: "Material deficiency; fails expectations or creates significant exposure." }
-    - { value: 2, label: Weak, meaning: "Partially adequate; significant limitations, weaknesses or improvement needs exist." }
-    - { value: 3, label: Adequate, meaning: "Generally satisfies current expectations, with identified deficiencies or opportunities." }
-    - { value: 4, label: Strong, meaning: "Performs well; limited weaknesses and well-managed improvement needs." }
-    - { value: 5, label: Leading, meaning: "Highly effective, optimized or strategically advanced relative to defined expectations." }
+scales:
+  criterion:
+    id: five-point
+    levels:
+      - { value: 1, label: Inadequate, meaning: "Material deficiency; fails expectations or creates significant exposure." }
+      - { value: 2, label: Weak, meaning: "Partially adequate; significant limitations, weaknesses or improvement needs exist." }
+      - { value: 3, label: Adequate, meaning: "Generally satisfies current expectations, with identified deficiencies or opportunities." }
+      - { value: 4, label: Strong, meaning: "Performs well; limited weaknesses and well-managed improvement needs." }
+      - { value: 5, label: Leading, meaning: "Highly effective, optimized or strategically advanced relative to defined expectations." }
 
 criticality_scale:
   - low
@@ -35,6 +41,18 @@ confidence_scale:
   - low      # assertion-level evidence only
   - medium   # some direct evidence, incomplete coverage
   - high     # direct, sufficient, corroborated evidence
+
+domains:
+  - { id: enterprise, name: Enterprise Architecture }
+  - { id: business, name: Business Architecture }
+  - { id: information-systems, name: Information Systems Architecture }
+  - { id: data, name: Data Architecture }
+  - { id: technology, name: Technology Architecture }
+  - { id: systems, name: Systems Architecture }
+  - { id: service, name: Service Architecture }
+  - { id: software, name: Software Architecture }
+  - { id: solution, name: Solution Architecture }
+  - { id: implementation, name: Implementation Architecture }
 
 dimensions:
   - id: D1
@@ -48,7 +66,53 @@ dimensions:
             name: Strategy alignment
             proposition: The architecture demonstrably supports the organization's strategy, objectives, strategic priorities, and investment direction.
             assessment_type: condition
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the subject demonstrably supports the organization's
+              strategy, objectives, strategic priorities, and investment direction, rather
+              than merely claiming to.
+            assessment_intent: >-
+              Establishes whether the assessed architecture is an instrument of the current
+              strategy or an artifact of past strategies: whether traceable support of
+              stated strategic intent exists in the subject's current duties.
+            assessment_question: >-
+              Can the connection between the subject and the organization's stated
+              strategy, priorities, and investment direction be traced and evidenced,
+              or is alignment asserted rather than demonstrated?
+            applicability_rule: >-
+              Assess wherever a documented strategy exists; where strategy is implicit,
+              extract strategy as a necessary finding (D2) and score alignment against
+              the organization's actions and investment, which are strategic expression
+              regardless of documentation.
+            assessment_method: >-
+              Traceability review comparing strategy and investment documentation against
+              the subject's stated duties and observed activity, corroborated by
+              stakeholder interviews at the owning level.
+            scale_reference: five-point
+            evidence_requirements:
+              - Strategy, objectives, or priority statements
+              - Portfolio or investment decisions referencing the subject
+              - Stakeholder confirmation of support relationship
+              - Value or performance records traceable to strategic intent
+            interpretation_guidance: >-
+              Score demonstrated support, not vocal support: funding decisions, duties
+              performed, and investment direction carry more weight than alignment claims.
+              Passive consistency with strategy is weaker than active contribution to it.
+            modernization_relevance: >-
+              Misalignment against strategy is a primary modernization driver: it raises
+              the strategic cost of inaction, and constrains target-state selection in
+              D8 so that modernization restores instrumental value.
+            domain_applicability:
+              - enterprise
+              - business
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+            related_criteria: [D1.2.1, D1.3.1, D2.1.1]
       - id: D1.2
         name: Business Relevance
         criteria:
@@ -56,7 +120,53 @@ dimensions:
             name: Business model relevance
             proposition: The architecture remains relevant to the business model, value proposition, products, services, and stakeholder needs.
             assessment_type: condition
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the subject remains relevant to the business model,
+              value proposition, products, services, and stakeholder needs it exists to
+              serve.
+            assessment_intent: >-
+              Establishes currency of fit at the business level: whether what the subject
+              does and how it is shaped still matches how the organization creates and
+              delivers value today.
+            assessment_question: >-
+              Does the subject still fit the current business model, value proposition,
+              offering portfolio, and stakeholder needs, or does it serve a business the
+              organization no longer runs?
+            applicability_rule: >-
+              Assess for every subject performing duties for the operating business;
+              products, services, channels, and stakeholder groups referenced are those
+              in the assessment scope.
+            assessment_method: >-
+              Fit review between the subject's duties and the current business model,
+              product and service portfolio, and stakeholder needs, identifying elements
+              serving retired or repositioned business capabilities.
+            scale_reference: five-point
+            evidence_requirements:
+              - Business model and value proposition statements
+              - Product, service, and channel portfolio records
+              - Duty-to-capability or service mapping
+              - Evidence of dead or misrouted duties
+            interpretation_guidance: >-
+              Partial relevance is common and scores accordingly: infrastructure serving
+              both current and retired capabilities is not irrelevant, but carries
+              stranded-duty findings unless the residual duty is deliberate. Distinguish
+              relevance decay (business moved) from capability decay (D4).
+            modernization_relevance: >-
+              Business relevance decay converts modernization from technical upkeep into
+              business necessity, and defines the target-state constraint that the
+              architecture must serve the current business model, not the historical one.
+            domain_applicability:
+              - enterprise
+              - business
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+            related_criteria: [D1.1.1, D1.4.1, D2.4.1]
       - id: D1.3
         name: Value Contribution
         criteria:
@@ -64,7 +174,53 @@ dimensions:
             name: Value contribution
             proposition: The architecture contributes demonstrably to value creation, value delivery, value capture, and business outcomes.
             assessment_type: condition
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the subject contributes demonstrably to value creation,
+              value delivery, value capture, and business outcomes recognized by the
+              organization.
+            assessment_intent: >-
+              Establishes the subject as a value contributor rather than a cost fixture:
+              whether its presence can be connected to outcomes the organization values.
+            assessment_question: >-
+              What value does the subject demonstrably create, deliver, or capture, and
+              can that contribution be separated from what it merely enables by others'
+              effort?
+            applicability_rule: >-
+              Assess where value attribution matters (demand-driven, competitive, or
+              cost-constrained contexts); for pure compliance or purely enabling
+              subjects, assess their contribution to the outcomes of the duties they
+              enable.
+            assessment_method: >-
+              Contribution review tracing the subject to recognized outcomes, with
+              attribution recorded directly, jointly, or enabling; outcomes reference
+              the organization's own value records where they exist.
+            scale_reference: five-point
+            evidence_requirements:
+              - Value or outcome records referencing the subject
+              - Attribution statements (direct, joint, enabling)
+              - Stakeholder outcome testimony
+              - Measurement of subject-affected outcomes
+            interpretation_guidance: >-
+              Enabling contribution is contribution, but the record must say what is
+              enabled and for whom; unattributable infrastructure scores as an unclear
+              contribution, not a bad one. Absence of any value narrative against a live
+              budget is itself a finding.
+            modernization_relevance: >-
+              Contribution findings isolate the value the subject carries, which sets the
+              criticality floor in D1.5 and anchors the value expectation for any
+              modernization of it in D8.
+            domain_applicability:
+              - enterprise
+              - business
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+            related_criteria: [D1.1.1, D1.5.1, D8.4.1]
       - id: D1.4
         name: Future Alignment
         criteria:
@@ -72,7 +228,54 @@ dimensions:
             name: Future strategic support
             proposition: The architecture is able to support anticipated strategic direction and future business models.
             assessment_type: demand
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the subject is able to support anticipated strategic
+              direction, planned business model shifts, and the future duties they
+              imply.
+            assessment_intent: >-
+              Establishes forward fit under expected demand: whether strategy, plans, and
+              stated ambitions imply duties the subject could absorb without structural
+              failure.
+            assessment_question: >-
+              Which anticipated strategic directions and future business models does the
+              subject need to carry, and can it support them or does the future imply
+              structural rework?
+            applicability_rule: >-
+              Assess against anticipated demand gathered in D2 (drivers, environmental
+              change, stakeholder demand) rather than speculation; record the futures
+              used as the test. Where organization-level futures are vague, extract the
+              most concrete stated direction and score against it.
+            assessment_method: >-
+              Forward-fit review: convert anticipated direction into implied duties, then
+              test the subject's structure against absorbing each, cross-checking findings
+              with the changeability assessment in D7.
+            scale_reference: five-point
+            evidence_requirements:
+              - Strategic direction or ambition statements
+              - Roadmap or planning documents implying duties
+              - Implied-duty analysis for the subject
+              - Structural capacity review of the subject
+            interpretation_guidance: >-
+              The subject is scored against the organization's stated future, not against
+              an idealized one: a subject unfit for futures the organization is actually
+              pursuing scores poorly, while being unfit for abandoned futures scores
+              nothing. Explicitly tolerated or now-rejected futures are excluded.
+            modernization_relevance: >-
+              Future-demand findings are primary modernization justification and
+              constraint: they define the change portfolio the subject must survive, and
+              define the demand side of the keep-invest-replace decision in D8.
+            domain_applicability:
+              - enterprise
+              - business
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+            related_criteria: [D1.1.1, D2.5.1, D7.2.1]
       - id: D1.5
         name: Priority & Criticality
         criteria:
@@ -80,7 +283,55 @@ dimensions:
             name: Strategic criticality
             proposition: The importance of the architecture to strategic execution and business continuity is established and accepted.
             assessment_type: criticality
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the subject's importance to strategic execution and
+              business continuity is established, evidenced, and accepted by those who
+              depend on it.
+            assessment_intent: >-
+              Establishes the criticality slot of the subject: how much strategic and
+              continuity weight it carries, so that condition findings and modernization
+              decisions can be weighted rather than uniform.
+            assessment_question: >-
+              Is the subject's importance to strategic execution and business continuity
+              established in evidence and accepted, or is criticality assumed,
+              disputed, or unknown?
+            applicability_rule: >-
+              Assess for every subject; criticality exists whether or not it has been
+              established. Where formal classification exists, verify it against
+              observed dependency and impact behavior before accepting it.
+            assessment_method: >-
+              Criticality review: dependency concentration, impact-of-loss analysis,
+              continuity arrangements, and strategic linkage, checked against accepted
+              classifications and stakeholder agreement.
+            scale_reference: five-point
+            evidence_requirements:
+              - Criticality or service-level classification records
+              - Impact analysis or continuity plans referencing the subject
+              - Dependency concentration evidence
+              - Stakeholder acceptance of the criticality position
+            interpretation_guidance: >-
+              Score establishment and acceptance of criticality, not criticality height:
+              an accepted low-criticality subject with evidence satisfies the criterion;
+              a de facto critical subject without recognition fails it and is the more
+              urgent finding.
+            modernization_relevance: >-
+              Criticality weights every other finding: it sets modernization priority,
+              acceptable risk in transition, and the sequencing constraints applied in
+              D7 and D8. Unrecognized criticality on a decaying subject is a top-priority
+              modernization trigger.
+            domain_applicability:
+              - enterprise
+              - business
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D1.3.1, D6.3.1, D7.6.1]
 
   - id: D2
     name: Drivers & Environmental Context
@@ -93,7 +344,57 @@ dimensions:
             name: Business drivers identified
             proposition: Business forces (growth, expansion, transformation, efficiency, market positioning, operating model change) creating modernization pressure are identified and understood.
             assessment_type: condition
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which business forces creating modernization pressure on the
+              subject, including growth, expansion, transformation, efficiency
+              ambition, market positioning, and operating model change, are identified
+              and understood.
+            assessment_intent: >-
+              Establishes the internal and market-side business pressures acting on the
+              subject, so modernization is grounded in forces the organization actually
+              experiences rather than in generalized unease.
+            assessment_question: >-
+              Which business forces are creating pressure on or through the subject, are
+              they identified with their strengths and directions, and are their
+              implications understood?
+            applicability_rule: >-
+              Assess whenever a business context informs the subject's duties; the
+              forces in scope are those creating pressure on the subject, not business
+              forces in general.
+            assessment_method: >-
+              Driver identification review: interviews with business stakeholders and
+              document review to enumerate forces, their strength, direction, and the
+              pressure path each takes through the subject; force-influence mapping into
+              an overall business pressure profile.
+            scale_reference: five-point
+            evidence_requirements:
+              - Business plans, targets, or growth and efficiency ambitions
+              - Business-side interviews identifying concrete forces
+              - Force-strength rating and direction
+              - Changes in the subject's business pressure profile over time
+            interpretation_guidance: >-
+              Score identification of the forces over their intensity: identified strong
+              pressure and identified mild pressure are both good outcomes of this
+              criterion, while unidentified pressure is the problem state. Explicitly,
+              the existence of strong pressure signals importance but is not itself the
+              criterion's concern.
+            modernization_relevance: >-
+              Business drivers start to justify modernization (with the D1 condition
+              findings it acts on) and shape modernization debate: transformation-type
+              drivers demand structural change where efficiency-type drivers may accept
+              incremental improvement.
+            domain_applicability:
+              - enterprise
+              - business
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+            related_criteria: [D1.1.1, D2.6.1, D3.1.1]
       - id: D2.2
         name: Technology Drivers
         criteria:
@@ -101,7 +402,58 @@ dimensions:
             name: Technology drivers identified
             proposition: Technology forces (evolution, platform shifts, obsolescence, innovation, emerging patterns) creating modernization pressure are identified and understood.
             assessment_type: condition
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which technology forces creating modernization pressure on
+              the subject, including technology evolution, platform shifts,
+              obsolescence, innovation, and emerging patterns, are identified and
+              understood.
+            assessment_intent: >-
+              Establishes the technology-side pressures acting on the subject:
+              dependencies' evolution, platform direction changes, and emerging patterns
+              that the subject will have to absorb or answer.
+            assessment_question: >-
+              Which technology forces are advancing on or under the subject, are they
+              identified with direction and timeline, and is their pressure on the
+              subject understood?
+            applicability_rule: >-
+              Assess for every subject with technology dependencies (platforms, vendors,
+              toolchains, interfaces); explicit technology dependencies are needed for
+              this criterion to apply. Recorded blind spots count as identification
+              failures.
+            assessment_method: >-
+              Technology force review: dependency, vendor, and platform evolution
+              tracking; identification of emerging patterns and their applicability to
+              the subject; consolidation into pressure statements with timeline and
+              direction.
+            scale_reference: five-point
+            evidence_requirements:
+              - Dependency and platform evolution records
+              - Vendor or platform roadmap and end-of-life information
+              - Emerging technology applicability analysis
+              - Technology-watch or radar documentation
+            interpretation_guidance: >-
+              Score identification over pressure strength, and record each force's
+              direction (supportive, neutral, hostile) rather than treating all
+              technology change as pressure. Identified and adequately tracked
+              obsolescence remains a good score here, with the exposure itself assessed
+              in D6.
+            modernization_relevance: >-
+              Technology drivers are the main external force on modernization urgency
+              and feasibility: they introduce the option set available in D8 (patterns,
+              platforms) and the exposure clock in D6, converting technology change into
+              dated modernization pressure.
+            domain_applicability:
+              - enterprise
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D2.3.1, D6.1.1, D7.6.1]
       - id: D2.3
         name: Regulatory & Compliance Drivers
         criteria:
@@ -109,7 +461,57 @@ dimensions:
             name: Compliance drivers identified
             proposition: Legal, regulatory, policy, audit, standards, and compliance requirements affecting the architecture are identified and their implications understood.
             assessment_type: exposure
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which legal, regulatory, policy, audit, standards, and
+              compliance requirements affecting the subject are identified, and the
+              implications of each for the subject's structure and operation are
+              understood.
+            assessment_intent: >-
+              Establishes the obligation environment of the subject: mandatory and
+              adopted constraints, whose implications for the architecture have been
+              worked through rather than merely acknowledged.
+            assessment_question: >-
+              Which legal, regulatory, policy, audit, and standards requirements bear on
+              the subject, and has each been translated into understood architectural
+              implications and dated obligations?
+            applicability_rule: >-
+              Assess for every subject; obligations attach to duties regardless of
+              industry. Record the applicability decision for each candidate obligation,
+              since unstated applicability is an identification failure.
+            assessment_method: >-
+              Obligation review: regulatory and policy inventory for the subject's
+              context, obligation-to-implication tracing, dated obligation register
+              (current and upcoming), and audit-history review.
+            scale_reference: five-point
+            evidence_requirements:
+              - Compliance, policy, or standards registers
+              - Obligation-to-implication analysis records
+              - Upcoming or pending regulatory timeline
+              - Audit or assurance findings history
+            interpretation_guidance: >-
+              Score identification of and implication-work on obligations, but
+              distinguish this from actual conformance (assessed where applicable as
+              condition and exposure findings): the same obligation can be understood
+              here while its conformance fails elsewhere. Unknown obligations are the
+              failure mode; dated upcoming obligations are recorded for horizon
+              awareness, not scored as current gaps.
+            modernization_relevance: >-
+              Compliance drivers are hard constraints on target state and sequencing
+              (D8), and their dated obligations frequently trigger modernization
+              windows; implication-work done here limits late-project compliance
+              surprises.
+            domain_applicability:
+              - enterprise
+              - business
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+            related_criteria: [D2.2.1, D6.5.1, D8.1.1]
       - id: D2.4
         name: Stakeholder Drivers
         criteria:
@@ -117,7 +519,53 @@ dimensions:
             name: Stakeholder drivers identified
             proposition: Customer expectations, workforce needs, partner requirements, and stakeholder experience demands are identified and understood.
             assessment_type: demand
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which customer expectations, workforce needs, partner
+              requirements, and other stakeholder experience demands on the subject are
+              identified and understood.
+            assessment_intent: >-
+              Establishes the demand-side human environment of the subject: what the
+              people who interact with it, upstream and downstream, need from it today
+              and expect of it.
+            assessment_question: >-
+              Which stakeholders interact with or depend on the subject, what do they
+              expect or need from it, and are those demands identified, recorded, and
+              understood to the point of consequence?
+            applicability_rule: >-
+              Assess where the subject serves identified stakeholder groups (customers,
+              workforce, partners, auditors, regulators); internal technical subjects
+              without direct stakeholder contact are assessed for their indirect
+              support of stakeholder experience.
+            assessment_method: >-
+              Stakeholder demand review: stakeholder identification and segmentation,
+              demand inventory per segment, satisfaction and experience signals, and
+              cross-check with incident or complaint themes.
+            scale_reference: five-point
+            evidence_requirements:
+              - Stakeholder map with demands per group
+              - Satisfaction or experience signals
+              - Complaint, incident, or feedback themes
+              - Demand trend records
+            interpretation_guidance: >-
+              Score demand identification and understanding, noting that identified
+              unmet demand is a demand finding, not an identification failure:
+              dissatisfaction recorded and understood is here an identified stakeholder
+              driver. Unrecognized demand is the failure mode.
+            modernization_relevance: >-
+              Stakeholder drivers convert modernization opportunity into stated,
+              backed demand; they shape target-state user and service experience, and
+              supply the value case for modernization scoring in D8.
+            domain_applicability:
+              - enterprise
+              - business
+              - information-systems
+              - data
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D1.2.1, D2.5.1, D8.4.1]
       - id: D2.5
         name: Environmental Change
         criteria:
@@ -125,7 +573,52 @@ dimensions:
             name: Environmental change understood
             proposition: Competitive dynamics, market shifts, ecosystem changes, and disruptive forces relevant to the architecture are identified and understood.
             assessment_type: demand
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which competitive dynamics, market shifts, ecosystem
+              changes, and disruptive forces relevant to the subject are identified and
+              understood for their effect on it.
+            assessment_intent: >-
+              Establishes the external environment as a moving field: what is shifting
+              around the subject (competitors, market structure, ecosystem
+              arrangements, disruption patterns) and what that shift implies for the
+              subject's future duties.
+            assessment_question: >-
+              What is changing in the subject's surrounding market, competitive, and
+              ecosystem environment, and are those changes identified and traced through
+              to their effect on the subject?
+            applicability_rule: >-
+              Assess for subjects exposed to market or ecosystem dynamics; internal-only
+              subjects are assessed for environmental change relevant to their enabling
+              context, with that scope stated.
+            assessment_method: >-
+              Environmental review: competitive and market analysis relevant to the
+              subject's domain, ecosystem mapping, disruption watch, and translation of
+              identified shifts into subject-relevant implications.
+            scale_reference: five-point
+            evidence_requirements:
+              - Market or competitive analysis records
+              - Ecosystem or partner landscape mapping
+              - Disruption and trend-watch records
+              - Implication notes connecting shifts to the subject
+            interpretation_guidance: >-
+              Score understanding of relevant environment change: shifts without traces
+              to the subject score as identification gaps. Explicitly rejected trend
+              chases (documented decisions not to follow a direction) are understanding,
+              not failure.
+            modernization_relevance: >-
+              Environmental changes establish that modernization timing is externally
+              set: they define the reactiveness window the organization has, and
+              environmental-type change forces target-state ambition and option
+              choice in D8.
+            domain_applicability:
+              - enterprise
+              - business
+              - information-systems
+              - service
+              - software
+              - solution
+            related_criteria: [D1.4.1, D2.1.1, D2.4.1]
       - id: D2.6
         name: Modernization Trigger
         criteria:
@@ -133,7 +626,56 @@ dimensions:
             name: Trigger characterized
             proposition: The event, constraint, threshold, initiative, failure, opportunity, or decision triggering modernization is identified and characterized, including its time horizon.
             assessment_type: condition
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the trigger for modernization of the subject, the
+              event, constraint, threshold, initiative, failure, opportunity, or
+              decision that makes modernization necessary or opportune, is identified,
+              characterized, and dated.
+            assessment_intent: >-
+              Establishes why modernization is on the table at all, and on what clock:
+              the specific forcing event or window that converts background pressure
+              into a committed consideration, characterized with urgency and horizon.
+            assessment_question: >-
+              What specifically triggers modernization of this subject (event,
+              constraint, threshold, initiative, failure, opportunity, decision), and on
+              what time horizon does it act?
+            applicability_rule: >-
+              Assess for every subject: a trigger exists whether or not it has been
+              named, and unnamed triggers (drift, accumulating exposure, habit) count as
+              characterized failure. Absence of an imminent trigger is a legitimate
+              finding, recorded as a horizon statement rather than a gap.
+            assessment_method: >-
+              Trigger review: candidate trigger enumeration, selection and dating of the
+              operative trigger, characterization of its horizon and urgency, and
+              cross-check against identified drivers (D2.1, D2.2, D2.3).
+            scale_reference: five-point
+            evidence_requirements:
+              - Named and dated trigger statement
+              - Horizon or urgency characterization
+              - Trigger-origin evidence (event, decision, or threshold record)
+              - Linkage to identified drivers
+            interpretation_guidance: >-
+              Score characterization, not trigger severity: a clearly dated mild trigger
+              scores better than a severe trigger no one has named. Habit as a trigger
+              (modernizing because time has passed) is scored as uncharacterized, since
+              it is indistinguishable from drift.
+            modernization_relevance: >-
+              The trigger sets the modernization clock: it determines urgency in
+              prioritization, the realism window for D8 planning, and urgency-adjusted
+              option choice, including the decision to modernize reactively versus
+              proactively.
+            domain_applicability:
+              - enterprise
+              - business
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+            related_criteria: [D2.1.1, D2.2.1, D7.6.1]
 
   - id: D3
     name: Architecture Baseline & Condition
@@ -146,7 +688,54 @@ dimensions:
             name: Inventory completeness
             proposition: An inventory of architectural elements exists that is complete, visible, and classified for the assessment scope.
             assessment_type: condition
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which an inventory of the architectural elements in the
+              assessment scope exists that is complete, visible, and classified in
+              terms the assessment can use.
+            assessment_intent: >-
+              Establishes the subject's composition: what elements exist, at what
+              granularity, visible to whom, and organized how, so that assessment
+              findings attach to identifiable things rather than to folklore.
+            assessment_question: >-
+              Is there a visible inventory of the elements in scope, complete enough
+              that no materially relevant element is unknown, and classified into
+              useful kinds?
+            applicability_rule: >-
+              Assess for every subject; the scope of the inventory is the assessment
+              scope. Unknown-element risk (things in operation that are not in any
+              inventory) is the primary failure state this criterion exists to surface.
+            assessment_method: >-
+              Inventory review: coverage check against operation, budget or service
+              records, classification scheme check, sampling for unknown elements by
+              cross-referencing operational reality against the inventory.
+            scale_reference: five-point
+            evidence_requirements:
+              - Element inventory or registry for the scope
+              - Classification scheme and its application
+              - Coverage evidence against operational or financial records
+              - Unknown-element discovery sampling results
+            interpretation_guidance: >-
+              Unowned, invisible elements score at the low end regardless of the
+              inventory's polish, since they are where assessments fail silently.
+              Aversion to inventory (no time to keep one) is scored as the condition
+              it is: an unknown-element risk.
+            modernization_relevance: >-
+              Inventory completeness bounds the confidence of every modernization plan:
+              sequencing in D8 and the transition feasibility assessment in D7 quietly
+              depend on knowing what exists; unknown elements surface during
+              modernization at maximum cost.
+            domain_applicability:
+              - enterprise
+              - business
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+            related_criteria: [D3.2.1, D3.6.1, D7.6.1]
       - id: D3.2
         name: Architecture Representation
         criteria:
@@ -154,7 +743,55 @@ dimensions:
             name: Representation fidelity
             proposition: Architectural models and documentation exist with sufficient availability, accuracy, fidelity, and consistency to support assessment.
             assessment_type: condition
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which architectural models and documentation of the subject
+              exist, at what availability, and with sufficient accuracy, fidelity, and
+              consistency to support the assessment being performed.
+            assessment_intent: >-
+              Establishes whether the subject can be reasoned about through its
+              representations at all: whether models and documentation exist, match
+              reality, and are usable for assessment at the needed granularity.
+            assessment_question: >-
+              Do models and documentation of the subject exist, are they available,
+              accurate, and consistent enough that assessment and modernization
+              planning can rely on them?
+            applicability_rule: >-
+              Assess wherever documented or modeled representations are the basis for
+              assessment; where only the implementation can be consulted, score
+              accordingly. Fidelity expectations scale with the subject's criticality
+              and change rate, not with an ideal of completeness.
+            assessment_method: >-
+              Representation review: inventory of models and documents against the
+              architectural concerns in scope, sample verification of model-to-reality
+              fidelity, consistency check across representations, and currency check.
+            scale_reference: five-point
+            evidence_requirements:
+              - Model and documentation inventory for the scope
+              - Model-to-reality verification samples
+              - Cross-representation consistency checks
+              - Currency and ownership records for key models
+            interpretation_guidance: >-
+              Absent representation of some layers is scored by importance-weighted
+              coverage: critical, fast-moving, or decision-relevant concerns weigh more.
+              A complete but non-current model is weaker than a sparse but current one,
+              because silent inaccuracy is worse than acknowledged absence.
+            modernization_relevance: >-
+              Representation is the medium of modernization planning: drift- or
+              quality-lacking representations force plans to be built on guesses, and
+              every deficiency here either delays or taxes D8 planning, and feeds the
+              baseline reliability criterion (D3.6).
+            domain_applicability:
+              - enterprise
+              - business
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+            related_criteria: [D3.1.1, D3.3.1, D3.6.1]
       - id: D3.3
         name: Architecture State
         criteria:
@@ -162,7 +799,55 @@ dimensions:
             name: Declared vs implemented state
             proposition: The actual deployed, operational, and realized architecture is known and reconciled against the declared architecture.
             assessment_type: condition
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the actual deployed, operational, and realized
+              architecture of the subject is known, and its reconciliation against the
+              declared architecture is established with drift noted and dated.
+            assessment_intent: >-
+              Establishes the reality of the subject: what is actually running and in
+              what configuration, versus what representations declare, so that
+              condition findings (D4, D5, D6) attach to operational reality rather than
+              to declared intent.
+            assessment_question: >-
+              Is the realized, running architecture known with enough confidence that
+              a declared-versus-implemented comparison is meaningful, and are the known
+              divergences recorded and dated?
+            applicability_rule: >-
+              Assess for every subject with a declared state (any model, standard, or
+              reference architecture); where no declared state exists, that absence is
+              itself the finding and reconciliation is scored as unassessable-low.
+            assessment_method: >-
+              Reconciliation review: realized-state discovery (configuration records,
+              sensor or telemetry data, deployment evidence), comparison against
+              declared models, and drift logging with dating and severity.
+            scale_reference: five-point
+            evidence_requirements:
+              - Realized-state records (configuration, deployment, telemetry)
+              - Comparison records against declared models
+              - Drift log with severity and dating
+              - Sampling evidence for reconciliation accuracy
+            interpretation_guidance: >-
+              Known drift in declared-vs-implemented is an assessable condition; silent
+              drift, where no one knows the realized state, is the failure state, since
+              it undermines every other finding's confidence. Score the confidence of
+              the reconciliation, not just the fact of drift.
+            modernization_relevance: >-
+              Declared-versus-implemented gaps block modernization planning directly:
+              transitions planned against the declared state fail against the actual
+              one, and the realized-state record becomes the migration input for D7 and
+              D8.
+            domain_applicability:
+              - enterprise
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D3.2.1, D3.6.1, D5.6.1]
       - id: D3.4
         name: Lifecycle Condition
         criteria:
@@ -170,7 +855,54 @@ dimensions:
             name: Lifecycle condition
             proposition: The age, lifecycle stage, support status, maintenance condition, and obsolescence position of critical elements is established.
             assessment_type: condition
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the age, lifecycle stage, support status, maintenance
+              condition, and obsolescence position of the subject's critical elements
+              is established and recorded.
+            assessment_intent: >-
+              Establishes where the subject and its elements sit in their lifecycle:
+              supported or not, maintained how, drifting toward obsolescence at what
+              pace, so that decay is visible before it becomes failure.
+            assessment_question: >-
+              For the critical elements of the subject, are age, lifecycle stage,
+              support status, maintenance condition, and obsolescence position known and
+              recorded?
+            applicability_rule: >-
+              Assess for the critical elements identified via criticality (D1.5) and
+              the inventory (D3.1); record the critical-element cut used. Non-critical
+              elements are recorded where known but do not drive the score.
+            assessment_method: >-
+              Lifecycle review: support status and maintenance records, age and version
+              position, vendor or community support status, obsolescence dating from
+              vendor or ecosystem signals, summarized per critical element.
+            scale_reference: five-point
+            evidence_requirements:
+              - Support and maintenance status records
+              - Age, version, or revision position
+              - Obsolescence dating evidence
+              - Lifecycle summary per critical element
+            interpretation_guidance: >-
+              Score establishment of lifecycle position, not the position itself:
+              well-supported young elements and dated-but-managed elements can both
+              score high. The failure state is not knowing, which blocks exposure
+              assessment in D6 from proceeding honestly.
+            modernization_relevance: >-
+              Lifecycle condition is the factual input to decay and obsolescence
+              exposure (D6.1): it converts vague aging concern into dated
+              modernization-pressure statements, and feeds replacement-versus-retain
+              decisions in D8.
+            domain_applicability:
+              - enterprise
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D3.1.1, D6.1.1, D6.6.1]
       - id: D3.5
         name: Architecture Coverage
         criteria:
@@ -178,15 +910,110 @@ dimensions:
             name: Concern coverage
             proposition: The baseline covers the relevant business, technical, operational, and stakeholder concerns for the assessment scope.
             assessment_type: condition
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the baseline representation of the subject covers the
+              business, technical, operational, and stakeholder concerns relevant to
+              the assessment scope.
+            assessment_intent: >-
+              Establishes whether the set of representations is wide enough for the
+              questions being asked: whether business, technical, operational, and
+              stakeholder concerns each have some addressed representation, rather than
+              one lens standing in for all.
+            assessment_question: >-
+              For the concerns this assessment must address, does the baseline cover
+              them: is every relevant concern class (business, technical, operational,
+              stakeholder) represented by some usable artifact?
+            applicability_rule: >-
+              Assess relative to the assessment scope and its question set: a baseline
+              covering domains irrelevant to the scope does not compensate for gaps in
+              the domains the scope requires. Record the concern classes the assessment
+              must address.
+            assessment_method: >-
+              Coverage review: concern-class enumeration for the scope, mapping from
+              concern classes to baseline artifacts, gap identification, and
+              fitness-of-artifact check per class.
+            scale_reference: five-point
+            evidence_requirements:
+              - Concern-class enumeration for the scope
+              - Concern-to-artifact mapping or lack thereof
+              - Gap list with severity
+              - Coverage fitness assessment per concern class
+            interpretation_guidance: >-
+              Coverage is scored by fitness for assessment use, not by artifact count:
+              many unused artifacts score worse than few well-used ones, since
+              unaddressed-but-represented implies false confidence.
+            modernization_relevance: >-
+              Coverage gaps predict where modernization plans will stall on unknowns:
+              each gap either gets closed (cost) or converts to planning risk in the
+              affected area, and repeated gaps define which domain-pack lens (S4) the
+              subject cannot support yet.
+            domain_applicability:
+              - enterprise
+              - business
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+            related_criteria: [D3.2.1, D3.6.1, D8.1.1]
       - id: D3.6
         name: Baseline Integrity
         criteria:
           - id: D3.6.1
             name: Baseline reliability
-            proposition: "The baseline is reliable: evidenced, dependency-aware, owned, and traceable to its sources."
+            proposition: The baseline is reliable: evidenced, dependency-aware, owned, and traceable to its sources.
             assessment_type: condition
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the baseline information about the subject is
+              reliable: evidenced, aware of dependencies between its elements, owned,
+              and traceable to verifiable sources.
+            assessment_intent: >-
+              Establishes whether assessment findings can rest on the baseline: whether
+              statements in it carry evidence, dependency relationships are captured,
+              ownership is assigned, and sources can be traced and re-checked.
+            assessment_question: >-
+              Can the baseline be relied on: are its statements evidenced and
+              traceable to sources, are dependencies captured, and does someone own its
+              currency?
+            applicability_rule: >-
+              Assess for baselines used as assessment input; a spot-check sample is
+              sufficient, drawn across sources and element classes, and the sampling
+              approach recorded with the result.
+            assessment_method: >-
+              Reliability review: sampling of baseline statements for evidence and
+              source traceability, dependency representation check, ownership and
+              currency method check, and confidence determination for downstream use.
+            scale_reference: five-point
+            evidence_requirements:
+              - Source traceability for sampled statements
+              - Dependency representation in the baseline
+              - Ownership records for baseline elements
+              - Sampling method and results record
+            interpretation_guidance: >-
+              Score reliability of the baseline, not its completeness (that is D3.5):
+              a narrow but reliable baseline supports assessment better than a broad
+              one whose statements cannot be trusted. Untraceable baselines propagate
+              uncertainty into every downstream finding and score accordingly.
+            modernization_relevance: >-
+              Baseline reliability sets the confidence ceiling for the whole
+              assessment and for modernization planning: plans built on unreliable
+              baselines carry compounding uncertainty, and confidence scores in D8
+              investment decisions inherit this ceiling.
+            domain_applicability:
+              - enterprise
+              - business
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+            related_criteria: [D3.1.1, D3.2.1, D3.3.1]
 
   - id: D4
     name: Architectural Fitness & Performance
@@ -199,7 +1026,53 @@ dimensions:
             name: Functional adequacy
             proposition: The architecture fulfills its intended functions, responsibilities, and requirements.
             assessment_type: condition
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the subject fulfills its intended functions,
+              responsibilities, and currently stated requirements.
+            assessment_intent: >-
+              Establishes whether the subject does its designed job today: whether
+              function, responsibility, and requirement fulfillment hold without
+              systematic gaps, failures, or dependence on manual workarounds.
+            assessment_question: >-
+              Does the subject fulfill its intended functions and responsibilities, and
+              meet its current requirements, without persistent functional gaps or
+              compensating workarounds?
+            applicability_rule: >-
+              Assess for every subject performing duties; functional gaps must be
+              distinguished from enhancement wishes (new demand, see D1.4) before
+              scoring, and persistent manual compensation is treated as non-fulfillment.
+            assessment_method: >-
+              Functional review: requirement-to-fulfillment mapping, failure and defect
+              record review, workaround inventory, and stakeholder confirmation of
+              functional sufficiency.
+            scale_reference: five-point
+            evidence_requirements:
+              - Requirement or responsibility statements
+              - Fulfillment or verification records
+              - Defect, failure, or incident records
+              - Workaround inventory
+            interpretation_guidance: >-
+              Workarounds are compensating mechanisms that mask non-fulfillment:
+              explicitly count workaround-supported duties as partial fulfillment and
+              note the compensation cost. Score fulfillment against the requirement the
+              subject carries today, not against desired extensions.
+            modernization_relevance: >-
+              Functional inadequacy is the most defensible modernization trigger: it
+              identifies what modernization must restore at minimum, sets target-state
+              functional scope in D8, and isolates automation or functional
+              rationalization candidates.
+            domain_applicability:
+              - enterprise
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D2.4.1, D4.6.1, D5.6.1]
       - id: D4.2
         name: Performance & Efficiency
         criteria:
@@ -207,15 +1080,166 @@ dimensions:
             name: Performance adequacy
             proposition: Throughput, responsiveness, resource efficiency, capacity, and utilization meet existing and anticipated requirements.
             assessment_type: condition
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the subject's throughput, responsiveness, resource
+              efficiency, capacity, and utilization meet existing requirements and the
+              anticipated requirements identified through demand assessment.
+            assessment_intent: >-
+              Establishes performance fitness under real and expected load: whether the
+              subject performs adequately today and against the demand curve the
+              organization actually projects.
+            assessment_question: >-
+              Do throughput, responsiveness, efficiency, capacity, and utilization meet
+              current requirements, and will they meet anticipated demand without
+              heroic measures?
+            applicability_rule: >-
+              Assess against existing and anticipated demand (D1.4, D2.4); the
+              anticipated increment used must be recorded. Subjects without measurable
+              load are assessed for responsiveness and efficiency at whatever duty they
+              perform.
+            assessment_method: >-
+              Performance review: load and demand analysis, throughput and
+              responsiveness measurement against requirements, capacity and utilization
+              trend review, and efficiency assessment (cost per workload comparison over
+              time).
+            scale_reference: five-point
+            evidence_requirements:
+              - Load and demand measurements over time
+              - Throughput and responsiveness records against requirements
+              - Capacity and utilization trends
+              - Efficiency or cost-per-workload records
+            interpretation_guidance: >-
+              Performance is scored against requirements, not against theoretical
+              optimum: a subject exceeding requirements while idling resources is
+              efficient enough but scores on utilization waste. Persistent near-limit
+              operation is a leading-edge score of at most weak, since it leaves no
+              headroom for error or growth.
+            modernization_relevance: >-
+              Performance findings set both the urgency clock (headroom and time to
+              exhaustion) and the capacity envelope a target state must satisfy; growth
+              against flattening performance converts to dated modernization pressure.
+            domain_applicability:
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D1.4.1, D4.3.1, D7.2.1]
       - id: D4.3
         name: Quality Attributes
         criteria:
           - id: D4.3.1
-            name: Quality attribute fulfillment
-            proposition: Applicable quality attributes (reliability, availability, resilience, scalability, maintainability, usability) satisfy requirements.
+            name: Service quality attributes
+            proposition: Applicable service quality attributes (reliability, availability, resilience, recoverability, scalability) satisfy requirements.
             assessment_type: condition
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the subject satisfies requirements for the
+              operational quality attributes that determine service behavior: reliability,
+              availability, resilience, recoverability, and scalability.
+            assessment_intent: >-
+              Establishes the operational fitness of the subject under normal and adverse
+              conditions: whether it stays up, recovers, absorbs load variation, and
+              degrades acceptably rather than catastrophically.
+            assessment_question: >-
+              Do the applicable operational quality attributes (reliability,
+              availability, resilience, recoverability, scalability) meet their
+              requirements, in normal operation and under adverse conditions?
+            applicability_rule: >-
+              Assess the attributes applicable to the subject's duties; attribute
+              applicability (and non-applicability) is recorded. Change-supporting
+              attributes (maintainability and peers) are assessed separately under
+              D4.3.2 and must be excluded from this criterion to keep the two
+              propositions independent.
+            assessment_method: >-
+              Attribute-by-attribute review: requirement identification per applicable
+              attribute, incident and availability record review, failure-mode behavior
+              review, and capacity headroom review under load stress condition.
+            scale_reference: five-point
+            evidence_requirements:
+              - Attribute requirement statements per applicable attribute
+              - Availability and reliability records over time
+              - Incident, failure-mode, and recovery behavior records
+              - Load-stress or scalability headroom evidence
+            interpretation_guidance: >-
+              Score per-requirement fulfillment, not attribute presence: judged against
+              stated requirements, unstated requirements default to observed need.
+              Degradation behavior matters: graceful failure scores, silent
+              catastrophic failure does not, whatever averages report.
+            modernization_relevance: >-
+              Service-quality findings feed the operational risk exposure assessment in
+              D6.3 directly, and set the non-functional envelope a future state must
+              satisfy or improve; repeated quality failures convert to modernization
+              triggers (D2.6).
+            domain_applicability:
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D4.2.1, D4.3.2, D6.3.1]
+          - id: D4.3.2
+            name: Change-supporting quality attributes
+            proposition: Applicable change-supporting quality attributes (maintainability, adaptability, understandability, testability, deployability) satisfy requirements.
+            assessment_type: changeability
+            status: modeled
+            definition: >-
+              The degree to which the subject satisfies requirements for the
+              change-supporting quality attributes: maintainability, adaptability,
+              understandability, testability, and deployability.
+            assessment_intent: >-
+              Establishes change fitness as an assessable condition in its own right:
+              whether the subject can be safely changed, correctly understood, tested
+              with confidence, and deployed without undue risk or ceremony.
+            assessment_question: >-
+              Can the subject be changed safely and economically: are maintainability,
+              adaptability, understandability, testability, and deployability adequate
+              for the change demand the subject faces?
+            applicability_rule: >-
+              Assess the change-supporting attributes applicable to the subject and its
+              expected change portfolio (informed by D1.4); record attribute
+              applicability. Where modernization is contemplated, reliance on these
+              attributes rises and expectations tighten accordingly.
+            assessment_method: >-
+              Change-practice review: change cycle and rework records, testability
+              assessment (coverage and confidence of available tests), deployment
+              evidence (frequency, defect rate, recovery), and comprehension sampling
+              (how quickly can a competent engineer reason about the subject).
+            scale_reference: five-point
+            evidence_requirements:
+              - Change cycle, rework, and rollback records
+              - Test coverage and confidence records
+              - Deployment frequency and failure rates
+              - Comprehension or onboarding observations
+            interpretation_guidance: >-
+              Attribute scores are judged against the subject's change demand: high
+              testability matters most on high-change subjects. Code that resists
+              understanding is the common failure mode and often drives arbitrary
+              change risk premiums; this matters even when functional adequacy
+              holds. Deployability is scored on observed deployment practice, not on
+              tooling presence.
+            modernization_relevance: >-
+              Change-supporting attribute deficiencies predict execution risk directly:
+              they make every modernization approach more expensive and more hazardous,
+              and gate the realistic target state (a target the organization cannot
+              safely deploy toward is a target infeasible in practice).
+            domain_applicability:
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D4.3.1, D5.2.1, D7.1.1]
       - id: D4.4
         name: Interoperability & Integration
         criteria:
@@ -223,7 +1247,55 @@ dimensions:
             name: Integration capability
             proposition: Compatibility, connectivity, interface integrity, integration capability, and exchange meet the organization's integration needs.
             assessment_type: condition
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the subject's compatibility, connectivity, interface
+              integrity, integration capability, and exchange behavior meet the
+              organization's integration needs, today and as anticipated.
+            assessment_intent: >-
+              Establishes how well the subject participates in its ecosystem:
+              integrations exist where needed, interfaces behave as specified,
+              integrations carry the intended semantics, and exchange tolerates the
+              realities of operation (latency, failure, partial state).
+            assessment_question: >-
+              Do the subject's interfaces, integrations, and exchange mechanisms meet
+              the organization's integration needs, with interface contracts that hold
+              in practice?
+            applicability_rule: >-
+              Assess for subjects participating in any integration landscape; the
+              criterion is scoped to the integrations the subject actually carries,
+              including those scheduled for retirement only.
+            assessment_method: >-
+              Integration review: inventory of needed and actual integrations, interface
+              contract reality-check (observed conformance against specified
+              behavior), exchange behavior under adverse conditions (latency, failure,
+              partial state), and integration debt survey.
+            scale_reference: five-point
+            evidence_requirements:
+              - Integration inventory with interface specifications
+              - Interface conformance or contract violation records
+              - Exchange behavior records under adverse conditions
+              - Integration debt or workarounds list
+            interpretation_guidance: >-
+              Score needed-integration coverage first: missing integrations carry more
+              weight than subpar existing ones, since they shift load onto manual
+              processes. Interfaces that require fragile out-of-band coordination are
+              debt even when nominally conformant.
+            modernization_relevance: >-
+              Integration capability shapes modernization sequencing and target state
+              equally: strong integration makes incremental modernization feasible,
+              while poor interface integrity forces replacement or parallel-run choices
+              in D8, especially for integration hubs themselves.
+            domain_applicability:
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D3.6.1, D5.2.1, D7.3.1]
       - id: D4.5
         name: Operational Effectiveness
         criteria:
@@ -231,7 +1303,56 @@ dimensions:
             name: Operational effectiveness
             proposition: The architecture effectively supports operations, execution, management, and service delivery.
             assessment_type: condition
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the subject effectively supports the operations it
+              underpins: day-to-day execution, management activity, and service
+              delivery that depend on it.
+            assessment_intent: >-
+              Establishes whether operation around the subject is sound: whether the
+              subject supports operational execution and management, and whether
+              day-to-day service delivery works through it without friction or
+              improvisation.
+            assessment_question: >-
+              Does the subject effectively support daily operations, workflow execution,
+              and service delivery, and do critical operational activities carry
+              architectural support rather than architectural friction?
+            applicability_rule: >-
+              Assess for subjects playing a role in operational execution, management or
+              service delivery; purely development-time artifacts are assessed for
+              their operational impact downstream, with the operational linkage made
+              explicit.
+            assessment_method: >-
+              Operational review: operational workflow walkthroughs (day-in-the-life
+              reviews), operational friction inventory, management-activity check
+              (monitoring, control, and intervention ability), and service-delivery
+              impact review.
+            scale_reference: five-point
+            evidence_requirements:
+              - Operational workflow walkthrough records
+              - Friction inventory with severity
+              - Monitoring and intervention capability evidence
+              - Service-delivery impact statements
+            interpretation_guidance: >-
+              Score operational experience at the friction level, not the incident level:
+              tolerated daily friction is a legitimate finding even when nothing has
+              technically failed. Friction compensated by heroics still counts, since
+              it accumulates operational debt whether or not anyone has complained.
+            modernization_relevance: >-
+              Operational friction is a recurring source of modernization benefit:
+              friction reduction is defensible value for D8 business cases, and
+              operational support requirements shape target-state design directly.
+            domain_applicability:
+              - enterprise
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D4.1.1, D6.3.1, D8.4.1]
       - id: D4.6
         name: Requirement Fulfillment
         criteria:
@@ -239,7 +1360,54 @@ dimensions:
             name: Requirement fulfillment
             proposition: The architecture is adequate against functional, non-functional, stakeholder, and contextual requirements.
             assessment_type: condition
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the subject is adequate against the full requirement
+              set it carries: functional, non-functional, stakeholder, and contextual
+              requirements.
+            assessment_intent: >-
+              Establishes overall requirement fitness as the rollup condition: whether
+              the subject, judged against the requirement set actually in force, is
+              adequate, with inadequacy localized where possible.
+            assessment_question: >-
+              Judged against its functional, non-functional, stakeholder, and
+              contextual requirements combined, is the subject adequate, and where
+              exactly does inadequacy concentrate?
+            applicability_rule: >-
+              Assess for every subject; where requirements are informal or undocumented,
+              requirement reconstruction from observed need is necessary as part of the
+              method, and the reconstruction basis is recorded. The criterion rolls up
+              findings from D4.1 through D4.5 rather than replacing them.
+            assessment_method: >-
+              Requirement-set review: enumerated requirement set across all classes,
+              satisfaction judgment per class with reliance on the underlying criteria's
+              evidence, and concentration analysis (where inadequacy clusters).
+            scale_reference: five-point
+            evidence_requirements:
+              - Reconstructed or documented requirement set
+              - Per-class fulfillment judgments with supporting evidence
+              - Concentration analysis of inadequacy
+              - Cross-references to underlying criterion findings
+            interpretation_guidance: >-
+              A single unsatisfied hard requirement means overall inadequacy, regardless
+              of average performance elsewhere. Soft or negotiable requirements must be
+              marked as such before judging, since treating negotiable requirements as
+              hard blocks rational trade-off discussion in later stages.
+            modernization_relevance: >-
+              This criterion is the condition-side summary that interfaces to decision
+              logic: it identifies the deficit classes modernization must address, and
+              contextual requirement findings (changed environment, D2) often explain
+              why a once-adequate subject now fails.
+            domain_applicability:
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D4.1.1, D4.2.1, D4.3.1]
 
   - id: D5
     name: Structural Integrity & Complexity
@@ -252,7 +1420,54 @@ dimensions:
             name: Coherence of elements
             proposition: Architecture elements, principles, patterns, and structures are consistent with one another.
             assessment_type: condition
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the subject's elements, principles, patterns, and
+              structures are consistent with one another: reasoning and behaving as one
+              architecture rather than as coincidentally cohabiting fragments.
+            assessment_intent: >-
+              Establishes whether the subject holds together intellectually: whether
+              stated principles match actual patterns, structures match decisions, and
+              a reader can navigate the subject as a coherent whole.
+            assessment_question: >-
+              Are the subject's principles, patterns, and structures consistent with
+              one another, or do elements follow divergent or contradictory intents?
+            applicability_rule: >-
+              Assess for every subject with more than one element or one decision
+              pattern. For single-element subjects, score coherence at neutral (n/a)
+              with the reason recorded, since coherence requires parts.
+            assessment_method: >-
+              Coherence review: principle-to-structure mapping, pattern-consistency
+              sampling across elements, contradiction identification (stated
+              principles violated by actual structures, and vice versa), and
+              decision-consistency check across the subject's evolution.
+            scale_reference: five-point
+            evidence_requirements:
+              - Stated principles or decision records
+              - Principle-to-structure mapping samples
+              - Contradiction or exception list
+              - Decision-consistency observations across elements
+            interpretation_guidance: >-
+              Documented inconsistency is scored higher than undocumented
+              inconsistency, since awareness implies manageability. Contradictory
+              principles (twin stated intents) are the most severe finding, since they
+              guarantee incoherent evolution.
+            modernization_relevance: >-
+              Incoherence compounds modernization cost structurally: every seated
+              contradiction multiplies in transition, and coherence findings define
+              the conceptual-integrity work a target state must restore (a target
+              state is a chance to re-found principles, and coherence deficits define
+              what that means in practice).
+            domain_applicability:
+              - enterprise
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+            related_criteria: [D5.5.1, D5.6.1, D3.3.1]
       - id: D5.2
         name: Coupling & Dependencies
         criteria:
@@ -310,7 +1525,56 @@ dimensions:
             name: Complexity proportionality
             proposition: Structural, conceptual, technical, operational, and cognitive complexity remain proportionate to the problem the architecture solves and within organizational capacity.
             assessment_type: condition
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the subject's structural, conceptual, technical,
+              operational, and cognitive complexity remain proportionate to the problem
+              it solves and within the capacity of the organization operating it.
+            assessment_intent: >-
+              Establishes whether complexity is earned or accidental: whether the
+              subject is as simple as its problem permits, and whether the organization
+              can hold the complexity it carries.
+            assessment_question: >-
+              Is the subject's complexity proportionate to the problem it solves, and
+              within the organization's capacity to operate, reason about, and change
+              it?
+            applicability_rule: >-
+              Assess for every subject; proportionality is judged against actual problem
+              size, not aesthetic preference. Where complexity problems are tolerated
+              by specialists, capacity is judged for the organization as staffed, not
+              for the specialists alone.
+            assessment_method: >-
+              Complexity review: structural (dependency and component fan-in and
+              fan-out), cognitive (time-to-comprehension sampling), operational
+              (heterogeneity count of distinct services, technologies, and processes
+              needing expertise), and organizational holding-capacity assessment.
+            scale_reference: five-point
+            evidence_requirements:
+              - Dependency-count or structure complexity metrics
+              - Time-to-comprehension or onboarding observations
+              - Enumeration of distinct required skills or specializations
+              - Incident or defect records implicating complexity
+            interpretation_guidance: >-
+              Essential (problem-proportional) and accidental (avoidable) complexity
+              are scored separately in the record, since their remedies differ:
+              essential complexity must be managed, accidental complexity removed.
+              Specialist dependence is a leading indicator of cognitive overrun.
+            modernization_relevance: >-
+              Excess complexity taxes every modernization approach available: it is a
+              primary simplification justification, and accidental-complexity findings
+              define direct modernization value (simplification as a modernization
+              outcome) while raising the execution risk of any in-place effort.
+            domain_applicability:
+              - enterprise
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D4.5.1, D5.4.1, D7.1.1]
       - id: D5.4
         name: Fragmentation & Duplication
         criteria:
@@ -318,7 +1582,54 @@ dimensions:
             name: Fragmentation and redundancy
             proposition: Redundancy, overlap, inconsistency, proliferation, and fragmentation are known and managed.
             assessment_type: condition
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which redundancy, overlap, inconsistency, proliferation,
+              and fragmentation across the subject are known, and managed as a
+              portfolio rather than accumulated passively.
+            assessment_intent: >-
+              Establishes whether duplication and fragmentation are visible and
+              governed: whether the organization knows where overlap exists, accepts it
+              deliberately, or is being fragmented by it unaware.
+            assessment_question: >-
+              Are redundancy, overlap, and fragmentation across the subject known and
+              managed, or have they accumulated beyond awareness and control?
+            applicability_rule: >-
+              Assess for every subject; deliberate redundancy (resilience, dual
+              providers) is distinguished from accidental duplication before scoring,
+              since the criterion concerns knowledge and management, not duplication
+              per se.
+            assessment_method: >-
+              Duplication review: functional or data overlap mapping, proliferation
+              count (sprawl of nodes, interfaces, platforms, or tools of the same
+              kind), inconsistency sampling across duplicated elements, and
+              management-record check (consolidation decisions, acceptances).
+            scale_reference: five-point
+            evidence_requirements:
+              - Overlap or duplication map
+              - Proliferation count across the subject
+              - Inconsistency samples across duplicated elements
+              - Records of deliberate acceptance or consolidation decisions
+            interpretation_guidance: >-
+              Managed duplication is surviving design choice; silent accumulation is
+              structural debt. Inconsistency among duplicates is scored more severely
+              than duplication alone, since it is what makes duplicates diverge into
+              unmanageable variants.
+            modernization_relevance: >-
+              Fragmentation defines consolidation opportunities, which are among the
+              most cost-justified modernization moves; proliferation findings also
+              scope target-state ambition by defining what must be rationalized before
+              or during transition.
+            domain_applicability:
+              - enterprise
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+            related_criteria: [D3.6.1, D5.3.1, D5.5.1]
       - id: D5.5
         name: Modularity & Separation
         criteria:
@@ -326,7 +1637,55 @@ dimensions:
             name: Modularity and separation of concerns
             proposition: Boundaries, encapsulation, cohesion, separation of concerns, and composability support independent reasoning about parts of the architecture.
             assessment_type: condition
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the subject's boundaries, encapsulation, cohesion,
+              separation of concerns, and composability support independent reasoning
+              about its parts: work on one part without full knowledge of the rest.
+            assessment_intent: >-
+              Establishes whether the subject decomposes into parts that can be
+              reasoned about, built, and changed independently: whether boundaries
+              exist, hold, and carry clean interfaces rather than leaking concerns
+              across.
+            assessment_question: >-
+              Can parts of the subject be reasoned about, changed, or replaced
+              independently, or does work on any part require understanding the whole?
+            applicability_rule: >-
+              Assess for subjects with multiple interacting elements; for single-element
+              subjects, score the quality of internal separation within the element. The
+              criterion concerns separation quality, not boundary count or granularity,
+              and must be judged with D5.2 coupling findings to avoid double-counting.
+            assessment_method: >-
+              Separation review: boundary-conformance check (do boundaries hold under
+              change and failure), object cohesion review, cross-boundary reach
+              mapping (leaking interactions), and interface quality review.
+            scale_reference: five-point
+            evidence_requirements:
+              - Boundary or interface map
+              - Cohesion assessment per element
+              - Cross-boundary interaction or leakage records
+              - Change or replacement history showing (non-) independence
+            interpretation_guidance: >-
+              Modularity is scored for the separation it delivers, not for the
+              microservice-vs-monolith framing: a cohesive monolith with few leaks
+              outperforms a distributed assembly of leaking components. Boundaries that
+              exist but do not hold are scored as separation debt with compounding cost.
+            modernization_relevance: >-
+              Modularity is the enabling asset of incremental modernization: strong
+              separation supports replace-in-place moves (including re-architecture as
+              a series of part replacements), while weak separation forces
+              big-bang or strangler-sequenced approaches in D8 with their respective
+              risk profiles.
+            domain_applicability:
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D4.4.1, D5.2.1, D7.3.1]
       - id: D5.6
         name: Architectural Integrity
         criteria:
@@ -334,7 +1693,52 @@ dimensions:
             name: Conformance to architectural intent
             proposition: The realized architecture conforms to architectural intent, standards, patterns, and constraints.
             assessment_type: condition
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the realized architecture conforms to declared
+              architectural intent, standards, patterns, and constraints, with
+              divergence visible and accounted for.
+            assessment_intent: >-
+              Establishes conformance integrity: whether the subject's built reality is
+              drifting from its own declared standards and constraints, the pace of
+              drift, and what is holding conformance back.
+            assessment_question: >-
+              Does the realized subject conform to its declared architectural intent,
+              standards, and constraints, and is divergence visible and explained?
+            applicability_rule: >-
+              Assess where declared intent exists (standards, patterns, reference
+              models); where none exists, the absence is the finding, and conformance
+              is scored at the low end with that reason recorded.
+            assessment_method: >-
+              Conformance review: standards-to-reality conformance sampling (interfaces,
+              patterns, naming, placement), drift-rate estimation from recent change
+              records, and review of tolerated deviations versus unexplained ones.
+            scale_reference: five-point
+            evidence_requirements:
+              - Declared standards, patterns, or constraints
+              - Conformance sampling results
+              - Drift-rate estimation from change records
+              - Deviation log with acceptance status
+            interpretation_guidance: >-
+              Governed deviations are acceptable in terms of this criterion, but their
+              record and status must exist. Drift pace matters: high drift rate with
+              no governing decision means conformance is collapsing, and architectural
+              intent is becoming fiction, which undermines the D3 baseline as well.
+            modernization_relevance: >-
+              Conformance findings measure the enforceability of architecture, which
+              modernization depends on: a target state without conformance enforcement
+              drifts back, so integrity deficits shape the governance requirements and
+              transition controls included in a modernization plan.
+            domain_applicability:
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D3.2.1, D5.1.1, D3.3.1]
 
   - id: D6
     name: Exposure, Risk & Sustainability
@@ -347,15 +1751,167 @@ dimensions:
             name: Technology lifecycle exposure
             proposition: Obsolescence, end-of-life exposure, vendor dependency, skills scarcity, and support limitations are known and within tolerance.
             assessment_type: exposure
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which obsolescence, end-of-life exposure, vendor
+              dependency, skills scarcity, and support limitations bearing on the
+              subject are known, and the resulting exposure is within stated tolerance.
+            assessment_intent: >-
+              Establishes the decay clock of the subject: which technologies and
+              platforms under it are moving toward or past their supported life, who
+              can still operate them, and how much tolerance the organization has for
+              the exposure that creates.
+            assessment_question: >-
+              What obsolescence, end-of-life, vendor, skills, and support exposures
+              exist in the subject, are they known and dated, and are they within the
+              tolerance the organization has actually stated?
+            applicability_rule: >-
+              Assess for every subject with technology dependencies; the lifecycle
+              positions come from D3.4, and this criterion converts them into exposure
+              terms. Unknowns score as exposure by default.
+            assessment_method: >-
+              Exposure review: end-of-life dating per critical platform and component,
+              vendor and support posture, skills-availability check for the stack in
+              use, and consolidation into exposure statements with tolerance judgment.
+            scale_reference: five-point
+            evidence_requirements:
+              - Lifecycle and end-of-life positions from D3.4
+              - Vendor and support status records
+              - Skills-availability evidence for the stack
+              - Tolerance statements or decisions for the exposures
+            interpretation_guidance: >-
+              Exposure is scored as knowledge plus tolerance, not as the raw decay
+              itself: dated, accepted, planned-for obsolescence is managed exposure.
+              Undated or unknown dependency lifetimes are the failure mode, since they
+              leave the organization holding risk it has not seen.
+            modernization_relevance: >-
+              Lifecycle exposure is the most common dated modernization driver:
+              end-of-life dates convert to commitment deadlines for target state and
+              define the replace-and-retain decisions that structure D8 options.
+            domain_applicability:
+              - enterprise
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D2.2.1, D3.4.1, D6.6.1]
       - id: D6.2
         name: Security & Trust
         criteria:
           - id: D6.2.1
-            name: Security and trust exposure
-            proposition: Security weaknesses, privacy exposure, trustworthiness, access control, and integrity risks are known and within tolerance.
+            name: Security exposure
+            proposition: Security weaknesses, access control, and integrity risks are known and within tolerance.
             assessment_type: exposure
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which security weaknesses, access control gaps, and
+              integrity risks in the subject are known, assessed for severity, and
+              within stated tolerance.
+            assessment_intent: >-
+              Establishes the classical security exposure of the subject:
+              vulnerability position, authentication and authorization posture,
+              integrity and tamper exposure, and whether the organization knowingly
+              tolerates what exists.
+            assessment_question: >-
+              What security weaknesses, access control gaps, and integrity risks exist
+              in the subject, are they known, and are they within tolerance the
+              organization has consciously set?
+            applicability_rule: >-
+              Assess for every subject; ignore no subject on grounds of perceived
+              low interest, since attackers do not respect scope boundaries. Privacy
+              and trustworthiness obligations are assessed separately under D6.2.2.
+            assessment_method: >-
+              Security review: vulnerability assessment records, access-control model
+              review (authentication, authorization, privileged-access exposure),
+              integrity and tamper exposure analysis, and severity consolidation
+              against tolerance.
+            scale_reference: five-point
+            evidence_requirements:
+              - Vulnerability assessment or penetration test records
+              - Access-control model and review records
+              - Integrity or tamper exposure analysis
+              - Severity register with tolerance decisions
+            interpretation_guidance: >-
+              Score knowledge and tolerance alignment, not mere vulnerability
+              count: dated, triaged, and remediated-or-accepted findings are healthy
+              posture; unknown weaknesses discovered by incident are the failure
+              mode. Compensating controls count toward tolerance only where they are
+              themselves assessed and reliable.
+            modernization_relevance: >-
+              Security exposure converts into hard modernization requirements for
+              target state and hard constraints for transition (windows, freeze
+              periods, audit), and remediation-by-modernization is often the only
+              economical path for embedded weaknesses.
+            domain_applicability:
+              - enterprise
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D2.3.1, D6.2.2, D6.5.1]
+          - id: D6.2.2
+            name: Privacy and trust exposure
+            proposition: Privacy obligations, data protection duties, and trustworthiness expectations are known, and exposure against them is within tolerance.
+            assessment_type: exposure
+            status: modeled
+            definition: >-
+              The degree to which privacy obligations, data protection duties, and
+              trustworthiness expectations bearing on the subject are known, and the
+              exposure against them is known and within stated tolerance.
+            assessment_intent: >-
+              Establishes the obligation and trust side of exposure: what personal and
+              sensitive data duties the subject carries, what trust expectations ride
+              on its behavior, and whether obligations and their breach exposure are
+              known and measured.
+            assessment_question: >-
+              What privacy, data protection, and trustworthiness obligations does the
+              subject carry, where might it breach them, and are those exposure
+              positions known and within tolerance?
+            applicability_rule: >-
+              Assess wherever the subject touches personal, sensitive, or
+              contractually protected data or carries stakeholder trust expectations.
+              Subjects without such touchpoints record the scope statement and score
+              high on knowledge with low applicability noted.
+            assessment_method: >-
+              Obligation review: data-flow mapping against protection obligations,
+              consent or lawful-basis handling, retention and minimization posture,
+              trustworthiness expectation check (what stakeholders are told or assume),
+              and exposure consolidation against tolerance.
+            scale_reference: five-point
+            evidence_requirements:
+              - Data-flow maps with obligation overlays
+              - Privacy or data protection assessments
+              - Retention and minimization records
+              - Trust expectation and tolerance statements
+            interpretation_guidance: >-
+              Unknown obligations do not neutralize exposure: the criterion fails
+              most badly when data has flowed for years without its duty being known.
+              Trustworthiness is separate from security posture: a technically secure
+              subject can still breach trust by handling data in ways stakeholders
+              would not accept.
+            modernization_relevance: >-
+              Privacy and trust exposure constrain both target state and sequencing:
+              remediation frequently requires architectural change (data segregation,
+              purpose boundary, traceability), and modernization windows are natural
+              checkpoints to remove or reduce long-tolerated exposure.
+            domain_applicability:
+              - enterprise
+              - business
+              - information-systems
+              - data
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D2.3.1, D6.2.1, D6.5.1]
       - id: D6.3
         name: Operational Risk
         criteria:
@@ -363,7 +1919,54 @@ dimensions:
             name: Operational risk exposure
             proposition: Failure exposure, continuity, recoverability, operational dependencies, and service disruption risk are known and within tolerance.
             assessment_type: exposure
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which failure exposure, continuity posture, recoverability,
+              operational dependencies, and service disruption risk in the subject are
+              known and within stated tolerance.
+            assessment_intent: >-
+              Establishes what breaks when the subject breaks: failure modes, blast
+              radius, continuity arrangements, recovery reality (tested, not claimed),
+              and the operational dependencies the subject leans on.
+            assessment_question: >-
+              If the subject fails, what happens, how long, and to whom: are failure
+              modes, continuity arrangements, and recovery capability known, tested,
+              and within tolerance?
+            applicability_rule: >-
+              Assess for every subject in operation; operational tolerance statements
+              use the criticality established in D1.5. Untested continuity and recovery
+              claims score as unknown, since untested recovery is discovery risk.
+            assessment_method: >-
+              Operability review: failure-mode and blast-radius analysis, continuity
+              and recovery posture (with test evidence), operational dependency
+              mapping, and disruption-tolerance judgment per identified scenario.
+            scale_reference: five-point
+            evidence_requirements:
+              - Failure-mode or blast-radius analysis
+              - Continuity and recovery records with evidence of tests
+              - Operational dependency map
+              - Disruption scenario list with tolerance states
+            interpretation_guidance: >-
+              Single points of failure and operational fragility carry direct, dated
+              consequences: unsupported environments fail not at random but when
+              change is attempted. Tolerated operational risk is acceptable exposure,
+              but explicitly tolerated versus merely unexamined must be distinguishable
+              in the record.
+            modernization_relevance: >-
+              Operational risk exposure sets transition demands directly: cutover,
+              rollback, and coexistence requirements in D7.3 and D8.6 must match
+              observed recoverability, since a modernization plan that assumes
+              recovery capabilities no one has tested is a plan to discover them.
+            domain_applicability:
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D1.5.1, D4.3.1, D7.3.1]
       - id: D6.4
         name: Economic Exposure
         criteria:
@@ -371,7 +1974,55 @@ dimensions:
             name: Economic sustainability
             proposition: Cost of ownership, maintenance burden, cost inefficiency, licensing, and investment sustainability are known and within tolerance.
             assessment_type: exposure
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which cost of ownership, maintenance burden, cost
+              inefficiency, licensing exposure, and investment sustainability of the
+              subject are known and within stated tolerance.
+            assessment_intent: >-
+              Establishes the economic exposure of standing still or pressing on:
+              what the subject costs to hold and maintain, where costs are climbing or
+              structurally inefficient, and whether the economics remain sustainable.
+            assessment_question: >-
+              Is the subject economically sustainable: are cost of ownership,
+              maintenance cost, licensing exposure, and cost inefficiency known,
+              trending, and within tolerance?
+            applicability_rule: >-
+              Assess for every subject with budgetary weight; the do-nothing
+              baseline produced here is mandatory context for the economics criterion
+              in D8.5, so it must be produced regardless of how favorable the cost
+              picture looks.
+            assessment_method: >-
+              Economics review: cost-of-ownership structure (operation, maintenance,
+              licensing), maintenance and effort concentration records, cost trend
+              review, and do-nothing baseline statement of cost trajectory if nothing
+              changes.
+            scale_reference: five-point
+            evidence_requirements:
+              - Cost-of-ownership records or estimates
+              - Maintenance and effort concentration evidence
+              - Licensing terms and renewal exposure
+              - Do-nothing baseline with cost trend
+            interpretation_guidance: >-
+              Cost opacity is the common failure state: annual spend known but unit or
+              trend data absent scores as unknown exposure even when total spend looks
+              affordable. Rising maintenance share of budget deserves explicit
+              finding even within stated tolerance.
+            modernization_relevance: >-
+              This criterion supplies the economic half of the modernization case:
+              the do-nothing baseline against which any option in D8 is compared, so
+              that keeping is always an explicitly costed choice rather than a
+              default.
+            domain_applicability:
+              - enterprise
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+            related_criteria: [D6.1.1, D8.5.1, D7.6.1]
       - id: D6.5
         name: Compliance & Governance Risk
         criteria:
@@ -379,7 +2030,56 @@ dimensions:
             name: Compliance and governance exposure
             proposition: Regulatory exposure, governance failures, standards deviations, and auditability risks are known and within tolerance.
             assessment_type: exposure
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which regulatory exposure, governance failures, standards
+              deviations, and auditability risks in the subject are known and within
+              stated tolerance.
+            assessment_intent: >-
+              Establishes the conformance and governance exposure landscape: where
+              the subject deviates from obligations (D2.3) or standards (D5.6), where
+              governance is failing to hold decisions accountable, and whether audit
+              evidence could actually be produced.
+            assessment_question: >-
+              What regulatory exposure, governance lapses, standards deviations, and
+              auditability risks does the subject carry, and are they known, recorded,
+              and within tolerance?
+            applicability_rule: >-
+              Assess for every subject; even internal subjects carry standards and
+              governance duties, and auditability is an assessment-scope property,
+              requiring evidence-of-conformance ability rather than conformance alone.
+            assessment_method: >-
+              Governance review: obligation-conformance sampling (from D2.3 inventory),
+              governance-activity review (decision records, exception handling,
+              accountability), audit-readiness test (could evidence be produced on
+              request), and exposure consolidation against tolerance.
+            scale_reference: five-point
+            evidence_requirements:
+              - Obligation conformance sample results
+              - Governance and decision records
+              - Audit-evidence readiness assessment
+              - Exposure register with tolerance decisions
+            interpretation_guidance: >-
+              Governance exposure compounds silently: unmaintained compliance
+              positions accumulate, so this criterion checks both current position and
+              the maintenance loop, since a compliance position no process refreshes
+              is drift by default. Time-stamping exposures is essential to the record.
+            modernization_relevance: >-
+              Compliance and governance exposure concentrates modernization questions
+              and follow-up on specific weak points, and conformance remediation often
+              rides the modernization wave; auditability requirements shape what the
+              target state must record by default.
+            domain_applicability:
+              - enterprise
+              - business
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+            related_criteria: [D2.3.1, D6.2.2, D3.6.1]
       - id: D6.6
         name: Sustainability
         criteria:
@@ -387,7 +2087,55 @@ dimensions:
             name: Long-term viability
             proposition: Long-term viability, environmental impact, maintainability, and lifecycle sustainability are established and acceptable.
             assessment_type: exposure
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the subject's long-term viability, environmental
+              impact, maintainability, and lifecycle sustainability are established
+              and judged acceptable.
+            assessment_intent: >-
+              Establishes whether the subject can continue acceptably into the
+              organization's future: viability of operation, impact of operation,
+              and maintainability at the horizon, not just today.
+            assessment_question: >-
+              Is the subject viable over the planning horizon: can it be maintained,
+              does its impact (including environmental impact) sit within tolerance,
+              and is that position established rather than assumed?
+            applicability_rule: >-
+              Assess for every subject; the planning horizon is set by strategy in
+              D1 and by lifecycle positions in D3.4. Environmental impact is assessed
+              where energy, resource, or footprint data exists or is reasonably
+              estimable.
+            assessment_method: >-
+              Viability review: projected capability to maintain and staff the subject
+              over the horizon, maintainability trajectory (from D4.3.2), resource
+              consumption and efficiency trajectory, and acceptability judgment.
+            scale_reference: five-point
+            evidence_requirements:
+              - Viability projection over the stated horizon
+              - Maintainability trajectory evidence
+              - Resource consumption or efficiency data where applicable
+              - Acceptability decision records
+            interpretation_guidance: >-
+              Viability is a distinct judgment from present condition: a subject in
+              acceptable condition with unmaintainable trajectory fails. Explicitly
+              time-bounded viability (planned retirement) is a legitimate position if
+              the retirement plan exists and is realistic.
+            modernization_relevance: >-
+              Viability findings define the planning horizon of the modernization
+              question itself: non-viable subjects must be replaced or retired on a
+              dated path, which frames everything D8 decides, and sustainability
+              requirements flow into target-state design.
+            domain_applicability:
+              - enterprise
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D3.4.1, D4.3.2, D8.1.1]
 
   - id: D7
     name: Adaptability & Modernization Readiness
@@ -400,7 +2148,53 @@ dimensions:
             name: Ease of change
             proposition: Architecture elements can be modified at an ease, speed, cost, and risk appropriate to the change they must undergo.
             assessment_type: changeability
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the subject's elements can be modified at an ease, speed,
+              cost, and risk that are appropriate to the changes the subject must undergo over
+              its expected life.
+            assessment_intent: >-
+              Evaluates the practical responsiveness of the subject to change: whether change
+              happens at the cost and risk the organization's situation demands, rather than at
+              the cost the subject's structure happens to impose.
+            assessment_question: >-
+              When this subject must change, does the change land at appropriate effort, time,
+              cost, and risk, or does the architecture itself make change harder than the
+              change merits?
+            applicability_rule: >-
+              Assess for every subject; the change demand used for assessment is the subject's
+              realistic expected change portfolio (informed by D1.4), not an idealized one. For
+              subjects with genuinely static expectations, assess against that stated
+              expectation and record the assumption.
+            assessment_method: >-
+              Change-portfolio walkthrough against effort, elapsed time, defect or rework rate,
+              and blast-radius evidence from recent real changes, cross-checked with
+              maintainability findings in D4.3.2.
+            scale_reference: five-point
+            evidence_requirements:
+              - Recent change records with effort and elapsed time
+              - Change failure, rework, or rollback evidence
+              - Catalog of dependencies or couplings per element
+              - Change reviews or retrospective notes
+            interpretation_guidance: >-
+              Score against the change the subject actually undergoes: excellent structure of
+              little use under static demand scores on adequacy, not on ambition. Distinguish
+              architectural friction (coupling, missing seams) from process friction (release
+              overhead, approvals), since remedies differ.
+            modernization_relevance: >-
+              Poor changeability is both symptom and driver: it signals decay pressure (D7.6)
+              and predicts the risk and cost of executing modernization, weighting pacing and
+              transition strategy in D7.3 and D8.6.
+            domain_applicability:
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D4.3.2, D1.4.1, D8.6.1]
       - id: D7.2
         name: Extensibility
         criteria:
@@ -408,15 +2202,107 @@ dimensions:
             name: Extensibility
             proposition: The architecture can accommodate new capabilities, requirements, technologies, and use cases without structural rework.
             assessment_type: changeability
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the subject can accommodate anticipated new capabilities,
+              requirements, technologies, and use cases without structural rework or
+              architectural breach.
+            assessment_intent: >-
+              Evaluates headroom: whether growth and novelty fit within the current structure's
+              seams, versus requiring forces that break the subject's stated intent.
+            assessment_question: >-
+              Can the next set of expected capabilities and technologies be taken on within
+              the current structure, or does each new direction force rework of the
+              architecture's shape?
+            applicability_rule: >-
+              Assess against the anticipated extension set from D1.4 (expected future duties);
+              record which anticipated extensions were used as the test. Subjects with no
+              anticipated extensions are assessed against plausibly implied ones.
+            assessment_method: >-
+              Extension-scenario review: trace how anticipated capabilities, technologies, and
+              use cases would be introduced, and whether current seams (interfaces, contracts,
+              data structures) accept them without structural rework.
+            scale_reference: five-point
+            evidence_requirements:
+              - Anticipated capability or technology list from D1.4
+              - Extension-scenario walkthrough records
+              - Interface, contract, or seam inventory
+              - Prior extension or rework history
+            interpretation_guidance: >-
+              Extensibility differs from general quality: a subject can be well-built for its
+              current duty and still resist expected growth. Score overrun concretely: which
+              anticipated extension forces rework, where, and how structural the rework would
+              be.
+            modernization_relevance: >-
+              Extensibility findings convert directly into target-state design requirements
+              (D8.1): seams to add, structure to expose, capabilities to build in (API
+              enablement, capacity for new channels). Persistent extensions-resisted findings
+              cause capability extensions to become structural demand in D7.6.
+            domain_applicability:
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D1.5.1, D7.1.1, D8.1.1]
       - id: D7.3
         name: Migration & Transition
         criteria:
           - id: D7.3.1
             name: Transition feasibility
-            proposition: The architecture can transition from current to target state with manageable disruption.
+            proposition: The architecture can transition from current state to a plausible target state with manageable disruption to the duties it performs.
             assessment_type: changeability
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the subject could transition from its current state toward
+              a plausible target state with manageable disruption to the duties it performs.
+            assessment_intent: >-
+              Evaluates the subject's built-in capacity to be moved, migrated, or
+              re-platformed, independent of which target state is chosen: whether transition
+              mechanics, seams, data accessibility, and operational decomposition support
+              staged movement.
+            assessment_question: >-
+              Could this subject be moved or transformed in controlled increments, with
+              recoverability at each step, and without excessive disruption to the duties it
+              currently performs?
+            applicability_rule: >-
+              Assess for every subject that performs operational duties; for purely conceptual
+              artifacts, assess the transition mechanics of architectures built from them.
+              The target state used for the assessment is the organization's stated one where
+              available, otherwise a plausible target derived from identified demand.
+            assessment_method: >-
+              Transition-readiness walkthrough: decomposition into transitionable parts, data
+              and interface accessibility for staged migration, cutover and recovery options,
+              and operational disruption tolerance, cross-checked with D6.3 exposures.
+            scale_reference: five-point
+            evidence_requirements:
+              - Domain, data, and operational decomposition views
+              - Data and interface accessibility evidence
+              - Cutover, rollback, or coexistence options
+              - Disruption tolerance and prior migration history
+            interpretation_guidance: >-
+              Feasibility is assessed without committing to a transition: score mechanics and
+              headroom, not intent. Central, tightly coupled subjects with inaccessible data
+              and no coexistence options score poorly regardless of design quality
+              elsewhere.
+            modernization_relevance: >-
+              Transition feasibility gates sequencing directly: what can be staged, what
+              requires strategic-cutover planning, what must wait for enabling work scored in
+              D4.4 and D7.1. It carries the risk side for the keep-invest-replace decision and
+              shapes the migration approach window in D8.6.
+            domain_applicability:
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D4.4.1, D6.3.1, D8.6.1]
       - id: D7.4
         name: Engineering & Delivery Readiness
         criteria:
@@ -424,7 +2310,52 @@ dimensions:
             name: Delivery capacity
             proposition: Development, engineering, automation, testing, deployment, and delivery capacity is sufficient to execute modernization.
             assessment_type: readiness
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the development, engineering, automation, testing,
+              deployment, and delivery capacity available to the subject is sufficient to
+              execute the modernization work it would require.
+            assessment_intent: >-
+              Evaluates the organization's capability levers, independent of the subject's
+              merits, to execute modernization: whether the skills and tooling in place can
+              be brought to bear on it.
+            assessment_question: >-
+              Is the engineering and delivery capacity needed to modernize this subject
+              present, accessible, and sufficient, including the automation and testing
+              capability required to execute change safely?
+            applicability_rule: >-
+              Assess in the context of the subject's needs: capacity requirements differ for
+              stable, well-understood subjects under routine pressure versus highly complex
+              demands. Scale the capacity test to the subject's actual modernization demand.
+            assessment_method: >-
+              Capability review of the engineering organization around the subject: staffing
+              and skills against need, test and deployment automation, engineering practice
+              maturity, and measurement or diagnostic tooling.
+            scale_reference: five-point
+            evidence_requirements:
+              - Team skills and staffing review against demand
+              - Test and deployment automation evidence
+              - Engineering practice and tooling inventory
+              - Delivery throughput or flow evidence
+            interpretation_guidance: >-
+              Capacity is capacity against demand: strong teams behind modest demand score well;
+              the same teams behind severe demand may not. Score the gap against the subject's
+              realistic modernization load, not by absolute team quality.
+            modernization_relevance: >-
+              Execution capacity limits what modernization approaches are realistic to
+              choose: high-capability teams can take on incremental re-architecture
+              and DevOps-style approaches that low-capability setups cannot safely deliver.
+              It shapes the practical option window in D8.3 and pacing in D8.6.
+            domain_applicability:
+              - enterprise
+              - information-systems
+              - data
+              - technology
+              - systems
+              - software
+              - solution
+              - implementation
+            related_criteria: [D4.4.1, D7.5.1, D8.3.1]
       - id: D7.5
         name: Organizational Readiness
         criteria:
@@ -432,7 +2363,52 @@ dimensions:
             name: Organizational capacity
             proposition: Skills, ownership, governance, sponsorship, resources, and operating readiness are sufficient to sustain modernization.
             assessment_type: readiness
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which skills beyond engineering, ownership and decision rights,
+              governance, sponsorship, funding, and operating alignment are sufficient to
+              sustain modernization of the subject over time.
+            assessment_intent: >-
+              Evaluates the surrounding organization's readiness to carry modernization
+              through: the non-engineering levers that determine whether execution support,
+              decision-making capacity, and sustained resourcing exist.
+            assessment_question: >-
+              Beyond engineering skill, are ownership, sponsorship, governance capability,
+              funding, and operating-model alignment in place to see modernization of this
+              subject through to completion?
+            applicability_rule: >-
+              Assess for every subject: organizational readiness gates all modernization,
+              regardless of the subject's own merits. Where a temporary modernization
+              initiative supplements the standing organization, assess the combined
+              organization.
+            assessment_method: >-
+              Organizational review: ownership and decision rights for the subject,
+              sponsorship visibility, governance capability for the required
+              scope of change, funding continuity, and operating-model fit.
+            scale_reference: five-point
+            evidence_requirements:
+              - Ownership and decision-rights records
+              - Sponsorship and governance evidence
+              - Funding and resourcing continuity evidence
+              - Strategy and operating-model alignment records
+            interpretation_guidance: >-
+              Weak organizational readiness is a constraint on pacing and sequencing, not a
+              discretionary input: record which lever is limiting (ownership, sponsorship,
+              governance, funding) so the finding can be acted on rather than merely scored.
+            modernization_relevance: >-
+              Organizational readiness determines whether modernization can be sustained, not
+              just started: it constrains realistic pacing in D8.6 and must be counted into
+              option selection in D8.3. Deficits here are also modernization scope items in
+              their own right (governance and skills work).
+            domain_applicability:
+              - enterprise
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - solution
+            related_criteria: [D2.5.1, D7.4.1, D8.6.1]
       - id: D7.6
         name: Modernization Constraints
         criteria:
@@ -440,7 +2416,55 @@ dimensions:
             name: Constraint exposure
             proposition: Dependencies, contractual obligations, legacy constraints, funding, policy, and transition barriers are known and their effect on modernization options understood.
             assessment_type: exposure
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which dependencies, contractual obligations, legacy constraints,
+              funding limits, policy positions, and transition barriers facing the subject
+              are known, and their effect on realistic modernization options is understood.
+            assessment_intent: >-
+              Evaluates the constraint surfaces that bound what modernization of the subject
+              can look like: what limits exist, whether they are known, and whether the
+              organization has worked through what each implies for its options.
+            assessment_question: >-
+              What dependencies, contracts, legacy anchor points, funding limits, policies,
+              and transition barriers bound this subject, and is their effect on available
+              modernization options worked through?
+            applicability_rule: >-
+              Assess for every subject, regardless of modernization intent: constraints are
+              as relevant to in-place modernization decisions as they are to target
+              selection, and unknown constraints are themselves an exposure finding.
+            assessment_method: >-
+              Constraint mapping review: dependencies (upstream and downstream), contractual
+              commitments and dates, legacy anchor points, funding and policy positions, and
+              transition barriers, each with its effect on options traced to at least one
+              consequence.
+            scale_reference: five-point
+            evidence_requirements:
+              - Dependency map or enablement-constraint register
+              - Contract and commitment terms touching the subject
+              - Funding and policy positions
+              - Constraint-consequence trace records
+            interpretation_guidance: >-
+              Constraints are positional, not defects: a locked-in vendor contract can be a
+              sound strategic choice that still constrains options. Score knowledge and
+              worked-through consequence together; an unmapped constraint degrades the score
+              even when the constraint itself is benign.
+            modernization_relevance: >-
+              Constraint exposure defines the realistic option space for D8.3 and the
+              sequencing limits for D8.6: it is the input that keeps target-state ambition
+              honest about what is achievable, and feeds the keep-invest-replace decision in
+              D8 directly.
+            domain_applicability:
+              - enterprise
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D2.4.1, D6.1.1, D8.3.1]
 
   - id: D8
     name: Target State & Modernization Value
@@ -453,7 +2477,53 @@ dimensions:
             name: Target state definition
             proposition: The desired future architecture is defined with clarity, completeness, and viability.
             assessment_type: target
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the organization can state the desired future architecture of
+              the subject with clarity, completeness, and viability: what it will look like,
+              how it will meet identified demand, and how it could realistically be reached.
+            assessment_intent: >-
+              Evaluates the quality of the target-state position, not its polish: whether the
+              organization holds a coherent, sufficient, and technically defensible picture of
+              the modernized state it intends to reach.
+            assessment_question: >-
+              Is there a stated target architecture for this subject that is clear enough to
+              direct decisions, complete enough to be meaningful, and viable enough to be
+              reached from here?
+            applicability_rule: >-
+              Assess for every subject, even where no modernization is yet intended: the state
+              of target thinking is itself the finding. Where target thinking exists only at
+              a broader scope (program or landscape level), assess coverage of this subject
+              within it.
+            assessment_method: >-
+              Target-position review: documented or elicited target statements checked for
+              clarity, identifiable resolution of identified demand (linked to D2), and
+              viability against exposures (D6) and readiness (D7).
+            scale_reference: five-point
+            evidence_requirements:
+              - Target-state statements, principles, or models
+              - Traceability from identified demand to target elements
+              - Viability review against constraints and readiness
+              - Decision records endorsing the target
+            interpretation_guidance: >-
+              The target being assessed is a stated position, not a paper artifact alone:
+              interview-elicited but undocumented targets score above none, below decided ones.
+              A complete-looking model that ignores known exposures from D6 or D7 caps at
+              inadequate on viability grounds.
+            modernization_relevance: >-
+              The target-state definition is the destination side of the modernization
+              opportunity: it converts assessed need into intended direction, anchors options
+              evaluation in D8.3, and is what sequencing in D8.6 must reach.
+            domain_applicability:
+              - enterprise
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+            related_criteria: [D1.5.1, D2.6.1, D8.3.1]
       - id: D8.2
         name: Modernization Objectives
         criteria:
@@ -461,7 +2531,51 @@ dimensions:
             name: Objectives and measurable outcomes
             proposition: Modernization objectives and the measurable outcomes they are intended to achieve are defined.
             assessment_type: target
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which modernization objectives for the subject are defined, and
+              the measurable outcomes they are intended to achieve are stated in terms that
+              allow success to be recognized after the fact.
+            assessment_intent: >-
+              Evaluates whether the organization knows what modernization of this subject is
+              for: the stated purpose, and the observable conditions that will count as the
+              objectives having been met.
+            assessment_question: >-
+              Is the reason for modernizing this subject stated, and can anyone tell, after
+              the fact, whether the intended outcomes were achieved?
+            applicability_rule: >-
+              Assess for every subject where modernization is contemplated or in flight;
+              where no objectives exist, that absence is the finding. Objectives may be
+              stated at program level, but their coverage of this subject must be traceable.
+            assessment_method: >-
+              Objective review: stated objectives checked for traceability to assessed
+              conditions and drivers (D5, D6), measurability of outcomes, baselines from which
+              improvement will be judged, and named ownership of results.
+            scale_reference: five-point
+            evidence_requirements:
+              - Stated objectives and success measures
+              - Baselines for the measurable outcomes
+              - Trace-back from objectives to assessed drivers
+              - Result ownership records
+            interpretation_guidance: >-
+              Distinguish measurable from merely restated: objectives that restate the
+              target state (modernize X, replace Y) lack outcome content. Vague objectives
+              with strong underlying drivers (from D5, D6) score as unfinished, not absent,
+              since the raw material for definition exists.
+            modernization_relevance: >-
+              Defined objectives are what turn an assessed opportunity into an accountable
+              undertaking: they anchor value expectation in D8.4, against which options in
+              D8.3 are compared and investment in D8.5 is judged.
+            domain_applicability:
+              - enterprise
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+            related_criteria: [D1.3.1, D8.4.1, D8.5.1]
       - id: D8.3
         name: Solution Alternatives
         criteria:
@@ -469,7 +2583,54 @@ dimensions:
             name: Alternatives evaluated
             proposition: Modernization alternatives and approaches are identified and evaluated.
             assessment_type: target
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which realistic modernization alternatives and approaches for the
+              subject are identified, and their fit, cost, risk, and consequence are evaluated
+              to a level that supports a choice between them.
+            assessment_intent: >-
+              Evaluates the option space: whether the organization has considered and worked
+              through materially different approaches (including keep-and-invest, incremental,
+              replacement, and retirement) rather than one plan or none.
+            assessment_question: >-
+              Have realistic, materially different modernization approaches been identified and
+              compared on their merits, including at least the option of deliberate
+              non-modernization?
+            applicability_rule: >-
+              Assess for every subject under modernization consideration; the option space
+              must include keep-and-invest as a live alternative, since deciding not to
+              modernize needs to be as soundly grounded as deciding to modernize.
+            assessment_method: >-
+              Option-space review: identified alternatives, evaluation criteria, and
+              comparison results, checked against the exposure and readiness findings (D6,
+              D7) and target definition (D8.1) for completeness and realistic scoping.
+            scale_reference: five-point
+            evidence_requirements:
+              - Identified alternatives with evaluation criteria
+              - Comparison or trade-off records
+              - Option-specific cost, risk, or consequence estimates
+              - Gate or decision records on the option space
+            interpretation_guidance: >-
+              A single option is not an evaluated option space: score lower where comparison
+              is nominal, absent, or where obviously relevant approach families (keep, extend,
+              replace, retire) were never considered. Unexamined exposure or readiness
+              findings (D6, D7) that would reshape the ranking make the evaluation
+              incomplete.
+            modernization_relevance: >-
+              The evaluated option space is the point where assessment converts into decision:
+              it draws on every prior dimension's findings, and its selected alternative
+              becomes the modernization path input in D8.6.
+            domain_applicability:
+              - enterprise
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D7.3.1, D7.6.1, D8.6.1]
       - id: D8.4
         name: Value & Benefits
         criteria:
@@ -477,7 +2638,54 @@ dimensions:
             name: Value expectation
             proposition: Expected business, operational, strategic, financial, technical, and stakeholder value from modernization is articulated.
             assessment_type: target
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the value expected from modernizing the subject is
+              articulated across business, operational, strategic, financial, technical, and
+              stakeholder dimensions, and connected to the conditions the assessment found.
+            assessment_intent: >-
+              Evaluates the stated payoff: whether expected value is articulated, attributed
+              to realistic sources, and traceable to the assessed drivers that motivate the
+              modernization.
+            assessment_question: >-
+              Is the value this modernization is expected to deliver stated, credible against
+              the assessed conditions, and attributable to identifiable sources rather than
+              asserted in general terms?
+            applicability_rule: >-
+              Assess value expectation only together with the objectives in D8.2: value
+              without objectives is unanchored, and objectives without value are unexamined.
+              Where only one of the two exists, score both accordingly and record the
+              dependency.
+            assessment_method: >-
+              Value review: stated benefits by type, traceability to assessed gaps and
+              exposures (D5, D6), attribution mechanism (how each benefit arises), and
+              beneficiary identification.
+            scale_reference: five-point
+            evidence_requirements:
+              - Stated benefits by value type
+              - Benefit trace-back to assessed findings
+              - Attribution or benefit mechanism records
+              - Beneficiary or stakeholder identification
+            interpretation_guidance: >-
+              Articulated value is a stated position, graded on faithfulness of trace, not on
+              the magnitude of promised benefit: modest but traceable value outscores grand
+              but unattributed claims, since unattributed value cannot survive delivery
+              pressure.
+            modernization_relevance: >-
+              Value expectation is the modernization case's numerator: it sizes what is worth
+              risking and spending, and is what the economics in D8.5 must be weighed against.
+              Weak value articulation against strong assessed need signals definition debt
+              more than absence of opportunity.
+            domain_applicability:
+              - enterprise
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+            related_criteria: [D1.3.1, D8.2.1, D8.5.1]
       - id: D8.5
         name: Investment & Economics
         criteria:
@@ -485,7 +2693,53 @@ dimensions:
             name: Economics understood
             proposition: Investment requirements, costs, benefits, economics, affordability, and trade-offs are understood.
             assessment_type: target
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which the investment requirements, costs, benefits, overall
+              economics, affordability, and trade-offs of modernizing the subject are
+              understood to a level that supports a commitment decision.
+            assessment_intent: >-
+              Evaluates the economic picture of the modernization opportunity: whether cost
+              and benefit positions are known, affordability is established, and trade-offs
+              have been consciously accepted.
+            assessment_question: >-
+              Are the costs, benefits, total economics, affordability, and accepted trade-offs
+              of modernizing this subject understood, including the cost and risk of not
+              modernizing?
+            applicability_rule: >-
+              Assess jointly with the economics position in D6.4 (the do-nothing baseline)
+              and the value expectation in D8.4: economics without a baseline or value frame
+              is unconstrained, so score the three as a connected position and record the
+              dependencies.
+            assessment_method: >-
+              Economics review: investment and cost position, benefit position (from D8.4),
+              do-nothing baseline (from D6.4), affordability against funding constraints (from
+              D7.6), and stated trade-offs with their acceptance records.
+            scale_reference: five-point
+            evidence_requirements:
+              - Cost and investment position for modernization
+              - Do-nothing baseline from D6.4
+              - Affordability and funding position
+              - Trade-off and acceptance records
+            interpretation_guidance: >-
+              Score understanding, not promise: complete economics that show marginal returns
+              can score higher than thin economics that assume large returns, since an
+              understood unfavorable case still permits sound decisions. The do-nothing
+              baseline is mandatory context, not optional.
+            modernization_relevance: >-
+              Economics understood is the commitment gate: it converts an evaluated
+              opportunity into a fundable decision, including a sound decision not to
+              proceed, and its cost side feeds the pacing decisions in D8.6.
+            domain_applicability:
+              - enterprise
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+            related_criteria: [D6.4.1, D8.4.1, D8.6.1]
       - id: D8.6
         name: Modernization Path
         criteria:
@@ -493,4 +2747,51 @@ dimensions:
             name: Path defined
             proposition: Sequencing, transition strategy, dependencies, incremental change, migration, and realization roadmap are defined.
             assessment_type: target
-            status: draft
+            status: modeled
+            definition: >-
+              The degree to which a modernization path for the subject is defined: sequencing,
+              transition strategy, dependency order, incremental steps, migration mechanics,
+              and a realization roadmap that connects the current state to the target.
+            assessment_intent: >-
+              Evaluates the reachability of the chosen modernization direction: whether the
+              path from current to target is plotted with enough substance to start executing
+              and to keep control while doing so.
+            assessment_question: >-
+              Is there a defined path from the current state to the target state, with
+              sequencing that respects dependencies and constraints, increments that deliver
+              value along the way, and checkpoints for staying in control?
+            applicability_rule: >-
+              Assess where a modernization direction exists (from D8.1, D8.3): a path needs a
+              destination. Where no direction is chosen, record the path finding as deferred
+              by that upstream absence rather than as a failure of path definition.
+            assessment_method: >-
+              Path review: sequencing against dependencies and constraints (D7.6),
+              increment design (value at each step, per D8.4), transition mechanics (per
+              D7.3), and control checkpoints including baseline and drift checks.
+            scale_reference: five-point
+            evidence_requirements:
+              - Sequenced path or roadmap artifact
+              - Dependency and constraint handling records
+              - Increment value and milestone definitions
+              - Control checkpoint and drift-management arrangements
+            interpretation_guidance: >-
+              A path is defined when it survives contact with the constraints assessed in
+              D7.6 and the readiness in D7: sequencing that ignores either is a plan-shaped
+              gap, not a path. Score substance over detail, since depth of planning is
+              scoped to the initiative's size.
+            modernization_relevance: >-
+              The defined path is modernization's delivery contract with the assessment: it is
+              the output of the whole framework, where assessed conditions, readiness,
+              constraints, target, options, and economics are reconciled into an executable
+              position.
+            domain_applicability:
+              - enterprise
+              - information-systems
+              - data
+              - technology
+              - systems
+              - service
+              - software
+              - solution
+              - implementation
+            related_criteria: [D7.3.1, D7.6.1, D8.3.1]

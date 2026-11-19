@@ -1,0 +1,45 @@
+# Release tagging: idempotently tags versions marked as released in
+# CHANGELOG.md (sections "## [x.y.z] — date") at the commit that introduced
+# each release note. Runs on changes to CHANGELOG.md and manually. Existing
+# tags are never moved; already-tagged versions are skipped.
+name: Release tagging
+
+on:
+  push:
+    branches: [main]
+    paths: ['CHANGELOG.md']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  tag-released-versions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Tag released versions lacking tags
+        run: |
+          set -eu
+          mapfile -t versions < <(sed -n 's/^## \[\([0-9][^\]]*\)\].*/\1/p' CHANGELOG.md)
+          if [ "${#versions[@]}" -eq 0 ]; then
+            echo "No released versions found in CHANGELOG.md"
+            exit 0
+          fi
+          for v in "${versions[@]}"; do
+            tag="v$v"
+            if git rev-parse -q --verify "refs/tags/$tag" > /dev/null; then
+              echo "$tag already exists, skipping"
+              continue
+            fi
+            sha=$(git log --format=%H -S "## [$v]" -- CHANGELOG.md | tail -n 1)
+            if [ -z "${sha:-}" ]; then
+              echo "No introducing commit found for [$v], skipping"
+              continue
+            fi
+            echo "Tagging $tag at $sha"
+            git tag "$tag" "$sha"
+            git push origin "$tag"
+          done

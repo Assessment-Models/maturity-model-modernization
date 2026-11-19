@@ -2,6 +2,8 @@
 
 **Assessment objective**: evaluate the internal composition, coherence, relationships, dependencies, and structural characteristics of the architecture.
 
+*Normative source: the fully modeled criteria for this dimension (definitions, assessment questions, applicability rules, evidence requirements, interpretation guidance, and domain applicability) live in the [criterion catalog](../../tools/criterion-catalog/criteria-catalog.yaml).*
+
 ## Subdimensions and assessment criteria
 
 | Subdimension | Assessment criteria |

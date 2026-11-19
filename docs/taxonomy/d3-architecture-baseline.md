@@ -2,6 +2,8 @@
 
 **Assessment objective**: establish what exists, what it comprises, how it is constituted, and its current condition.
 
+*Normative source: the fully modeled criteria for this dimension (definitions, assessment questions, applicability rules, evidence requirements, interpretation guidance, and domain applicability) live in the [criterion catalog](../../tools/criterion-catalog/criteria-catalog.yaml).*
+
 ## Subdimensions and assessment criteria
 
 | Subdimension | Assessment criteria |

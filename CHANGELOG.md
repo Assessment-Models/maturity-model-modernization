@@ -49,6 +49,40 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   build-out (catalog v0.1.0); asset registration per the organisation
   taxonomy is a roadmap decision (ROADMAP slice S9).
 
+### Added (S1: normative criterion catalog)
+
+- Normative criterion catalog v0.2.0 (`tools/criterion-catalog/criteria-catalog.yaml`,
+  status: normative): all 49 criteria across D1-D8 fully modeled with definition,
+  assessment intent, assessment question, assessment type, applicability rule,
+  assessment method, evidence requirements, interpretation guidance, modernization
+  relevance, domain applicability, and related criteria.
+- Principled criterion splits where a subdimension held two independently assessable
+  propositions: D4.3 split into D4.3.1 Service quality attributes and D4.3.2
+  Change-supporting quality attributes (changeability); D6.2 split into D6.2.1
+  Security exposure and D6.2.2 Privacy and trust exposure.
+- `docs/framework/glossary.md`: normalized assessment terminology (subject, scope,
+  criterion, proposition, condition, demand, exposure, criticality, readiness,
+  changeability, target, finding, evidence, confidence, applicability, baseline,
+  drift, gap, target score, opportunity, priority, profile, architecture domain,
+  driver, trigger, contextualization), added to the docs site navigation.
+
+### Changed (S1)
+
+- Criterion catalog: `version: 0.2.0`, `status: normative` (was `seed`, v0.1.0);
+  every seed criterion proposition preserved verbatim on its stable ID.
+- Taxonomy docs (overview + D1-D8) now link the criterion catalog as their
+  normative source; D4 and D6 docs document the new criterion splits; the
+  overview status states the taxonomy is complete and normative.
+- `mkdocs.yml`: corrected the markdown extension `admonition` (was `admonitions`),
+  which aborted `mkdocs build --strict` and blocked the GitHub Pages deployment.
+- `tools/README.md`: criterion-catalog status row updated to normative v0.2.0.
+
+### Added (repository operations)
+
+- `.github/workflows/release-tagging.yml`: idempotent workflow that tags released
+  versions (sections `## [x.y.z]` in `CHANGELOG.md`) at the commit that introduced
+  each release note, closing the missing v1.1.0 tag.
+
 ## [1.1.0] — 2026-11-18
 
 ### Added

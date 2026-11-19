@@ -9,8 +9,8 @@ Each slice states its goal, the drill-down areas (the high-level inputs that nee
 | Slice | Name | Status |
 |-------|------|--------|
 | S0 | Revamp scaffold | done |
-| S1 | Normative taxonomy & criterion catalog | next |
-| S2 | Assessment mechanics | planned |
+| S1 | Normative taxonomy & criterion catalog | done |
+| S2 | Assessment mechanics | next |
 | S3 | Interpretation & prioritization logic | planned |
 | S4 | Architecture domain contextualization packs | planned |
 | S5 | Assessment instrument v1 | planned |
@@ -37,7 +37,7 @@ evidence in both directions (slice S7 calibrates this).
 
 Landing README (assessment framework + maturity model as coordinated assets), manifesto, full docs corpus (framework, taxonomy, methodology, contextualization, metamodel, realization, examples), starter tools (criterion catalog seed, scoring template, discovery guide, interactive assessment app v0.1), docs site configuration, roadmap. The maturity model assets, contracts, and CI levels are unchanged.
 
-## S1 · Normative taxonomy & criterion catalog (next)
+## S1 · Normative taxonomy & criterion catalog (done)
 
 The eight dimensions currently carry subdimensions, criteria names, and modernization signals. To become normative, every criterion must be modeled as a full proposition.
 
@@ -53,6 +53,8 @@ The eight dimensions currently carry subdimensions, criteria names, and moderniz
 **Deliverables**: `tools/criterion-catalog/criteria-catalog.yaml` complete for D1-D8; glossary in `docs/framework/`.
 
 **Done when**: every criterion in the catalog carries definition, intent, type, applicability, evidence requirements, interpretation guidance, and domain applicability, and the taxonomy docs link to the catalog as their normative source.
+
+**Status: complete (catalog v0.2.0).** 49 fully modeled criteria (D4.3 and D6.2 each split into independently assessable pairs), glossary at `docs/framework/glossary.md`, taxonomy docs linking the catalog as their normative source.
 
 ## S2 · Assessment mechanics
 

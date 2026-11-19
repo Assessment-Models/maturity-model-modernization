@@ -34,4 +34,4 @@ Each dimension carries:
 
 ## Status
 
-The taxonomy is structurally complete and conceptually normative. Criteria within subdimensions are named and assessed by intent; fully modeled criterion propositions (definition, assessment type, applicability, evidence requirements, interpretation guidance) are being completed in the criterion catalog per [ROADMAP.md](../../ROADMAP.md) slice S1.
+The taxonomy is complete and normative. Every criterion is fully modeled in the [criterion catalog](../../tools/criterion-catalog/criteria-catalog.yaml) (v0.2.0, status: normative): definition, assessment intent, assessment question, assessment type, applicability rule, assessment method, evidence requirements, interpretation guidance, modernization relevance, and domain applicability. The catalog is the normative source for all criteria; these taxonomy docs carry the narrative context around it. Terminology follows the [glossary](../framework/glossary.md).

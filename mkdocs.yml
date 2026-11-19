@@ -20,7 +20,7 @@ theme:
     - navigation.sections
     - content.code.copy
 markdown_extensions:
-  - admonitions
+  - admonition
   - pymdownx.highlight
   - pymdownx.superfences:
       custom_fences:
@@ -32,6 +32,7 @@ nav:
       - The Problem: docs/framework/01-the-problem.md
       - Conceptual Model: docs/framework/02-conceptual-model.md
       - Central Proposition: docs/framework/03-central-proposition.md
+      - Glossary: docs/framework/glossary.md
   - Taxonomy:
       - Overview: docs/taxonomy/overview.md
       - D1 Strategic Alignment & Relevance: docs/taxonomy/d1-strategic-alignment.md
