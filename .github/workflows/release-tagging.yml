@@ -12,6 +12,7 @@ on:
 
 permissions:
   contents: write
+  workflows: write
 
 jobs:
   tag-released-versions:
@@ -47,4 +48,9 @@ jobs:
       - name: Surface tagger output on failure
         if: failure()
         run: |
-          tail -12 tagging.log 2>/dev/null | awk '{ printf "::error title=tagger tail %d::%s\n", NR, $0 }' || true
+          {
+            grep -iE 'rejected|error|fatal|denied|permission|refus' tagging.log | head -8 \
+              | awk '{ printf "::error title=tagger error %d::%s\n", NR, $0 }'
+            tail -4 tagging.log 2>/dev/null \
+              | awk '{ printf "::error title=tagger tail %d::%s\n", NR, $0 }'
+          } || true

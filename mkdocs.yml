@@ -29,35 +29,35 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
 nav:
   - Framework:
-      - The Problem: docs/framework/01-the-problem.md
-      - Conceptual Model: docs/framework/02-conceptual-model.md
-      - Central Proposition: docs/framework/03-central-proposition.md
-      - Glossary: docs/framework/glossary.md
+      - The Problem: framework/01-the-problem.md
+      - Conceptual Model: framework/02-conceptual-model.md
+      - Central Proposition: framework/03-central-proposition.md
+      - Glossary: framework/glossary.md
   - Taxonomy:
-      - Overview: docs/taxonomy/overview.md
-      - D1 Strategic Alignment & Relevance: docs/taxonomy/d1-strategic-alignment.md
-      - D2 Drivers & Environmental Context: docs/taxonomy/d2-drivers-context.md
-      - D3 Architecture Baseline & Condition: docs/taxonomy/d3-architecture-baseline.md
-      - D4 Architectural Fitness & Performance: docs/taxonomy/d4-fitness-performance.md
-      - D5 Structural Integrity & Complexity: docs/taxonomy/d5-structural-integrity.md
-      - D6 Exposure, Risk & Sustainability: docs/taxonomy/d6-exposure-risk.md
-      - D7 Adaptability & Modernization Readiness: docs/taxonomy/d7-adaptability-readiness.md
-      - D8 Target State & Modernization Value: docs/taxonomy/d8-target-state-value.md
+      - Overview: taxonomy/overview.md
+      - D1 Strategic Alignment & Relevance: taxonomy/d1-strategic-alignment.md
+      - D2 Drivers & Environmental Context: taxonomy/d2-drivers-context.md
+      - D3 Architecture Baseline & Condition: taxonomy/d3-architecture-baseline.md
+      - D4 Architectural Fitness & Performance: taxonomy/d4-fitness-performance.md
+      - D5 Structural Integrity & Complexity: taxonomy/d5-structural-integrity.md
+      - D6 Exposure, Risk & Sustainability: taxonomy/d6-exposure-risk.md
+      - D7 Adaptability & Modernization Readiness: taxonomy/d7-adaptability-readiness.md
+      - D8 Target State & Modernization Value: taxonomy/d8-target-state-value.md
   - Methodology:
-      - Assessment Scales & Attributes: docs/methodology/assessment-scales.md
-      - The Evidence Model: docs/methodology/evidence-model.md
-      - Interpretation Logic: docs/methodology/interpretation-logic.md
-      - Prioritization & Decision Logic: docs/methodology/prioritization.md
+      - Assessment Scales & Attributes: methodology/assessment-scales.md
+      - The Evidence Model: methodology/evidence-model.md
+      - Interpretation Logic: methodology/interpretation-logic.md
+      - Prioritization & Decision Logic: methodology/prioritization.md
   - Contextualization:
-      - Fan-Out Model: docs/contextualization/fan-out-model.md
-      - Domain Packs: docs/contextualization/domain-packs.md
+      - Fan-Out Model: contextualization/fan-out-model.md
+      - Domain Packs: contextualization/domain-packs.md
   - Metamodel:
-      - Entities: docs/metamodel/entities.md
-      - Relationships: docs/metamodel/relationships.md
-      - The Criterion Model: docs/metamodel/criterion-model.md
+      - Entities: metamodel/entities.md
+      - Relationships: metamodel/relationships.md
+      - The Criterion Model: metamodel/criterion-model.md
   - Realization:
-      - Assessment Outputs: docs/realization/outputs.md
-      - Maturity vs Modernization: docs/realization/maturity-vs-modernization.md
-      - Model Structure & Sequence: docs/realization/model-structure.md
+      - Assessment Outputs: realization/outputs.md
+      - Maturity vs Modernization: realization/maturity-vs-modernization.md
+      - Model Structure & Sequence: realization/model-structure.md
   - Examples:
-      - Integration Architecture: docs/examples/integration-architecture.md
+      - Integration Architecture: examples/integration-architecture.md

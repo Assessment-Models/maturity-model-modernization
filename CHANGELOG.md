@@ -79,6 +79,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   `ROADMAP.md`, 11 to the criterion catalog) replaced with absolute GitHub
   URLs, clearing the `mkdocs build --strict` link warnings that also blocked
   the Pages deployment.
+- `mkdocs.yml`: nav entries corrected to docs-dir-relative paths (they carried
+  a redundant `docs/` prefix that `mkdocs build --strict` rejects), the true
+  blocker behind the never-passing docs deployment.
 - `tools/README.md`: criterion-catalog status row updated to normative v0.2.0.
 
 ### Added (repository operations)
@@ -92,6 +95,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `docs.yml`: the docs build step surfaces mkdocs error output as check-run
   annotations for remote visibility, and the workflow re-runs when its own
   definition changes.
+- `release-tagging.yml`: added `workflows: write` permission; pushing a tag
+  whose tree contains workflow files is rejected without it.
 
 ## [1.1.0] — 2026-11-18
 
