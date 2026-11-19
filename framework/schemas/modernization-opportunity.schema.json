@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Assessment-Models/maturity-model-modernization/framework/schemas/modernization-opportunity.schema.json",
+  "title": "AMAF Modernization Opportunity",
+  "description": "Root schema for the opportunity package document: candidates from assessment findings, objectives, and target positions (R-OPP-1..4, R-PRI-1..6).",
+  "type": "object",
+  "required": ["schema", "assessment", "opportunities"],
+  "properties": {
+    "schema": { "const": "amaf-opportunity-set" },
+    "metamodel": { "const": "ama-metamodel 1.0.0" },
+    "assessment": { "$ref": "common.schema.json#/$defs/assessmentId" },
+    "opportunities": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/opportunity" } },
+    "objectives": { "type": "array", "items": { "$ref": "#/$defs/objective" } },
+    "target_positions": { "type": "array", "items": { "$ref": "#/$defs/targetPosition" } }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "opportunity": {
+      "type": "object",
+      "required": ["id", "statement", "finding_ids", "dimensions", "closes_gap_profile", "target_position", "significance", "profile", "status"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^O-[A-Za-z0-9][A-Za-z0-9._:-]*$" },
+        "statement": { "type": "string", "minLength": 1 },
+        "narrative": { "type": "string" },
+        "finding_ids": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string" } },
+        "asset_findings": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+        "constraint_findings": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+        "dimensions": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "pattern": "^D[1-8](\\.[0-9]+){0,2}$" } },
+        "closes_gap_profile": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "required": ["criterion", "target"],
+            "properties": {
+              "criterion": { "$ref": "common.schema.json#/$defs/criterionId" },
+              "result": { "type": "string" },
+              "target": { "$ref": "common.schema.json#/$defs/score" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "target_position": { "type": "string" },
+        "option_set": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "required": ["id", "description"],
+            "properties": {
+              "id": { "type": "string" },
+              "description": { "type": "string" },
+              "option": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "significance": { "$ref": "common.schema.json#/$defs/significance" },
+        "profile": {
+          "type": "object",
+          "required": ["primary", "rationale"],
+          "properties": {
+            "primary": { "$ref": "common.schema.json#/$defs/profileName" },
+            "secondary": { "$ref": "common.schema.json#/$defs/profileName" },
+            "rationale": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        },
+        "status": { "$ref": "common.schema.json#/$defs/opportunityStatus" },
+        "review_date": { "$ref": "common.schema.json#/$defs/date" }
+      },
+      "additionalProperties": false
+    },
+    "objective": {
+      "type": "object",
+      "required": ["id", "opportunity", "statement", "recommended_timestamp", "reviewing", "review_date"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^OBJ-[A-Za-z0-9][A-Za-z0-9._:-]*$" },
+        "opportunity": { "type": "string" },
+        "statement": { "type": "string", "minLength": 1 },
+        "success_criterion": { "type": "string" },
+        "barrier_removed": { "type": "string" },
+        "domain_criterion": { "type": "string" },
+        "effort": { "type": "string" },
+        "recommended_timestamp": { "type": "string", "pattern": "^[0-9]{4}-.+$" },
+        "recency": { "$ref": "common.schema.json#/$defs/factorLevel" },
+        "rating": { "type": "string" },
+        "review": { "type": "string" },
+        "reviewing": { "type": "string", "minLength": 1 },
+        "review_date": { "$ref": "common.schema.json#/$defs/date" },
+        "dependencies": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/dependency" } }
+      },
+      "additionalProperties": false
+    },
+    "targetPosition": {
+      "type": "object",
+      "required": ["id", "statement"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^TGT-[A-Za-z0-9][A-Za-z0-9._:-]*$" },
+        "statement": { "type": "string", "minLength": 1 },
+        "derived_from_results": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+        "opportunity": { "type": "string" },
+        "date": { "$ref": "common.schema.json#/$defs/date" }
+      },
+      "additionalProperties": false
+    },
+    "dependency": {
+      "type": "object",
+      "required": ["type", "id", "basis"],
+      "properties": {
+        "type": { "type": "string", "enum": ["depends-on", "enables", "conditional-on", "triggered-by"] },
+        "listed_in": { "type": "string", "enum": ["assumptions", "risks", "issues", "actions", "dependencies"] },
+        "id": { "type": "string" },
+        "basis": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

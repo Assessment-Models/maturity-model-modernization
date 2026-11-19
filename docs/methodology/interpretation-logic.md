@@ -102,7 +102,7 @@ Integration architecture example (full story in [the worked example](../examples
 | RES-04 | D6.3.1 Operational risk exposure | exposure | 2 | 3 | 1 | high |
 | RES-05 | D4.4.1 Integration capability | demand | 2 | 3 | 1 | high |
 | RES-06 | D7.4.1 Delivery capacity | readiness | 2 | 4 | 2 | medium |
-| RES-07 | D8.1.1 Target state definition | target | 4 | 4 | 0 | medium |
+| RES-07 | D8.1.1 Target state definition | target | 4 | 4 | 0 | high |
 
 Derived findings (per R-I3, severities per the table above):
 
@@ -113,7 +113,7 @@ Derived findings (per R-I3, severities per the table above):
 | F-3 | Constraint | Material | RES-03 | Coupling across mechanisms prevents independent change at tolerable effort |
 | F-4 | Exposure | Severe | RES-04 | Fragile integration dependencies sit outside stated tolerance on a high-criticality region |
 | F-5 | Demand | Material | RES-05 | Recorded partner growth and real-time interaction demand exceed current integration capacity |
-| F-6 | Constraint | Moderate | RES-06 | Delivery capacity for integration change is limited, chiefly by absent automated testing |
+| F-6 | Constraint | Material | RES-06 | Delivery capacity for integration change is limited, chiefly by absent automated testing |
 | F-7 | Strength | (none) | RES-07 | The target position (standardized, discoverable, independently manageable integration services) is clearly defined |
 
 Synthesis per R-O1: F-1 through F-5 concern one subject region and one course of change (establishing standardized, discoverable, independently manageable integration services closes the fragmentation, baseline, coupling, risk, and capacity gaps together). They form **O-1: Integration service standardization**. F-6 does not join the theme: it constrains the how, and becomes the basis of a preparatory initiative under the [prioritization](prioritization.md) readiness pattern. F-7 grounds O-1's target position and option set.

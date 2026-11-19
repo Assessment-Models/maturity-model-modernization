@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Assessment-Models/maturity-model-modernization/framework/schemas/assessment-instance.schema.json",
+  "title": "AMAF Assessment Instance",
+  "description": "Root schema for one assessment instance document: context, scope, subjects, criterion results, evidence, findings. Governs the instance side of the end-to-end chain.",
+  "type": "object",
+  "required": ["schema", "assessment", "subjects", "results", "evidence", "findings"],
+  "properties": {
+    "schema": { "const": "amaf-assessment-instance" },
+    "metamodel": { "const": "ama-metamodel 1.0.0" },
+    "assessment": { "$ref": "#/$defs/assessment" },
+    "subjects": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/subject" } },
+    "results": { "type": "array", "items": { "$ref": "#/$defs/result" } },
+    "evidence": { "type": "array", "items": { "$ref": "#/$defs/evidence" } },
+    "findings": { "type": "array", "items": { "$ref": "#/$defs/finding" } }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "assessment": {
+      "type": "object",
+      "required": ["id", "framework", "rules", "scope"],
+      "properties": {
+        "id": { "$ref": "common.schema.json#/$defs/assessmentId" },
+        "organization": { "type": "string" },
+        "date": { "$ref": "common.schema.json#/$defs/date" },
+        "framework": { "$ref": "common.schema.json#/$defs/modelReference" },
+        "rules": {
+          "type": "object",
+          "required": ["assessment_rules", "interpretation_rules"],
+          "properties": {
+            "assessment_rules": { "$ref": "common.schema.json#/$defs/integerVersion" },
+            "interpretation_rules": { "$ref": "common.schema.json#/$defs/integerVersion" }
+          },
+          "additionalProperties": false
+        },
+        "scope": { "type": "string", "minLength": 1 },
+        "out_of_scope": { "type": "array", "items": { "type": "string" } },
+        "status": { "$ref": "common.schema.json#/$defs/instanceLifecycle" }
+      },
+      "additionalProperties": false
+    },
+    "subject": {
+      "type": "object",
+      "required": ["id", "name"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^SUB-[A-Za-z0-9][A-Za-z0-9._:-]*$" },
+        "name": { "type": "string", "minLength": 1 },
+        "kind": { "type": "string", "enum": ["portfolio", "domain", "system", "capability", "platform", "component", "program", "organization"] },
+        "parent": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "result": {
+      "type": "object",
+      "required": ["id", "subject", "criterion", "applicable"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^RES-[A-Za-z0-9][A-Za-z0-9._:-]*$" },
+        "subject": { "type": "string" },
+        "criterion": { "$ref": "common.schema.json#/$defs/criterionId" },
+        "assessment_type": { "$ref": "common.schema.json#/$defs/assessmentType" },
+        "applicable": { "$ref": "common.schema.json#/$defs/applicability" },
+        "applicability_note": { "type": "string" },
+        "score": { "$ref": "common.schema.json#/$defs/score" },
+        "target": { "$ref": "common.schema.json#/$defs/score" },
+        "target_absence_reason": { "type": "string" },
+        "criticality": { "$ref": "common.schema.json#/$defs/criticality" },
+        "confidence": { "$ref": "common.schema.json#/$defs/confidence" },
+        "gap": { "type": "integer" },
+        "tolerance": { "type": "string", "enum": ["inside", "outside"] },
+        "committed": { "type": "boolean" },
+        "anchor_rationale": { "type": "string" },
+        "commentary": { "type": "string" },
+        "recommendation": { "type": "string" },
+        "status": { "$ref": "common.schema.json#/$defs/instanceLifecycle" }
+      },
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["id", "subject", "criterion", "description", "class", "source", "date", "relation"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^EV-[A-Za-z0-9][A-Za-z0-9._:-]*$" },
+        "subject": { "type": "string" },
+        "criterion": { "$ref": "common.schema.json#/$defs/criterionId" },
+        "result": { "type": "string" },
+        "description": { "type": "string", "minLength": 1 },
+        "class": { "$ref": "common.schema.json#/$defs/evidenceClass" },
+        "source": { "type": "string", "minLength": 1 },
+        "date": { "$ref": "common.schema.json#/$defs/date" },
+        "relation": { "$ref": "common.schema.json#/$defs/evidenceRelation" },
+        "resolves_conflict": { "type": "string" },
+        "status": { "$ref": "common.schema.json#/$defs/evidenceLifecycle" }
+      },
+      "additionalProperties": false
+    },
+    "finding": {
+      "type": "object",
+      "required": ["id", "subject", "class", "statement", "basis"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^F-[A-Za-z0-9][A-Za-z0-9._:-]*$" },
+        "subject": { "type": "string" },
+        "class": { "$ref": "common.schema.json#/$defs/findingClass" },
+        "severity": { "$ref": "common.schema.json#/$defs/severity" },
+        "statement": { "type": "string", "minLength": 1 },
+        "basis": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string" } },
+        "evidence": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+        "notes": { "type": "string" },
+        "status": { "$ref": "common.schema.json#/$defs/findingLifecycle" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Assessment-Models/maturity-model-modernization/framework/schemas/common.schema.json",
+  "title": "AMAF Metamodel v1 - Common Definitions",
+  "description": "Shared definitions for all AMAF model schemas. Identifier, version, and reference shapes align with the OpenDEA conformance-contract common schema of the pinned dea-metamodel release; AMAF-specific enums mirror the criterion catalog.",
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]*$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"
+    },
+    "integerVersion": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "modelReference": {
+      "type": "object",
+      "required": ["id"],
+      "properties": {
+        "id": { "$ref": "#/$defs/identifier" },
+        "version": { "$ref": "#/$defs/version" }
+      },
+      "additionalProperties": false
+    },
+    "date": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "criterionId": {
+      "type": "string",
+      "pattern": "^D[1-8](\\.[0-9]+){0,2}$",
+      "description": "D, subdimension, or criterion level identifier; never encodes an architecture discipline."
+    },
+    "assessmentId": {
+      "type": "string",
+      "pattern": "^AS-[A-Za-z0-9][A-Za-z0-9._:-]*$"
+    },
+    "score": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "assessmentType": {
+      "type": "string",
+      "enum": ["condition", "demand", "exposure", "readiness", "target", "criticality", "changeability"]
+    },
+    "applicability": {
+      "type": "string",
+      "enum": ["yes", "no", "deferred"]
+    },
+    "criticality": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"]
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "evidenceClass": {
+      "type": "string",
+      "enum": ["direct", "indirect"]
+    },
+    "evidenceRelation": {
+      "type": "string",
+      "enum": ["supports", "conflicts"]
+    },
+    "findingClass": {
+      "type": "string",
+      "enum": ["deficiency", "exposure", "demand", "constraint", "strength"]
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["minor", "moderate", "material", "severe"]
+    },
+    "factorLevel": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "profileName": {
+      "type": "string",
+      "enum": ["critical", "strategic", "risk_driven", "opportunity_driven"]
+    },
+    "domainId": {
+      "type": "string",
+      "enum": ["enterprise", "business", "information-systems", "data", "technology", "systems", "service", "software", "solution", "implementation"]
+    },
+    "capabilityKind": {
+      "type": "string",
+      "enum": ["requires", "introduces", "improves", "transforms", "retires"]
+    },
+    "instanceLifecycle": {
+      "type": "string",
+      "enum": ["recorded", "accepted", "superseded"]
+    },
+    "evidenceLifecycle": {
+      "type": "string",
+      "enum": ["recorded", "superseded"]
+    },
+    "findingLifecycle": {
+      "type": "string",
+      "enum": ["candidate", "recorded", "accepted", "parked", "superseded"]
+    },
+    "realizationLifecycle": {
+      "type": "string",
+      "enum": ["proposed", "committed", "in-progress", "realized", "superseded"]
+    },
+    "decisionLifecycle": {
+      "type": "string",
+      "enum": ["proposed", "accepted", "superseded"]
+    },
+    "opportunityStatus": {
+      "type": "string",
+      "enum": ["active", "standby", "deferred-pending-evidence"]
+    },
+    "outcomeStatus": {
+      "type": "string",
+      "enum": ["expected", "observed", "superseded"]
+    },
+    "valueStatus": {
+      "type": "string",
+      "enum": ["expected", "evidenced", "superseded"]
+    },
+    "citations": {
+      "type": "object",
+      "description": "Citation map: every claim key cites the record ids grounding it.",
+      "additionalProperties": { "type": "array", "items": { "type": "string" }, "minItems": 1, "uniqueItems": true }
+    },
+    "significance": {
+      "type": "object",
+      "description": "The nine prioritization factors; each level cites its basis (R-PRI-1).",
+      "required": ["strategic_importance", "modernization_need", "future_demand", "exposure", "value_potential", "urgency", "feasibility", "readiness", "dependency"],
+      "properties": {
+        "strategic_importance": { "$ref": "#/$defs/factorEntry" },
+        "modernization_need": { "$ref": "#/$defs/factorEntry" },
+        "future_demand": { "$ref": "#/$defs/factorEntry" },
+        "exposure": { "$ref": "#/$defs/factorEntry" },
+        "value_potential": { "$ref": "#/$defs/factorEntry" },
+        "urgency": { "$ref": "#/$defs/factorEntry" },
+        "feasibility": { "$ref": "#/$defs/factorEntry" },
+        "readiness": { "$ref": "#/$defs/factorEntry" },
+        "dependency": { "$ref": "#/$defs/factorEntry" }
+      },
+      "additionalProperties": false
+    },
+    "factorEntry": {
+      "type": "object",
+      "required": ["level", "basis"],
+      "properties": {
+        "level": { "$ref": "#/$defs/factorLevel" },
+        "basis": { "type": "array", "items": { "type": "string" }, "minItems": 1, "uniqueItems": true }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,406 @@
+# AMAF rule set v1 (normative machine rule registry)
+#
+# Machines need the rules; prose explains them. This file is the model-side
+# instance of the assessment_rule entity: every applicability, scoring,
+# confidence, sufficiency, aggregation, gap, weighting, finding, severity,
+# opportunity, prioritization, and dependency constraint of the framework,
+# expressed with rule ids, parameters, and evaluable expressions.
+#
+# Sources: tools/criterion-catalog/criteria-catalog.yaml v0.4.0,
+# assessment_rules (v1) and interpretation_rules (v1). The assessment
+# instrument (tools/assessment-app/logic.js) implements this set and its
+# self test locks behavior against the catalog; framework/validate.py
+# re-derives the key computations over model instances.
+#
+# Status: normative
+
+rule_set:
+  id: amaf-rules
+  version: 1
+  catalog_version: 0.4.0
+  statement: >-
+    Rules are evaluable: each entry binds to the entity kinds it constrains,
+    carries concrete parameters, and states its expression in a form the
+    instrument and validator both apply.
+
+rules:
+
+  # ---------- scoring mechanics ----------
+
+  - id: R-SCO-1
+    kind: scoring
+    applies_to: [assessment-result]
+    statement: Every score judges the subject, not the magnitude of a problem.
+    parameters:
+      direction: uniform-ascending
+      scale: five-point
+      anchors: { 1: "fails the reference expectation materially", 3: "meets it with identified deficiencies or opportunities", 5: "demonstrably exceeds or optimizes for it" }
+      anchor_rationale_required_for: [1, 5]
+    expression: >-
+      score in [1,5] when applicable == yes; score 1 or 5 requires
+      anchor_rationale on the result.
+    normative_source: { catalog: 0.4.0, section: assessment_rules.scoring }
+
+  - id: R-CONF-1
+    kind: confidence
+    applies_to: [assessment-result, evidence]
+    statement: High confidence needs independent and direct corroboration.
+    parameters:
+      minimum_items: 2
+      minimum_direct_items: 1
+      minimum_independent_sources: 2
+      unresolved_conflict: false
+      all_current: true
+    expression: >-
+      confidence == high if supporting items >= 2 and direct items >= 1 and
+      distinct sources >= 2 and no item has relation conflicts and all
+      items are current for the assessed time constraint.
+    normative_source: { catalog: 0.4.0, section: assessment_rules.confidence.assignment.high }
+
+  - id: R-CONF-2
+    kind: confidence
+    applies_to: [assessment-result, evidence]
+    statement: Medium confidence is one direct item, or agreeing indirect items from independent sources.
+    expression: >-
+      confidence == medium if (exactly one direct item) or (indirect items
+      >= 2 from >= 2 distinct sources in agreement).
+    normative_source: { catalog: 0.4.0, section: assessment_rules.confidence.assignment.medium }
+
+  - id: R-CONF-3
+    kind: confidence
+    applies_to: [assessment-result, evidence]
+    statement: Everything else is low, and unresolved conflict caps at low.
+    expression: >-
+      confidence == low otherwise; any evidence item with relation conflicts
+      and no recorded resolution forces confidence == low.
+    normative_source: { catalog: 0.4.0, section: assessment_rules.confidence.assignment.low }
+
+  - id: R-CONF-4
+    kind: confidence
+    applies_to: [assessment-result, evidence]
+    statement: Stale evidence downgrades condition confidence by one level.
+    parameters:
+      condition_staleness_days: 365
+      demand: "older than the recorded anticipated-demand window"
+    expression: >-
+      for assessment_type == condition: if any supporting item is older
+      than 365 days before the assessment date, confidence downgrades one
+      level; for demand, the recorded anticipated-demand window applies.
+    normative_source: { catalog: 0.4.0, section: assessment_rules.confidence.downgrade.stale }
+
+  - id: R-SUF-1
+    kind: sufficiency
+    applies_to: [assessment-result, assessment-subject]
+    statement: Applicability first and at least one evidence item recorded.
+    expression: >-
+      a result may be reported only if its assessment recorded an
+      applicability decision, and evidence items recorded >= 1.
+    normative_source: { catalog: 0.4.0, section: assessment_rules.sufficiency }
+
+  - id: R-SUF-2
+    kind: corroboration
+    applies_to: [assessment-result]
+    statement: Extreme scores need corroboration or are capped at medium.
+    parameters:
+      extreme_scores: [1, 5]
+      minimum_items: 2
+      minimum_direct_items: 1
+      minimum_independent_sources: 2
+      uncorroborated_cap: medium
+    expression: >-
+      if score in [1,5] and corroboration requirements unmet:
+      confidence = min(confidence, medium); flag result.sole_extreme_unverified.
+    normative_source: { catalog: 0.4.0, section: assessment_rules.sufficiency.extreme_score_corroboration }
+
+  # ---------- aggregation and gaps ----------
+
+  - id: R-AGG-1
+    kind: aggregation
+    applies_to: [assessment-result]
+    statement: Aggregates are band profiles partitioned by assessment type.
+    parameters:
+      output: band profile
+      type_partitioning: strict
+    expression: >-
+      profile(group) = counts per scale band over applicable scored results,
+      computed separately per assessment_type; cross-dimension composites,
+      averaging (subjects, scopes, types, condition with target), and
+      confidence averaging are all forbidden; provenance: every aggregate
+      references the result ids it draws from.
+    normative_source: { catalog: 0.4.0, section: assessment_rules.aggregation }
+
+  - id: R-AGG-2
+    kind: aggregation
+    applies_to: [assessment-result]
+    statement: Descriptive descriptors are labeled and never found findings.
+    expression: >-
+      below_adequacy_share = share of applicable scored results with score
+      <= 2; median over the same set; both labeled descriptive, never the
+      finding; confidence reported as minimum plus distribution.
+    normative_source: { catalog: 0.4.0, section: assessment_rules.aggregation.descriptors }
+
+  - id: R-GAP-1
+    kind: gap
+    applies_to: [assessment-result]
+    statement: Gap is target minus current, per applicable criterion with a set target.
+    expression: >-
+      gap = target - score, present only when applicable == yes and score
+      and target are set; positive is shortfall, zero no action, negative
+      overshoot.
+    normative_source: { catalog: 0.4.0, section: assessment_rules.gap }
+
+  - id: R-GAP-2
+    kind: gap
+    applies_to: [assessment-result]
+    statement: Deep overshoot produces a deliberate-excess review note.
+    parameters:
+      overshoot_review_at: -2
+    expression: >-
+      if gap <= -2: record a deliberate-excess review note on the result;
+      a sustained overshoot yields a constraint finding against the target
+      rationale.
+    normative_source: { catalog: 0.4.0, section: assessment_rules.gap }
+
+  - id: R-WGT-1
+    kind: weighting
+    applies_to: [assessment-result]
+    statement: Unweighted by default; criticality is an overlay, never a score weight.
+    expression: >-
+      profiles are unweighted; criticality_overlay = count of applicable
+      scored results with criticality in {high, critical} and score <= 3;
+      any weighted view must state its weights, rationale, and the
+      unweighted comparison.
+    normative_source: { catalog: 0.4.0, section: assessment_rules.weighting }
+
+  - id: R-MAT-1
+    kind: maturity-bridge
+    applies_to: [assessment-result, evidence]
+    statement: Practice maturity enters D7 readiness as evidence only; conversion is prohibited both ways.
+    parameters:
+      practice_scale: "maturity bands L0-L4 (dea:maturity-bands-v2)"
+      conversion: prohibited
+    expression: >-
+      a maturity result may appear as one direct-class evidence item for
+      D7 readiness criteria; for changeability criteria it is indirect
+      context only; no mapping between practice bands and the five-point
+      scale is representable. Readiness 4 or 5 with practice at L0 requires
+      direct corroboration or a recorded contradiction and downward review;
+      readiness 1 or 2 with practice at L2 or higher requires a recorded
+      subject-specific explanation.
+    normative_source: { catalog: 0.4.0, section: assessment_rules.maturity_bridge }
+
+  # ---------- findings ----------
+
+  - id: R-FLR-1
+    kind: findings-floor
+    applies_to: [assessment-finding]
+    statement: Findings require medium confidence or higher.
+    parameters:
+      floor: medium
+    expression: >-
+      only results with effective confidence >= medium inform findings;
+      low-confidence results are unverified observations that may direct
+      evidence gathering but may not found a finding.
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.findings }
+
+  - id: R-FND-1
+    kind: finding-class
+    applies_to: [assessment-finding]
+    statement: Deficiency is an applicable condition or target result at score 2 or below.
+    expression: class == deficiency if basis type in {condition, target} and score <= 2.
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.findings.classes }
+
+  - id: R-FND-2
+    kind: finding-class
+    applies_to: [assessment-finding]
+    statement: Exposure is an applicable exposure result at score 2 or below.
+    expression: class == exposure if basis type == exposure and score <= 2.
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.findings.classes }
+
+  - id: R-FND-3
+    kind: finding-class
+    applies_to: [assessment-finding]
+    statement: Demand is an applicable demand result at score 2 or below against recorded anticipated demand.
+    expression: class == demand if basis type == demand and score <= 2.
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.findings.classes }
+
+  - id: R-FND-4
+    kind: finding-class
+    applies_to: [assessment-finding]
+    statement: Constraint is an applicable changeability or readiness result at score 2 or below; it constrains the path, not the need.
+    expression: class == constraint if basis type in {changeability, readiness} and score <= 2.
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.findings.classes }
+
+  - id: R-FND-5
+    kind: finding-class
+    applies_to: [assessment-finding]
+    statement: Strength is an applicable result at score 4 or above with high confidence; an asset, never an action item.
+    expression: class == strength if basis score >= 4 and confidence == high; strength carries no severity.
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.findings.classes }
+
+  - id: R-FND-6
+    kind: finding-class
+    applies_to: [assessment-finding]
+    statement: Not findings: inapplicable, deferred, out-of-scope decisions; adequacy with no set target; parked results carry reasons.
+    expression: >-
+      no finding if applicable in {no, deferred}; no finding if score == 3
+      and target unset; every finding cites basis result ids and evidence
+      through them, else it is an assertion.
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.findings.not_findings }
+
+  - id: R-FND-7
+    kind: corroboration
+    applies_to: [assessment-finding]
+    statement: An uncorroborated extreme result may not be the sole basis of a finding.
+    expression: >-
+      a finding whose basis is a single result flagged
+      sole_extreme_unverified is not issuable; add basis or corroborate.
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.findings.single_uncorroborated_extreme_basis }
+
+  - id: R-SEV-1
+    kind: severity
+    applies_to: [assessment-finding]
+    statement: Severe severity derivation.
+    expression: >-
+      severity == severe if any basis result has score == 1, or gap >= 3,
+      or (type == exposure and tolerance == outside and criticality in
+      {high, critical}).
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.severity.derivation.severe }
+
+  - id: R-SEV-2
+    kind: severity
+    applies_to: [assessment-finding]
+    statement: Material severity derivation.
+    expression: >-
+      severity == material if any basis result has (score == 2 and
+      criticality in {high, critical}), or (type == demand and committed),
+      or (gap == 2 and score <= 2).
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.severity.derivation.material }
+
+  - id: R-SEV-3
+    kind: severity
+    applies_to: [assessment-finding]
+    statement: Moderate severity derivation.
+    expression: >-
+      severity == moderate if any basis result has score == 2 without
+      escalation, or gap == 2 while otherwise adequate today.
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.severity.derivation.moderate }
+
+  - id: R-SEV-4
+    kind: severity
+    applies_to: [assessment-finding]
+    statement: Minor covers any other qualifying finding.
+    expression: severity == minor otherwise (e.g. score 3 with a target above it).
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.severity.derivation.minor }
+
+  - id: R-SEV-5
+    kind: severity
+    applies_to: [assessment-finding]
+    statement: Severity composes by highest basis with the distribution reported, and is never added or averaged.
+    parameters:
+      no_arithmetic: true
+      ordering: { minor: 0, moderate: 1, material: 2, severe: 3 }
+    expression: severity(finding) = max over basis results, evaluated first match in [R-SEV-1, R-SEV-2, R-SEV-3, R-SEV-4].
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.severity }
+
+  # ---------- opportunities and prioritization ----------
+
+  - id: R-OPP-1
+    kind: opportunity
+    applies_to: [assessment-finding, modernization-opportunity]
+    statement: The combination test: one course of change closes the target gaps together.
+    expression: >-
+      findings combine into one opportunity iff a single course of change
+      would close their target gaps together: same subject region and the
+      same intervening elements; dimension adjacency alone never combines.
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.opportunity_synthesis }
+
+  - id: R-OPP-2
+    kind: opportunity
+    applies_to: [modernization-opportunity]
+    statement: No merging by dimension convenience, no splitting to mirror the taxonomy.
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.opportunity_synthesis.forbidden }
+
+  - id: R-OPP-3
+    kind: opportunity
+    applies_to: [modernization-opportunity]
+    statement: Required content of every opportunity.
+    parameters:
+      required: [theme and statement, finding ids, dimensions drawn on, gap profile closed, target position, option set, significance per factor]
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.opportunity_synthesis.required_content }
+
+  - id: R-OPP-4
+    kind: opportunity
+    applies_to: [modernization-opportunity]
+    statement: Strengths inform, never found; every severe or material finding is drawn in or parked with a recorded reason.
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.opportunity_synthesis }
+
+  - id: R-PRI-1
+    kind: prioritization
+    applies_to: [modernization-opportunity]
+    statement: Per-factor qualitative anchors with cited basis; levels are low, medium, high.
+    parameters:
+      factors: 9
+      factor_levels: [low, medium, high]
+    expression: an uncited factor level is an opinion and is not representable as a rating.
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.prioritization }
+
+  - id: R-PRI-2
+    kind: prioritization
+    applies_to: [modernization-opportunity]
+    statement: The dominance order fixes the primary profile.
+    parameters:
+      dominance_order: [critical, strategic, risk_driven, opportunity_driven]
+    expression: primary_profile = first satisfied in the dominance order; rationale recorded; secondary profiles recorded, never merged.
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.prioritization.assignment }
+
+  - id: R-PRI-3
+    kind: prioritization
+    applies_to: [modernization-opportunity]
+    statement: Profile conditions.
+    parameters:
+      critical: { need: high, strategic_importance: high, exposure: "at least one material or severe" }
+      strategic: { future_demand: high, value_potential: "medium or higher", target_position: defined }
+      risk_driven: { exposure: high, need: "medium or higher", driver: "lifecycle, viability, or operational" }
+      opportunity_driven: { value_potential: high, feasibility: "medium or higher", forbids: "no severe exposure finding inside" }
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.prioritization.profiles }
+
+  - id: R-PRI-4
+    kind: prioritization
+    applies_to: [modernization-opportunity]
+    statement: Nothing satisfied is standby with a review date, never force-fit.
+    parameters: { none_satisfied: standby, review_date_required: true }
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.prioritization.assignment.none_satisfied }
+
+  - id: R-PRI-5
+    kind: prioritization
+    applies_to: [modernization-initiative]
+    statement: Ordering: primary profile, then severity basis, then dependency order; ties remain ties with the owner decision recorded.
+    expression: no composite rank is representable.
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.prioritization.ordering }
+
+  - id: R-PRI-6
+    kind: dependency
+    applies_to: [modernization-initiative]
+    statement: Dependency edges cite their basis; the graph is acyclic.
+    parameters:
+      kinds: [enables, blocks]
+      acyclic: true
+    expression: >-
+      a cycle is a recorded sequencing conflict, resolved by rescoping or
+      decomposition.
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.prioritization.dependency }
+
+  - id: R-PREP-1
+    kind: prioritization
+    applies_to: [modernization-initiative]
+    statement: The preparatory-initiative pattern.
+    parameters:
+      applies_when: "critical profile, or material or severe severity, with readiness or feasibility low"
+      steps:
+        - record the readiness or feasibility gap as constraint findings
+        - define a preparatory initiative with its own target and success criterion
+        - stage the opportunity into increments whose first stage fits current readiness
+        - set a re-assessment gate before each subsequent stage commits
+    expression: effect: priority and profile unchanged; only the path changes.
+    normative_source: { catalog: 0.4.0, section: interpretation_rules.prioritization.preparatory_pattern }

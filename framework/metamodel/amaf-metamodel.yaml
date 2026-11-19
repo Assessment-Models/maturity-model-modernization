@@ -1,0 +1,495 @@
+# AMAF Metamodel manifest (normative)
+#
+# The semantic root for all AMAF model artifacts: the formalization of
+# docs/metamodel/ (entities, relationships, criterion model) into model
+# packages, entity schemas, identifier conventions, lifecycle stages, rule
+# bindings, and lineage to the organisation metamodel. Content here mirrors
+# the conventions of the pinned OpenDEA metamodel release and never
+# overrides it; AMAF-specific kinds are declared as explicit extensions.
+#
+# Status: normative ( ROADMAP slice S6 )
+
+id: ama-metamodel
+name: Architecture Modernization Assessment Framework metamodel
+version: 1.0.0
+status: normative
+
+lineage:
+  metamodel:
+    organization: technehub-labs
+    repository: dea-metamodel
+    pinned_commit: 1bbc08d08587931ea0b4fb9d1ee5cf00bd5852f0
+    note: >-
+      Immutable pin, same pin declared by the repository's contract handshake
+      in .github/workflows/contract-conformance.yml.
+  contract_suite:
+    id: opendea-assessment-contract-suite
+    version: 1.0.0
+    reference: https://github.com/technehub-labs/dea-metamodel/tree/main/assessment-models/contracts/contract-suite.yaml
+  maturity_model:
+    repository: maturity-model-modernization
+    model: maturity-model
+    version: 1.1.0
+    role: >-
+      Readiness instrument for dimension D7 results as one direct-class
+      practice evidence item per the catalog maturity bridge; conversion
+      between practice bands and the five-point scale is prohibited.
+
+artifacts:
+  # Three distinct but interconnected artifacts, per the ROADMAP S6 drill.
+  - id: assessment-framework-model
+    file: assessment-framework-model.yaml
+    packages: [assessment-framework]
+    summary: The reusable assessment structure: dimensions, criteria, scales, methods, rules, domains.
+  - id: assessment-instance-model
+    file: assessment-instance-model.yaml
+    packages: [assessment-instance]
+    summary: One execution of the framework: context, scope, subjects, results, evidence, findings.
+  - id: modernization-realization-model
+    files:
+      - modernization-opportunity-model.yaml
+      - architecture-contextualization-model.yaml
+      - modernization-realization-model.yaml
+    packages: [modernization-opportunity, architecture-contextualization, modernization-realization]
+    summary: From findings to value: opportunities, domain fan-out, interventions, initiatives, outcomes, value realization.
+
+entity_packages:
+  - id: assessment-framework
+    home: assessment-framework-model.yaml
+    entities:
+      - assessment-framework
+      - assessment-dimension
+      - assessment-subdimension
+      - assessment-criterion
+      - assessment-scale
+      - architecture-domain
+      - architecture-concern
+      - assessment-method
+      - assessment-rule
+  - id: assessment-instance
+    home: assessment-instance-model.yaml
+    entities:
+      - assessment
+      - assessment-subject
+      - assessment-result
+      - evidence
+      - assessment-finding
+  - id: modernization-opportunity
+    home: modernization-opportunity-model.yaml
+    entities:
+      - modernization-opportunity
+      - modernization-objective
+      - target-architecture
+  - id: architecture-contextualization
+    home: architecture-contextualization-model.yaml
+    entities:
+      - domain-pack
+      - implication-template
+      - domain-implication
+  - id: modernization-realization
+    home: modernization-realization-model.yaml
+    entities:
+      - modernization-intervention
+      - capability-implication
+      - architecture-decision
+      - modernization-initiative
+      - outcome
+      - value-realization
+
+schemas:
+  common: ../schemas/common.schema.json
+  packages:
+    - package: assessment-framework
+      schema: ../schemas/assessment-framework.schema.json
+    - package: assessment-instance
+      schema: ../schemas/assessment-instance.schema.json
+    - package: modernization-opportunity
+      schema: ../schemas/modernization-opportunity.schema.json
+    - package: architecture-contextualization
+      schema: ../schemas/architecture-contextualization.schema.json
+    - package: modernization-realization
+      schema: ../schemas/modernization-realization.schema.json
+  relationships: ../schemas/relationship.schema.json
+
+identifier_conventions:
+  criterion_ids:
+    description: >-
+      Digits and dotted levels only; an architecture discipline is never part
+      of the identifier. Domain applicability is a relationship.
+    patterns:
+      - { entity: assessment-dimension, pattern: "^D[1-8]$", example: "D5" }
+      - { entity: assessment-subdimension, pattern: "^D[1-8]\\.[0-9]+$", example: "D5.2" }
+      - { entity: assessment-criterion, pattern: "^D[1-8]\\.[0-9]+\\.[0-9]+$", example: "D5.2.1" }
+  record_ids:
+    description: >-
+      Instance-side records are identified with a short prefix plus a
+      per-assessment sequential number; the prefixes are part of the model.
+    prefixes:
+      - { prefix: AS-, entity: assessment, scope: organization wide }
+      - { prefix: SUB-, entity: assessment-subject, scope: assessment }
+      - { prefix: RES-, entity: assessment-result, scope: assessment }
+      - { prefix: EV-, entity: evidence, scope: assessment }
+      - { prefix: F-, entity: assessment-finding, scope: assessment }
+      - { prefix: O-, entity: modernization-opportunity, scope: assessment }
+      - { prefix: OBJ-, entity: modernization-objective, scope: opportunity }
+      - { prefix: TGT-, entity: target-architecture, scope: assessment }
+      - { prefix: IMP-, entity: domain-implication, scope: assessment }
+      - { prefix: IV-, entity: modernization-intervention, scope: assessment }
+      - { prefix: CAP-, entity: capability-implication, scope: intervention }
+      - { prefix: DEC-, entity: architecture-decision, scope: assessment }
+      - { prefix: INIT-, entity: modernization-initiative, scope: assessment }
+      - { prefix: OUT-, entity: outcome, scope: initiative }
+      - { prefix: VR-, entity: value-realization, scope: outcome }
+  rule_ids:
+    description: >-
+      Rules are identified R-<KIND>-<n> within the AMAF rule set; normative
+      machine instances live in rules/amaf-rules.yaml and bind to their
+      catalog source section.
+    pattern: "^R-[A-Z]+-[0-9]+$"
+    example: "R-GAP-1"
+
+versioning:
+  framework: >-
+    The criterion catalog is versioned independently (tools/criterion-catalog,
+    SemVer). A dimension, subdimension, or criterion change is additive at
+    MINOR, removal or identifier change is MAJOR, attribute clarification
+    without semantic change is PATCH.
+  rules: >-
+    The assessment_rules and interpretation_rules blocks carry their own
+    integer version inside the catalog; a rules bump is normative and is
+    recorded in the rule set with its normative_source.
+  instances: >-
+    Assessment instances record the catalog version and rules versions they
+    were assessed under (result lineage). An instance is immutable once
+    reported; corrections supersede by a new version of the record with
+    lineage fields, never by editing a published one.
+  metamodel: >-
+    This metamodel follows SemVer; its compatibility with the maturity model
+    contract set is additive only (this metamodel adds entities and does not
+    modify the maturity model side).
+
+lifecycle:
+  framework_entities: [draft, modeled, normative, deprecated, retired]
+  instance_records: [recorded, accepted, superseded]
+  interpretation_records: [candidate, recorded, accepted, parked, superseded]
+  realization_records: [proposed, committed, in-progress, realized, superseded]
+  notes: >-
+    Lifecycle stages are declared per entity type in the model files; record
+    schemas carry a status field with the matching enum. Lifecycle values for
+    framework assets follow the catalog conventions (modeled entities must
+    carry the full modeled attribute set before normative).
+
+rule_bindings:
+  rule_set: rules/amaf-rules.yaml
+  rule_set_version: 1
+  expression_expectation: >-
+    Every applicability, scoring, aggregation, confidence, interpretation,
+    severity, and prioritization constraint is expressed as a machine rule
+    instance (rule id, kind, applies_to, parameters, expression,
+    normative_source). Prose in docs/ explains rules; this model carries them.
+  implementations:
+    instrument: tools/assessment-app/logic.js
+    note: >-
+      The assessment instrument implements the rule set; the self test
+      (tools/assessment-app/selftest.js) locks behavior against the catalog.
+
+contract_conformance_evaluation:
+  # The S6 contract evaluation drill: what AMAF assets conform to, what is
+  # recommended, and what would require an organisation-level change request.
+  conforms_today:
+    - family: conformance-contract
+      version: "1.0"
+      basis: >-
+        Common identifier, version, and modelReference shapes are aligned with
+        the shared schema definitions; AMAF schemas are additive consumers,
+        not publishers, of that vocabulary.
+    - family: maturity-scale-contract
+      version: "1.0"
+      basis: >-
+        Declared by the repository handshake through the maturity model
+        (model.yaml); AMAF treats practice bands as evidence input only.
+  recommended_adopt:
+    - family: assessment-contract
+      version: "1.0"
+      basis: >-
+        The assessment-model, instrument, execution, result, item, and
+        evidence schemas are the natural home for AMAF instances; adoption
+        is an S7 decision (mapping the assessment instance model onto the
+        OpenDEA AssessmentResult/AssessmentExecution lineage fields).
+  not_applicable_now:
+    - family: benchmark-contract
+      basis: >-
+        Cohorts and percentile comparisons are not part of AMAF scope;
+        revisited only if cross-organization benchmarking is ever required.
+    - family: scoring-contract
+      basis: >-
+        AMAF aggregation is band profiles with explicit prohibition of
+        composite scoring; the plug-in scoring/aggregation machinery does not
+        apply to the criterion scale side.
+  extension_needed:
+    - family: none
+      note: >-
+        The modernization chain (opportunity, implication, intervention,
+        initiative, outcome, value realization) has no published contract
+        family. The entities are declared here as AMAF-owned; promotion to an
+        organisation contract family would follow the dea-metamodel change
+        request process and is deliberately not attempted from this repo.
+
+relationship_vocabulary:
+  opendea_mapping_note: >-
+    AMAF relationships map onto the published relationship types where the
+    semantics match exactly; AMAF-specific kinds are declared per relationship
+    below and are extensions, clearly labeled. A mapping value of null means
+    the relationship is an AMAF extension pending organisation review.
+  amaf_kinds:
+    - contains            # structural composition, mapped to opendea contains
+    - applies_to          # criterion to domain applicability, maps to opendea occurs-in
+    - raises_concern      # domain to concern, maps to opendea produces
+    - contextualizes      # concern tailors a criterion for its domain, AMAF extension
+    - assessed_by         # criterion to method, maps to opendea uses
+    - measured_on         # criterion to scale, maps to opendea uses
+    - assesses            # assessment to subject, maps to opendea assesses
+    - yields              # subject to result, maps to opendea produces
+    - evaluates           # result to criterion, maps to opendea evaluates
+    - evidenced_by        # result or finding to evidence, maps to opendea supports
+    - derived_from        # finding from results, opportunity from findings, maps to opendea derived-from
+    - informed_by         # opportunity from findings of any class, maps to opendea derived-from
+    - spans               # opportunity or initiative across domains, maps to opendea occurs-in
+    - pursues             # opportunity to objectives, maps to opendea requires
+    - directed_at         # opportunity to target architecture, maps to opendea requires
+    - addresses           # intervention to findings and opportunities, maps to opendea implements
+    - implies_capability  # intervention to capability implication, kind parameter required/...; maps to opendea produces
+    - governed_by         # intervention to decision, maps to opendea interpreted-by
+    - realized_by         # intervention to initiative, maps to opendea implements
+    - realizes            # initiative to outcome, maps to opendea produces
+    - expressed_by        # implication to template, maps to opendea uses
+    - belongs_to          # implication to opportunity, maps to opendea occurs-in
+    - co_occurs_with      # implication to implication, AMAF extension (link, not duplication)
+
+relationships:
+  # Consolidated registry. `source_multiplicity` is per source instance;
+  # `target_multiplicity` is per source instance toward the target kind.
+  # `doc` marks which of the 18 documented relationships (docs/metamodel/
+  # relationships.md) the entry formalizes.
+  - id: R-01
+    source: assessment-framework
+    kind: contains
+    target: assessment-dimension
+    multiplicity: 1..*
+    opendea: contains
+    constraint: at least one dimension; eight in catalog 0.4.0
+    doc: 1
+  - id: R-02
+    source: assessment-dimension
+    kind: contains
+    target: assessment-subdimension
+    multiplicity: 1..*
+    opendea: contains
+    doc: 2
+  - id: R-03
+    source: assessment-subdimension
+    kind: contains
+    target: assessment-criterion
+    multiplicity: 1..*
+    opendea: contains
+    doc: 3
+  - id: R-04
+    source: assessment-criterion
+    kind: applies_to
+    target: architecture-domain
+    multiplicity: 0..*
+    opendea: occurs-in
+    constraint: relationship only; never encoded in the criterion identifier
+    doc: 4
+  - id: R-05
+    source: architecture-domain
+    kind: raises_concern
+    target: architecture-concern
+    multiplicity: 0..*
+    opendea: produces
+    doc: 5
+  - id: R-06
+    source: architecture-concern
+    kind: contextualizes
+    target: assessment-criterion
+    multiplicity: 0..*
+    opendea: null
+    constraint: AMAF extension; a concern never defines a criterion, it tailors assessment scope in its domain
+  - id: R-07
+    source: assessment-criterion
+    kind: assessed_by
+    target: assessment-method
+    multiplicity: 1..*
+    opendea: uses
+    constraint: the catalog criterion carries exactly one method text; context variants are additional method records
+    doc: 6
+  - id: R-08
+    source: assessment-criterion
+    kind: measured_on
+    target: assessment-scale
+    multiplicity: 1..1
+    opendea: uses
+    constraint: five-point criterion scale in catalog 0.4.0
+  - id: R-09
+    source: assessment-framework
+    kind: contains
+    target: assessment-rule
+    multiplicity: 1..*
+    opendea: contains
+    constraint: rule instances live in the catalog assessment_rules and interpretation_rules and are mirrored in the AMAF rule set
+  - id: R-10
+    source: assessment
+    kind: assesses
+    target: assessment-subject
+    multiplicity: 1..*
+    opendea: assesses
+    constraint: profiles never mix subjects
+    doc: 7
+  - id: R-11
+    source: assessment-subject
+    kind: yields
+    target: assessment-result
+    multiplicity: 0..*
+    opendea: produces
+    constraint: unique per (subject, criterion)
+    doc: 8
+  - id: R-12
+    source: assessment-result
+    kind: evaluates
+    target: assessment-criterion
+    multiplicity: 1..1
+    opendea: evaluates
+    constraint: exactly one criterion per result
+  - id: R-13
+    source: assessment-result
+    kind: evidenced_by
+    target: evidence
+    multiplicity: 0..*
+    opendea: supports
+    constraint: confidence rules apply per evidence items; extreme scores demand corroboration (R-CONF rules)
+    doc: 9
+  - id: R-14
+    source: assessment-finding
+    kind: derived_from
+    target: assessment-result
+    multiplicity: 1..*
+    opendea: derived-from
+    constraint: a finding without basis is an assertion; class is derived from basis, never chosen
+    doc: 10
+  - id: R-15
+    source: assessment-finding
+    kind: evidenced_by
+    target: evidence
+    multiplicity: 0..*
+    opendea: supports
+    constraint: findings cite evidence through their basis results unless citing directly
+  - id: R-16
+    source: modernization-opportunity
+    kind: informed_by
+    target: assessment-finding
+    multiplicity: 1..*
+    opendea: derived-from
+    constraint: asset findings inform, never found (R-O4); constraint findings supply the path, never the need
+    doc: 11
+  - id: R-17
+    source: modernization-opportunity
+    kind: spans
+    target: architecture-domain
+    multiplicity: 0..*
+    opendea: occurs-in
+    doc: 12
+  - id: R-18
+    source: modernization-opportunity
+    kind: pursues
+    target: modernization-objective
+    multiplicity: 1..*
+    opendea: requires
+    doc: 13
+  - id: R-19
+    source: modernization-opportunity
+    kind: directed_at
+    target: target-architecture
+    multiplicity: 0..1
+    opendea: requires
+    constraint: target position derives from target-type results (D8)
+    doc: 13
+  - id: R-20
+    source: modernization-intervention
+    kind: addresses
+    target: modernization-opportunity
+    multiplicity: 1..*
+    opendea: implements
+    doc: 14
+  - id: R-21
+    source: modernization-intervention
+    kind: implies_capability
+    target: capability-implication
+    multiplicity: 0..*
+    opendea: produces
+    constraint: kind parameter in {requires, introduces, improves, transforms, retires}
+    doc: 15
+  - id: R-22
+    source: architecture-decision
+    kind: governed_by
+    target: modernization-intervention
+    multiplicity: 0..*
+    opendea: interpreted-by
+    constraint: one decision may govern several interventions; an accepted decision is required before an initiative commits
+    doc: 16
+  - id: R-23
+    source: modernization-initiative
+    kind: realized_by
+    target: modernization-intervention
+    multiplicity: 1..*
+    opendea: implements
+    constraint: one initiative realizes one or more interventions
+    doc: 16
+  - id: R-24
+    source: modernization-initiative
+    kind: realizes
+    target: outcome
+    multiplicity: 0..*
+    opendea: produces
+    doc: 17
+  - id: R-25
+    source: outcome
+    kind: evidenced_by
+    target: value-realization
+    multiplicity: 0..*
+    opendea: supports
+    doc: 18
+  # Contextualization fan-out.
+  - id: R-26
+    source: domain-pack
+    kind: addresses
+    target: architecture-domain
+    multiplicity: 1..1
+    opendea: implements
+    constraint: exactly one pack per domain
+  - id: R-27
+    source: domain-implication
+    kind: derived_from
+    target: assessment-finding
+    multiplicity: 1..*
+    opendea: derived-from
+    constraint: the pack never re-scores; implications derive from findings through templates
+  - id: R-28
+    source: domain-implication
+    kind: expressed_by
+    target: implication-template
+    multiplicity: 1..1
+    opendea: uses
+  - id: R-29
+    source: domain-implication
+    kind: belongs_to
+    target: modernization-opportunity
+    multiplicity: 1..1
+    opendea: occurs-in
+    constraint: implications of the same opportunity share its identifier
+  - id: R-30
+    source: domain-implication
+    kind: co_occurs_with
+    target: domain-implication
+    multiplicity: 0..*
+    opendea: null
+    constraint: AMAF extension; co-occurrence links record overlap, never duplicate statements

@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Assessment-Models/maturity-model-modernization/framework/schemas/assessment-framework.schema.json",
+  "title": "AMAF Assessment Framework",
+  "description": "Root schema for the framework package document: dimensions, subdimensions, criteria, scales, methods, and rules of the catalog.",
+  "type": "object",
+  "required": ["schema", "id", "version"],
+  "properties": {
+    "schema": { "const": "amaf-framework" },
+    "id": { "const": "ama-framework" },
+    "version": { "$ref": "common.schema.json#/$defs/version" },
+    "criticality_rule": { "$ref": "#/$defs/criticalityRule" },
+    "scales": { "type": "array", "items": { "$ref": "#/$defs/scale" } },
+    "domains": { "type": "array", "items": { "$ref": "#/$defs/domain" } },
+    "dimensions": { "type": "array", "items": { "$ref": "#/$defs/dimension" } },
+    "methods": { "type": "object", "additionalProperties": { "$ref": "#/$defs/method" } },
+    "rules": { "type": "array", "items": { "$ref": "#/$defs/rule" } }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "criticalityRule": {
+      "type": "object",
+      "required": ["rating", "domain"],
+      "properties": {
+        "rating": { "type": "string" },
+        "domain": { "type": "string" },
+        "architectural": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "scale": {
+      "type": "object",
+      "required": ["id", "name"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "domain": {
+      "type": "object",
+      "required": ["id", "name"],
+      "properties": {
+        "id": { "$ref": "common.schema.json#/$defs/domainId" },
+        "name": { "type": "string" },
+        "definition": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "method": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "definition": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "rule": {
+      "type": "object",
+      "required": ["id", "name"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "definition": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "dimension": {
+      "type": "object",
+      "required": ["id", "name", "objective"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^D[1-8]$" },
+        "name": { "type": "string" },
+        "objective": { "type": "string" },
+        "definition": { "type": "string", "enum": ["modernization posture", "modernization depth", "modernization constraints"] }
+      },
+      "additionalProperties": false
+    }
+  }
+}

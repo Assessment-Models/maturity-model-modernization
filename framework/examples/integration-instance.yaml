@@ -1,0 +1,524 @@
+# AMAF worked example instance: integration architecture modernization.
+# Sections: assessment_instance (package: assessment), opportunity_set
+# (package: modernization opportunity), contextualization (package:
+# architecture contextualization), realization (package: modernization
+# realization). The assessment and opportunity sections restate the docs
+# worked example (docs/examples, docs/methodology) verbatim in structure;
+# the realization tail is an illustrative extension marked informative in
+# the framework README.
+# Local conventions: ids use the prefixes declared in the metamodel
+# manifest (AS-, SUB-, RES-, EV-, F-, O-, OBJ-, TGT-, IMP-, IT-, IV-, CAP-,
+# DEC-, INIT-, OUT-, VR-).
+
+assessment_instance:
+  metamodel: "ama-metamodel 1.0.0"
+  assessment:
+    id: AS-EXAMPLE-integration
+    organization: "Example organization (worked example)"
+    date: "2026-04-02"
+    framework: { id: ama-framework, version: "0.4.0" }
+    rules: { assessment_rules: 1, interpretation_rules: 1 }
+    scope: "The integration architecture of the organization: the mechanisms, interfaces, contracts, and delivery practices by which internal systems and external partners exchange data and events, assessed as one portfolio-level subject."
+    out_of_scope: ["Partner-side applications", "Commercial off-the-shelf product internals", "Long-run infrastructure cost benchmarking"]
+    status: recorded
+  subjects:
+    - id: SUB-1
+      name: "Integration architecture (portfolio)"
+      kind: portfolio
+  results:
+    - id: RES-01
+      subject: SUB-1
+      criterion: D5.4.1
+      assessment_type: condition
+      applicable: yes
+      score: 1
+      target: 4
+      gap: 3
+      criticality: high
+      confidence: high
+      anchor_rationale: "Anchor: integration logic duplicated across four mechanisms with no consolidation decision; plurality of same-kind platforms and tools with no managed redundancy posture."
+      commentary: "Integration logic is fragmented and duplicated across mechanisms."
+      recommendation: "Consolidate integrations into a standard service pattern; eliminate redundant mechanisms."
+      status: recorded
+    - id: RES-02
+      subject: SUB-1
+      criterion: D3.2.1
+      assessment_type: condition
+      applicable: yes
+      score: 1
+      target: 3
+      gap: 2
+      criticality: high
+      confidence: high
+      anchor_rationale: "Anchor: interfaces largely undocumented; representation inventory mostly missing and inconsistent where present; no authoritative interface inventory."
+      commentary: "The integration baseline is not reliably represented."
+      recommendation: "Institute a managed interface inventory and representation standard."
+      status: recorded
+    - id: RES-03
+      subject: SUB-1
+      criterion: D5.2.1
+      assessment_type: changeability
+      applicable: yes
+      score: 2
+      target: 4
+      gap: 2
+      criticality: high
+      confidence: high
+      commentary: "Coupling across mechanisms prevents independent change at tolerable effort."
+      recommendation: "Introduce decoupled interfaces and boundary ownership; see criterion catalog D5.2.1 intervention patterns."
+      status: recorded
+    - id: RES-04
+      subject: SUB-1
+      criterion: D6.3.1
+      assessment_type: exposure
+      applicable: yes
+      score: 2
+      target: 3
+      gap: 1
+      criticality: high
+      confidence: high
+      tolerance: outside
+      commentary: "Fragile integration dependencies sit outside stated tolerance on a high-criticality region."
+      recommendation: "Bring integration dependencies inside tolerance before expanding exposure."
+      status: recorded
+    - id: RES-05
+      subject: SUB-1
+      criterion: D4.4.1
+      assessment_type: demand
+      applicable: yes
+      score: 2
+      target: 3
+      gap: 1
+      criticality: high
+      confidence: medium
+      committed: true
+      commentary: "Recorded partner growth and real-time interaction demand exceed current integration capacity."
+      recommendation: "Grow integration capacity on the standardized pattern rather than per-customer builds."
+      status: recorded
+    - id: RES-06
+      subject: SUB-1
+      criterion: D7.4.1
+      assessment_type: readiness
+      applicable: yes
+      score: 2
+      target: 4
+      gap: 2
+      criticality: medium
+      confidence: medium
+      commentary: "Delivery capacity for integration change is limited, chiefly by absent automated testing."
+      recommendation: "Build automated integration testing capability before staged standardization commits."
+      status: recorded
+    - id: RES-07
+      subject: SUB-1
+      criterion: D8.1.1
+      assessment_type: target
+      applicable: yes
+      score: 4
+      target: 4
+      gap: 0
+      criticality: medium
+      confidence: high
+      commentary: "The target position (standardized, discoverable, independently manageable integration services) is clearly defined."
+      recommendation: "Hold the target; use it as the anchor for staged standardization."
+      status: recorded
+  evidence:
+    - id: EV-01
+      subject: SUB-1
+      criterion: D5.4.1
+      result: RES-01
+      description: "Interface and platform inventory worksheet: four distinct integration mechanisms implement overlapping message and file exchange; no consolidation or acceptance decision exists for any of them."
+      class: direct
+      source: "Integration inventory worksheet 2026-03"
+      date: "2026-03-15"
+      relation: supports
+      status: recorded
+    - id: EV-02
+      subject: SUB-1
+      criterion: D5.4.1
+      result: RES-01
+      description: "Consecutive quarterly platform review minutes record tool sprawl of same kind and reject a consolidation proposal on scheduling grounds; duplication accepted without a managed decision trail."
+      class: indirect
+      source: "Platform review minutes 2025-Q4 to 2026-Q1"
+      date: "2026-02-20"
+      relation: supports
+      status: recorded
+    - id: EV-03
+      subject: SUB-1
+      criterion: D3.2.1
+      result: RES-02
+      description: "Document sample verification: of 30 sampled interfaces, 24 have no current representation; the estate-level interface model has not been updated in over two years and conflicts with observed flows."
+      class: direct
+      source: "Representation fidelity review worksheet"
+      date: "2026-03-18"
+      relation: supports
+      status: recorded
+    - id: EV-04
+      subject: SUB-1
+      criterion: D3.2.1
+      result: RES-02
+      description: "Onboarding incident log shows three recent incidents traced to undocumented interface behavior; support staff rely on tribal knowledge."
+      class: indirect
+      source: "Incident register extract"
+      date: "2026-02-27"
+      relation: supports
+      status: recorded
+    - id: EV-05
+      subject: SUB-1
+      criterion: D5.2.1
+      result: RES-03
+      description: "Dependency map extract: point-to-point interfaces dominate; change-impact analysis shows 63 percent of interface changes propagate to three or more systems."
+      class: direct
+      source: "Dependency and integration map review"
+      date: "2026-03-20"
+      relation: supports
+      status: recorded
+    - id: EV-06
+      subject: SUB-1
+      criterion: D5.2.1
+      result: RES-03
+      description: "Release history: median lead time for interface-affecting changes is four times the portfolio median, corroborating change propagation."
+      class: indirect
+      source: "Release history log 2025-10 to 2026-03"
+      date: "2026-03-25"
+      relation: supports
+      status: recorded
+    - id: EV-07
+      subject: SUB-1
+      criterion: D6.3.1
+      result: RES-04
+      description: "Failure-mode review of the two highest-criticality integration paths: no recovery test has been executed in the past 18 months; blast radius of a broker outage spans order capture and settlement."
+      class: direct
+      source: "Operability review worksheet"
+      date: "2026-03-10"
+      relation: supports
+      status: recorded
+    - id: EV-08
+      subject: SUB-1
+      criterion: D6.3.1
+      result: RES-04
+      description: "Continuity runbook references a warm standby configuration that the platform team decommissioned in 2025; runbook drift confirmed by the platform team."
+      class: indirect
+      source: "Continuity runbook and platform team interview"
+      date: "2026-03-12"
+      relation: supports
+      status: recorded
+    - id: EV-09
+      subject: SUB-1
+      criterion: D4.4.1
+      result: RES-05
+      description: "Ecosystem strategy 2026 names partner expansion and real-time interaction as committed business moves; onboarding metrics show four-month median onboarding lead time against a six-week business expectation."
+      class: direct
+      source: "Ecosystem strategy 2026 and onboarding metrics"
+      date: "2026-03-05"
+      relation: supports
+      status: recorded
+    - id: EV-10
+      subject: SUB-1
+      criterion: D4.4.1
+      result: RES-05
+      description: "Exchange behavior test under latency spikes on one representative flow shows degraded but functional behavior; capacity headroom assessment is partial."
+      class: indirect
+      source: "Integration stress test log"
+      date: "2026-03-08"
+      relation: supports
+      status: recorded
+    - id: EV-11
+      subject: SUB-1
+      criterion: D7.4.1
+      result: RES-06
+      description: "Capability review: integration regression testing is manual and partial; no shared test data management and no automated interface contracts in CI pipelines."
+      class: direct
+      source: "Delivery capability review"
+      date: "2026-03-22"
+      relation: supports
+      status: recorded
+    - id: EV-12
+      subject: SUB-1
+      criterion: D7.4.1
+      result: RES-06
+      description: "Engineering practice survey shows automation budget already approved for the next planning cycle, suggesting an interference with the limited-capacity reading."
+      class: indirect
+      source: "Engineering practice survey"
+      date: "2026-03-14"
+      relation: conflicts
+      resolves_conflict: EV-11
+      status: superseded
+    - id: EV-13
+      subject: SUB-1
+      criterion: D8.1.1
+      result: RES-07
+      description: "Target position review: the agreed target statement names standardized, discoverable, independently manageable integration services, links to the committed demand, and is judged viable against exposures and readiness."
+      class: direct
+      source: "Target state workshop notes"
+      date: "2026-03-28"
+      relation: supports
+      status: recorded
+    - id: EV-14
+      subject: SUB-1
+      criterion: D8.1.1
+      result: RES-07
+      description: "Investment committee minutes reference the target position verbatim in the 2026 modernization envelope."
+      class: indirect
+      source: "Investment committee minutes 2026-03"
+      date: "2026-03-31"
+      relation: supports
+      status: recorded
+  findings:
+    - id: F-1
+      subject: SUB-1
+      class: deficiency
+      severity: severe
+      statement: "Integration logic is fragmented and duplicated across mechanisms (gap 3)."
+      basis: [RES-01]
+      evidence: [EV-01, EV-02]
+      status: recorded
+    - id: F-2
+      subject: SUB-1
+      class: deficiency
+      severity: severe
+      statement: "The integration baseline is not reliably represented; interfaces are largely undocumented."
+      basis: [RES-02]
+      evidence: [EV-03, EV-04]
+      status: recorded
+    - id: F-3
+      subject: SUB-1
+      class: constraint
+      severity: material
+      statement: "Coupling across mechanisms prevents independent change at tolerable effort."
+      basis: [RES-03]
+      evidence: [EV-05, EV-06]
+      status: recorded
+    - id: F-4
+      subject: SUB-1
+      class: exposure
+      severity: severe
+      statement: "Fragile integration dependencies sit outside stated tolerance on a high-criticality region."
+      basis: [RES-04]
+      evidence: [EV-07, EV-08]
+      status: recorded
+    - id: F-5
+      subject: SUB-1
+      class: demand
+      severity: material
+      statement: "Recorded partner growth and real-time interaction demand exceed current integration capacity."
+      basis: [RES-05]
+      evidence: [EV-09, EV-10]
+      status: recorded
+    - id: F-6
+      subject: SUB-1
+      class: constraint
+      severity: material
+      statement: "Delivery capacity for integration change is limited, chiefly by absent automated testing."
+      basis: [RES-06]
+      evidence: [EV-11, EV-12]
+      notes: "R-SEV-2: score 2 with a positive gap of 2 on a below-adequacy result. EV-12 conflicts and was superseded by direct review EV-11 (R-CONF-3); fresh automation investment exists on paper but no capability exists today."
+      status: recorded
+    - id: F-7
+      subject: SUB-1
+      class: strength
+      statement: "The target position (standardized, discoverable, independently manageable integration services) is clearly defined."
+      basis: [RES-07]
+      evidence: [EV-13, EV-14]
+      notes: "Strengths carry no severity (R-FND-5)."
+      status: recorded
+
+opportunity_set:
+  metamodel: "ama-metamodel 1.0.0"
+  assessment: AS-EXAMPLE-integration
+  opportunities:
+    - id: O-1
+      statement: "Integration service standardization."
+      narrative: "Consolidate the duplicated integration estate onto standardized, discoverable, independently manageable integration services, closing the severe fragmentation and representation deficiencies while moving fragile dependencies inside tolerance."
+      finding_ids: [F-1, F-2, F-3, F-4, F-5]
+      asset_findings: [F-7]
+      constraint_findings: [F-6]
+      dimensions: [D2, D3, D4, D5, D6, D8]
+      closes_gap_profile:
+        - { criterion: D5.4.1, result: RES-01, target: 4 }
+        - { criterion: D3.2.1, result: RES-02, target: 3 }
+        - { criterion: D5.2.1, result: RES-03, target: 4 }
+        - { criterion: D6.3.1, result: RES-04, target: 3 }
+        - { criterion: D4.4.1, result: RES-05, target: 3 }
+      target_position: TGT-1
+      option_set:
+        - { id: OPT-1, description: "Contract-first standardization on a managed integration service pattern with staged rollout." }
+        - { id: OPT-2, description: "Point-to-point hardening without consolidation; closes little of the gap profile." }
+        - { id: OPT-3, description: "Single-vendor platform consolidation big bang; conflicts with F-3 constraint and F-6 readiness." }
+      significance:
+        strategic_importance: { level: high, basis: ["Criticality overlay high across the subject region", "D1 support for ecosystem expansion"] }
+        modernization_need: { level: high, basis: [F-1, F-2, F-4] }
+        future_demand: { level: high, basis: [F-5] }
+        exposure: { level: high, basis: [F-4] }
+        value_potential: { level: medium, basis: [RES-07] }
+        urgency: { level: medium, basis: ["Ecosystem expansion trigger characterized, not yet date-committed"] }
+        feasibility: { level: medium, basis: [F-3] }
+        readiness: { level: low, basis: [F-6] }
+        dependency: { level: high, basis: [O-2] }
+      profile:
+        primary: critical
+        secondary: strategic
+        rationale: "Need high, importance high, and a material-or-severe exposure finding inside (F-4): Critical Modernization is satisfied and, by dominance order, primary (R-PRI-4). Strategic conditions also hold (future demand high, target defined via RES-07), recorded as secondary."
+      status: active
+      review_date: "2026-07-02"
+    - id: O-2
+      statement: "Partner onboarding simplification."
+      narrative: "Once integration services are standardized, onboarding flows can be productized; this opportunity is enabled by O-1 and is recorded to keep the dependency structure explicit."
+      finding_ids: [F-5]
+      asset_findings: [F-7]
+      constraint_findings: []
+      dimensions: [D2, D4, D5]
+      closes_gap_profile:
+        - { criterion: D4.4.1, result: RES-05, target: 3 }
+      target_position: TGT-1
+      option_set:
+        - { id: OPT-4, description: "Self-service onboarding on the standardized service pattern." }
+      significance:
+        strategic_importance: { level: high, basis: ["Ecosystem expansion strategy", F-5] }
+        modernization_need: { level: medium, basis: [F-5] }
+        future_demand: { level: high, basis: [F-5] }
+        exposure: { level: medium, basis: ["No tolerance breach specific to onboarding after F-4 treatment"] }
+        value_potential: { level: medium, basis: [RES-07] }
+        urgency: { level: medium, basis: ["Onboarding lead time pressure"] }
+        feasibility: { level: medium, basis: [F-7] }
+        readiness: { level: low, basis: [F-6] }
+        dependency: { level: medium, basis: [O-1] }
+      profile:
+        primary: strategic
+        rationale: "Severity basis material, demand high, target defined: Strategic Modernization is satisfied and primary (R-PRI-4)."
+      status: active
+      review_date: "2026-07-02"
+  objectives:
+    - id: OBJ-1
+      opportunity: O-1
+      statement: "Standardize integration services on shared contracts under automated regression coverage."
+      success_criterion: "All new partner integrations onboard through the shared service contract pattern with automated regression tests in the pipeline before production exposure."
+      barrier_removed: "The absence of automated integration testing (F-6) is removed so staged standardization can commit."
+      domain_criterion: D4.4.1
+      effort: medium
+      recommended_timestamp: "2026-H1"
+      recency: high
+      rating: "Primary modernization objective of O-1"
+      reviewing: "Architecture Review Board"
+      review: "Reviewed with the investment committee envelope; scheduled"
+      review_date: "2026-07-02"
+      dependencies:
+        - { type: depends-on, listed_in: dependencies, id: INIT-0, basis: "The automated testing capability must exist before standardization stages commit." }
+        - { type: enables, listed_in: dependencies, id: O-2, basis: "Shared service contracts and discoverability." }
+  target_positions:
+    - id: TGT-1
+      statement: "Standardized, discoverable, independently manageable integration services."
+      derived_from_results: [RES-07]
+      opportunity: O-1
+      date: "2026-03-28"
+
+contextualization:
+  metamodel: "ama-metamodel 1.0.0"
+  assessment: AS-EXAMPLE-integration
+  packs: []
+  templates:
+    - { id: IT-ENTERPRISE-DEFICIENCY, domain: enterprise, phrasing: "Align investment and mandates to remove duplicated capability mandates.", criterion_cap: D5.4 }
+    - { id: IT-ISA-DEFICIENCY, domain: information-systems, phrasing: "Reduce redundancy and system dependency in the exchange fabric.", criterion_cap: D5.4 }
+    - { id: IT-SOFTWARE-DEFICIENCY, domain: software, phrasing: "Introduce modular components and decoupled interfaces.", criterion_cap: D5.2 }
+    - { id: IT-TECHNOLOGY-DEFICIENCY, domain: technology, phrasing: "Modernize platforms, runtime, connectivity, and tooling.", criterion_cap: D4.4 }
+  implications:
+    - id: IMP-ENT-1
+      domain: enterprise
+      criterion: D5.4.1
+      implication: "Align ecosystem integration strategy and investment."
+      template: IT-ENTERPRISE-DEFICIENCY
+      co_occurrence_with: [D1.1.1]
+      assessment_impact: "Reads F-1 and F-5; duplicated integration mechanisms scatter investment across overlapping mandates."
+      provenance: "Enterprise domain pack, deficiency template, basis findings F-1, F-5 (docs/examples/integration-architecture.md fan-out table)."
+      status: recorded
+    - id: IMP-ISA-1
+      domain: information-systems
+      criterion: D5.4.1
+      implication: "Reduce integration redundancy and system dependency."
+      template: IT-ISA-DEFICIENCY
+      co_occurrence_with: [D5.2.1]
+      assessment_impact: "Reads F-1 and F-2; redundancy propagates through undocumented system dependencies."
+      provenance: "Information systems domain pack, deficiency template, basis findings F-1, F-2."
+      status: recorded
+    - id: IMP-SW-1
+      domain: software
+      criterion: D5.2.1
+      implication: "Introduce modular integration components and decoupled interfaces."
+      template: IT-SOFTWARE-DEFICIENCY
+      co_occurrence_with: [D5.4.1]
+      assessment_impact: "Reads F-1 and F-3; coupling prevents independent change at tolerable effort."
+      provenance: "Software domain pack, deficiency template, basis findings F-1, F-3; constraint F-6 stages it."
+      status: recorded
+    - id: IMP-TEC-1
+      domain: technology
+      criterion: D4.4.1
+      implication: "Modernize integration platforms, runtime, connectivity, and tooling."
+      template: IT-TECHNOLOGY-DEFICIENCY
+      co_occurrence_with: [D5.4.1]
+      assessment_impact: "Reads F-1; the platform layer carries the duplication, and constraint F-6 stages the tooling part of the move."
+      provenance: "Technology domain pack, deficiency template, basis finding F-1; constraint F-6 stages it."
+
+realization:
+  metamodel: "ama-metamodel 1.0.0"
+  assessment: AS-EXAMPLE-integration
+  interventions:
+    - id: IV-1
+      opportunity: O-1
+      statement: "Standardize integration as managed services with shared contracts."
+      rationale: "Closes the gap profile of O-1 (RES-01..RES-05) by consolidating onto the target position anchored by RES-07; the staged shape respects F-3 and the preparatory path respects F-6."
+      profile: critical
+      status: committed
+  capability_implications:
+    - { id: CAP-1, intervention: IV-1, capability: "Automated integration regression testing", kind: introduces, affected_dimension: D7.4.1, notes: "Closes constraint F-6; the preparatory capability of P-1." }
+    - { id: CAP-2, intervention: IV-1, capability: "Integration service contract governance and discoverability", kind: introduces, affected_dimension: D4.4.1, notes: "Anchors the fan-out implications IMP-ENT-1..IMP-TEC-1." }
+  decisions:
+    - id: DEC-1
+      statement: "Adopt the managed integration service pattern with contract-first onboarding."
+      intervention: IV-1
+      decides: IV-1
+      status: accepted
+      date: "2026-05-15"
+      options_considered: [OPT-1, OPT-2, OPT-3]
+      consequences: "Option set of O-1 resolved in favor of OPT-1; staged rollout with a readiness re-assessment gate before each stage commits."
+      decided_by: "Architecture Review Board"
+  initiatives:
+    - id: INIT-0
+      statement: "Automated integration testing capability (P-1)."
+      objectives: [OBJ-1]
+      closes_findings: [F-6]
+      stages:
+        - { id: stage-1, name: "Automated regression coverage for the top integration flows", status: realized, start: "2026-05-20", end: "2026-08-20", target: "Regression tests in CI for the two highest-criticality integration paths", closes: [F-6], outputs: ["Shared test capability and interface contracts in CI"] }
+      depends_on: []
+      status: realized
+    - id: INIT-1
+      statement: "Staged integration service standardization."
+      intervention: IV-1
+      preparatory: [INIT-0]
+      objectives: [OBJ-1]
+      stages:
+        - { id: stage-1, name: "Contract-first pilot on two partner flows", status: realized, start: "2026-06-01", end: "2026-09-30", target: "Pilot flows live on the shared contract pattern with automated regression", closes: [F-1, F-5], outputs: ["Service contract template", "Discoverability registry (pilot)"] }
+        - { id: stage-1-gate, name: "Re-assessment gate", status: realized, target: "Readiness re-scored before the next stage commits (D7.4.1)", outputs: [] }
+        - { id: stage-2, name: "Estate rollout with dependency tolerance work", status: in-progress, start: "2026-10-01", target: "Mechanisms consolidated onto the standard pattern; exposures inside tolerance", closes: [F-2, F-3, F-4], outputs: ["Managed interface inventory", "Retired point-to-point interfaces"] }
+      depends_on: [INIT-0]
+      status: in-progress
+  outcomes:
+    - id: OUT-1
+      initiative: INIT-1
+      statement: "Partner integrations onboard through the shared service contract pattern."
+      status: observed
+      expected: "New partner integrations use the standard contract pattern with automated regression coverage before production exposure."
+      observed: "The first two pilot partner flows onboarded on the pattern; onboarding lead time for the pilot reduced from four months to seven weeks."
+      date: "2026-09-30"
+      measure: "Onboarding lead time and regression escape rate, per the OBJ-1 success criterion."
+      evidence: ["Pilot onboarding records 2026-Q3", "Release records 2026-Q3"]
+  value_realizations:
+    - id: VR-1
+      outcome: OUT-1
+      opportunity: O-1
+      statement: "Faster, lower-risk partner onboarding on the standardized integration pattern."
+      status: evidenced
+      expected: "Reduced partner onboarding effort and integration defect escape, consistent with the value factors recorded for O-1."
+      evidenced: "Pilot onboarding lead time reduced to seven weeks with zero pilot-scope production incidents in the first quarter."
+      measure: { id: integration-onboarding-lead-time, version: "1.0.0" }
+      date: "2026-09-30"
+      successor_assessment: null
+      basis_findings: [F-1, F-5]

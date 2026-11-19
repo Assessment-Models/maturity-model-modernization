@@ -1,0 +1,134 @@
+# Assessment Instance Model (AMAF artifact 2 of 3)
+#
+# One execution of the framework: context, scope, subjects, criterion
+# results, evidence, and findings. An instance is immutable once reported;
+# corrections supersede records, they never edit them.
+#
+# Status: normative
+
+artifact:
+  id: assessment-instance-model
+  metamodel: ama-metamodel 1.0.0
+  package: assessment-instance
+  normative_source: https://github.com/Assessment-Models/maturity-model-modernization/blob/main/docs/methodology/scoring-mechanics.md
+
+entities:
+
+  assessment:
+    purpose: An instantiated assessment for a defined organization, scope, subjects, and context.
+    attributes:
+      id: { type: assessment-id, pattern: "^AS-[A-Za-z0-9][A-Za-z0-9._:-]*$", required: true }
+      organization: { type: string }
+      date: { type: date }
+      framework: { type: model-reference, of: assessment-framework, with: catalog version, multiplicity: 1..1, required: true }
+      rules: { type: object, fields: [assessment_rules version, interpretation_rules version], required: true }
+      scope: { type: text, required: true, note: "what is assessed, at which level, what is out of scope" }
+      out_of_scope: { type: text-list }
+      subjects: { type: reference-list, of: assessment-subject, multiplicity: 1..*, required: true }
+      status: { type: enum, of: [recorded, accepted, superseded] }
+    key_attributes: [id]
+    lifecycle: [recorded, accepted, superseded]
+    constraints:
+      - Profiles never mix subjects; every aggregate names the subject it draws from.
+      - An instance records the exact catalog and rules versions it was assessed under (result lineage).
+
+  assessment-subject:
+    purpose: The architecture, element, capability, system, portfolio, domain, or scope under evaluation.
+    attributes:
+      id: { type: cite-id, prefix: SUB-, required: true }
+      name: { type: string, required: true }
+      kind: { type: enum, of: [portfolio, domain, system, capability, platform, component, program, organization] }
+      parent: { type: reference, of: assessment-subject, multiplicity: 0..1, note: for hierarchical subject regions }
+      results: { type: reference-list, of: assessment-result, multiplicity: 0..* }
+    key_attributes: [id]
+    lifecycle: [recorded, accepted, superseded]
+    constraints:
+      - Uniqueness: at most one result per (subject, criterion) at any point in time; a rescore supersedes the earlier result record.
+
+  assessment-result:
+    purpose: A scored criterion for one subject.
+    attributes:
+      id: { type: cite-id, prefix: RES-, required: true }
+      subject: { type: reference, of: assessment-subject, multiplicity: 1..1, required: true }
+      criterion: { type: criterion-id, multiplicity: 1..1, required: true }
+      assessment_type: { type: enum, of: [condition, demand, exposure, readiness, target, criticality, changeability] }
+      applicable: { type: enum, of: [yes, no, deferred], required: true }
+      applicability_note: { type: text, note: "reason; required when applicable is no or deferred" }
+      score: { type: integer, range: 1..5, note: present only when applicable is yes }
+      target: { type: integer, range: 1..5, optional: true, note: per applicable criterion; absence is a recorded decision }
+      target_absence_reason: { type: text, note: required when the criterion applies and no target is set }
+      criticality: { type: enum, of: [low, medium, high, critical] }
+      confidence: { type: enum, of: [low, medium, high], from: evidence rules }
+      confidence_basis: { type: reference-list, of: evidence, multiplicity: 0..* }
+      gap: { type: integer, computed: target - score, note: per rule R-GAP-1 }
+      tolerance: { type: enum, of: [inside, outside], note: exposure-type results only }
+      committed: { type: boolean, note: demand-type results only }
+      commentary: { type: text }
+      recommendation: { type: text }
+      anchor_rationale: { type: text, note: required when score is 1 or 5 by the anchors rule }
+      status: { type: enum, of: [recorded, accepted, superseded] }
+    key_attributes: [id]
+    lifecycle: [recorded, accepted, superseded]
+    constraints:
+      - Applicability first: a no or deferred decision clears the score and is recorded, not scored.
+      - Types are never collapsed: condition, exposure, demand, readiness, changeability, target, criticality results stay separate.
+      - Extreme scores (1, 5) require corroboration per the sufficiency rule; uncorroborated extremes are capped at medium confidence.
+      - Gap is present only when applicable is yes and score and target are both set; positive is shortfall, zero no action, negative overshoot (review at -2).
+
+  evidence:
+    purpose: Information supporting an assessment result.
+    attributes:
+      id: { type: cite-id, prefix: EV-, required: true }
+      subject: { type: reference, of: assessment-subject, multiplicity: 1..1, required: true }
+      criterion: { type: criterion-id, multiplicity: 1..1, required: true }
+      description: { type: text, required: true }
+      class: { type: enum, of: [direct, indirect], required: true }
+      source: { type: string, required: true, note: independence is by distinct source }
+      date: { type: date, required: true }
+      relation: { type: enum, of: [supports, conflicts], required: true }
+      resolves_conflict: { type: text, note: required when conflicts items exist and confidence is above low }
+      status: { type: enum, of: [recorded, superseded] }
+    key_attributes: [id]
+    lifecycle: [recorded, superseded]
+    constraints:
+      - Minimum one item recorded before a result is reported.
+      - A direct item is first-hand for the subject region; an indirect item corroborates by inference.
+      - For condition criteria, an item older than 12 months downgrades the confidence one level.
+
+  assessment-finding:
+    purpose: An interpreted observation arising from results and evidence.
+    attributes:
+      id: { type: cite-id, prefix: F-, required: true }
+      subject: { type: reference, of: assessment-subject, multiplicity: 1..1, required: true }
+      class: { type: enum, of: [deficiency, exposure, demand, constraint, strength], derived: true }
+      severity: { type: enum, of: [minor, moderate, material, severe], derived: true, note: strengths carry no severity }
+      statement: { type: text, required: true, note: faithful to basis; may not claim more than its basis }
+      basis: { type: reference-list, of: assessment-result, multiplicity: 1..*, required: true }
+      evidence: { type: reference-list, of: evidence, multiplicity: 0..* }
+      notes: { type: text, note: parked findings record their reason here }
+      status: { type: enum, of: [candidate, recorded, accepted, parked, superseded] }
+    key_attributes: [id]
+    lifecycle: [candidate, recorded, accepted, parked, superseded]
+    constraints:
+      - Class and severity are derived from basis per the interpretation rules, never chosen; an override is recorded as an annotation with reason.
+      - Findings floor: only results at medium confidence or higher inform findings; low-confidence results are unverified observations.
+      - An uncorroborated extreme result may not be the sole basis of a finding.
+      - Inapplicable, deferred, and out-of-scope results generate no findings; score 3 with no set target generates none.
+      - Parked findings carry a recorded reason (accepted risk, deferred decision, re-scope).
+
+package_relationships:
+  - R-10
+  - R-11
+  - R-12
+  - R-13
+  - R-14
+  - R-15
+
+traversal:
+  # What this package contributes to the S6 done-when: a full instance is
+  # representable from context through findings with no free-text sidecar.
+  invariants:
+    - Every result references exactly one catalog criterion and one subject of its assessment.
+    - Every finding is reachable from its basis results and, through them, from evidence.
+    - Aggregates are band profiles partitioned by assessment type; below-adequacy share and median are descriptive only; confidence reports the minimum and the distribution.
+    - Averaging across subjects, scopes, or assessment types is prohibited at any level of this model.

@@ -52,4 +52,4 @@ The model supports the following:
 
 ## Traceability
 
-The structure preserves traceability from the assessment criterion through evidence, findings, modernization objectives, architecture decisions, initiatives, and outcomes. Formal cardinality constraints and model artifacts for OpenDEA are being produced per [ROADMAP.md](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/ROADMAP.md) slice S6.
+The structure preserves traceability from the assessment criterion through evidence, findings, modernization objectives, architecture decisions, initiatives, and outcomes. Formal cardinality constraints and model artifacts now exist in the [framework directory](https://github.com/Assessment-Models/maturity-model-modernization/tree/main/framework): the relationship registry (30 typed relationships with multiplicities and OpenDEA mappings) is part of the [metamodel manifest](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/framework/metamodel/amaf-metamodel.yaml), per [ROADMAP.md](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/ROADMAP.md) slice S6.

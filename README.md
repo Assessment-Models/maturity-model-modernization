@@ -111,7 +111,7 @@ maturity-model-modernization/
 │   ├── criterion-catalog/          # criterion catalog (YAML) and scoring template
 │   ├── interview-guide/            # discovery and evidence-gathering guides
 │   └── assessment-app/             # interactive assessment instrument (client-side)
-├── framework/                      # AMAF formal model artifacts (scaffold, per ROADMAP S6)
+├── framework/                      # AMAF formal model artifacts: metamodel, schemas, machine rules, validated example (ROADMAP S6)
 ├── examples/                       # worked scoring examples (maturity model)
 ├── scripts/                        # local_validate.py (Level 1) and score_assessment.py
 └── .github/workflows/              # local model CI, contract conformance, docs site

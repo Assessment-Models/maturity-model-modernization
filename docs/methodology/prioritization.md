@@ -120,7 +120,7 @@ Recording follows the [output templates](../realization/output-templates.md).
 
 ## Worked example: prioritizing O-1
 
-Continuing from [interpretation logic](interpretation-logic.md): O-1, Integration service standardization, with basis findings F-1 (severe), F-4 (severe), F-2 (severe), F-3 (material), F-5 (material), constraint F-6 (moderate), asset F-7.
+Continuing from [interpretation logic](interpretation-logic.md): O-1, Integration service standardization, with basis findings F-1 (severe), F-4 (severe), F-2 (severe), F-3 (material), F-5 (material), constraint F-6 (material), asset F-7.
 
 Factor levels for O-1, each with basis:
 

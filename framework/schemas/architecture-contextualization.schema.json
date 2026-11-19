@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Assessment-Models/maturity-model-modernization/framework/schemas/architecture-contextualization.schema.json",
+  "title": "AMAF Architecture Contextualization",
+  "description": "Root schema for the contextualization package document: domain packs, implication templates, and recorded domain implications with provenance.",
+  "type": "object",
+  "required": ["schema", "packs", "templates", "implications"],
+  "properties": {
+    "schema": { "const": "amaf-contextualization" },
+    "metamodel": { "const": "ama-metamodel 1.0.0" },
+    "assessment": { "$ref": "common.schema.json#/$defs/assessmentId" },
+    "packs": { "type": "array", "minItems": 0, "items": { "$ref": "#/$defs/domainPack" } },
+    "templates": { "type": "array", "items": { "$ref": "#/$defs/implicationTemplate" } },
+    "implications": { "type": "array", "items": { "$ref": "#/$defs/domainImplication" } }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "domainPack": {
+      "type": "object",
+      "required": ["domain", "version", "name"],
+      "properties": {
+        "domain": { "$ref": "common.schema.json#/$defs/domainId" },
+        "version": { "$ref": "common.schema.json#/$defs/version" },
+        "name": { "type": "string" },
+        "status": { "type": "string", "enum": ["stub", "recorded", "superseded"] },
+        "domain_definition": { "type": "string" },
+        "criterion_implications": { "type": "array", "items": { "$ref": "#/$defs/domainImplication" } }
+      },
+      "additionalProperties": false
+    },
+    "implicationTemplate": {
+      "type": "object",
+      "required": ["id", "domain"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^IT-[A-Za-z0-9][A-Za-z0-9._:-]*$" },
+        "domain": { "$ref": "common.schema.json#/$defs/domainId" },
+        "phrasing": { "type": "string" },
+        "criterion_cap": { "type": "string" },
+        "severity_guidance": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "domainImplication": {
+      "type": "object",
+      "required": ["id", "domain", "criterion", "implication"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^IMP-[A-Za-z0-9][A-Za-z0-9._:-]*$" },
+        "domain": { "$ref": "common.schema.json#/$defs/domainId" },
+        "criterion": { "$ref": "common.schema.json#/$defs/criterionId" },
+        "implication": { "type": "string", "minLength": 1 },
+        "template": { "type": "string" },
+        "co_occurrence_with": { "type": "array", "uniqueItems": true, "items": { "$ref": "common.schema.json#/$defs/criterionId" } },
+        "assessment_impact": { "type": "string" },
+        "provenance": { "type": "string", "minLength": 1 },
+        "status": { "type": "string", "enum": ["recorded", "superseded"] }
+      },
+      "additionalProperties": false
+    }
+  }
+}

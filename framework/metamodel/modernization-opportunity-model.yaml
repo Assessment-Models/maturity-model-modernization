@@ -1,0 +1,114 @@
+# Modernization Opportunity Model (AMAF artifact 3 of 3, part 1)
+#
+# From findings to a governed course of change: opportunities, objectives,
+# target positions, significance per factor, and prioritization profiles.
+# Synthesis is rule-governed (rules R-OPP in the AMAF rule set), not
+# creative clustering.
+#
+# Status: normative
+
+artifact:
+  id: modernization-realization-model
+  part: modernization-opportunity
+  metamodel: ama-metamodel 1.0.0
+  package: modernization-opportunity
+  normative_source: https://github.com/Assessment-Models/maturity-model-modernization/blob/main/docs/methodology/prioritization.md
+
+entities:
+
+  modernization-opportunity:
+    purpose: A recognized course of change inferred from findings under the combination test.
+    attributes:
+      id: { type: cite-id, prefix: O-, required: true }
+      assessment: { type: reference, of: assessment, multiplicity: 1..1, required: true }
+      subject: { type: reference, of: assessment-subject, multiplicity: 0..1 }
+      statement: { type: text, required: true, note: theme and change statement }
+      finding_ids: { type: reference-list, of: assessment-finding, multiplicity: 1..*, required: true, note: must include every severe or material finding drawn in }
+      asset_findings: { type: reference-list, of: assessment-finding, class: strength, multiplicity: 0..* }
+      constraint_findings: { type: reference-list, of: assessment-finding, class: constraint, multiplicity: 0..* }
+      dimensions: { type: list, of: dimension ids, multiplicity: 1..* }
+      closes_gap_profile: { type: list-of-objects, fields: [criterion, target], multiplicity: 0..* }
+      target_position: { type: text, note: derived from target-type results }
+      option_set: { type: list-of-objects, fields: [option, status], multiplicity: 1..*, note: includes rejected options }
+      significance: { type: object, note: the nine factors; each entry is level plus cited basis }
+      profile: { type: object, fields: [primary, secondary, rationale] }
+      status: { type: enum, of: [active, standby, deferred-pending-evidence] }
+      review_date: { type: date, note: required for standby }
+    key_attributes: [id]
+    lifecycle: [candidate, recorded, active, standby, deferred-pending-evidence, superseded]
+    constraints:
+      - Combination test: a single course of change must close the target gaps together; dimension adjacency alone never combines findings.
+      - Strengths inform: feasibility, option set, target rationale; an opportunity resting solely on strengths is not created.
+      - No finding parked silently: severe or material findings are drawn in or parked with a recorded reason.
+      - Significance is per factor, each level citing its grounding; never compressed to a single number.
+      - Profile assignment follows the dominance order; primary is the first satisfied, secondary recorded, never merged; unsatisfied is standby with a review date.
+
+  modernization-objective:
+    purpose: The outcome or change objective associated with the opportunity.
+    attributes:
+      id: { type: cite-id, prefix: OBJ-, required: true }
+      opportunity: { type: reference, of: modernization-opportunity, multiplicity: 1..1, required: true }
+      statement: { type: text, required: true }
+      barrier_removed: { type: text, note: which finding-proven barrier the objective removes }
+      success_criterion: { type: text, required: true, note: measurable or verifiable }
+      addresses_findings: { type: reference-list, of: assessment-finding, multiplicity: 0..* }
+      status: { type: enum, of: [proposed, accepted, superseded] }
+    key_attributes: [id]
+    lifecycle: [proposed, accepted, superseded]
+    constraints:
+      - An objective states a verifiable outcome, never an activity list.
+
+  target-architecture:
+    purpose: The desired architecture position toward which change is directed.
+    attributes:
+      id: { type: cite-id, prefix: TGT-, required: true }
+      assessment: { type: reference, of: assessment, multiplicity: 0..1 }
+      statement: { type: text, required: true }
+      derived_from_results: { type: reference-list, of: assessment-result, multiplicity: 0..*, note: target-type results }
+      rationale: { type: text }
+      status: { type: enum, of: [proposed, accepted, superseded] }
+    key_attributes: [id]
+    lifecycle: [proposed, accepted, superseded]
+    constraints:
+      - Target positions derive from target-type results (D8); they are positions, not designs.
+
+  driver-record:
+    purpose: Informative record of what drives the opportunity, aligned with the factor basis.
+    attributes:
+      on: modernization-opportunity
+      strategic_importance: { type: citation }
+      modernization_need: { type: citation }
+      future_demand: { type: citation, note: committed vs anticipated distinction recorded }
+      exposure: { type: citation }
+      value_potential: { type: citation }
+      urgency: { type: citation }
+      feasibility: { type: citation }
+      readiness: { type: citation }
+      dependency: { type: citation }
+    note: >-
+      The nine factors are attributes of the opportunity significance object
+      rather than standalone entities; a driver record is a view over them.
+      An uncited level is an opinion, not a rating, and is not representable.
+    key_attributes: [opportunity id]
+
+factor_levels: [low, medium, high]
+factor_evaluation:
+  basis_required: each factor level cites findings, results, or records that ground it
+  profiles:
+    critical: { need: high, strategic_importance: high, requires: "at least one material or severe exposure finding" }
+    strategic: { future_demand: high, value_potential: "medium or higher", requires: "a defined target position" }
+    risk_driven: { exposure: high, need: "medium or higher", driver: "lifecycle, viability, or operational rather than demand" }
+    opportunity_driven: { value_potential: high, feasibility: "medium or higher", forbids: "no severe exposure finding inside" }
+  dominance_order: [critical, strategic, risk_driven, opportunity_driven]
+
+package_relationships:
+  - R-16
+  - R-17
+  - R-18
+  - R-19
+
+traversal:
+  invariants:
+    - Every opportunity is traceable to its findings and through them to results and evidence.
+    - The gap profile an opportunity intends to close names target values per cited result.
+    - Prioritization profiles are assignments with rationale, not computed ranks; ties remain ties with an owner decision recorded.

@@ -69,4 +69,8 @@ The foundation is formalized in this order:
 7. **Modernization Realization Model**: connect modernization objectives to architecture decisions, capabilities, initiatives, transition plans, outcomes, and value.
 8. **Assessment Instrument & Validation**: develop the instrument, test against different architecture domains and organizational contexts, and validate the model for completeness and consistency.
 
-The next most valuable step is step 2-3: formalizing the eight dimensions into a complete, normative assessment taxonomy, including the full subdimension structure and criterion catalog, before defining scoring or maturity progression. This establishes the conceptual foundation and validates that the assessment covers architecture modernization holistically rather than prematurely locking into an assessment instrument. This is tracked as [ROADMAP.md](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/ROADMAP.md) slice S1.
+The five substructures above now exist as formal artifacts: the packages, revision history, models, and schemas live in the [framework directory](https://github.com/Assessment-Models/maturity-model-modernization/tree/main/framework) (see the [framework README](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/framework/README.md)).
+
+## Historical planning note
+
+The next most valuable step was then step 2-3: formalizing the eight dimensions into a complete, normative assessment taxonomy, including the full subdimension structure and criterion catalog, before defining scoring or maturity progression. This establishes the conceptual foundation and validates that the assessment covers architecture modernization holistically rather than prematurely locking into an assessment instrument. This is tracked as [ROADMAP.md](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/ROADMAP.md) slice S1.

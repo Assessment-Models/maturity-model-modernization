@@ -1,0 +1,158 @@
+# Assessment Framework Model (AMAF artifact 1 of 3)
+#
+# The reusable assessment structure: dimensions, subdimensions, criteria,
+# scales, domains, concerns, methods, and rules. Instances of this model are
+# published by the criterion catalog (tools/criterion-catalog); this file
+# defines the entities and their constraints, not the catalog content.
+#
+# Status: normative
+
+artifact:
+  id: assessment-framework-model
+  metamodel: ama-metamodel 1.0.0
+  package: assessment-framework
+  normative_source: https://github.com/Assessment-Models/maturity-model-modernization/blob/main/tools/criterion-catalog/criteria-catalog.yaml
+
+entities:
+
+  assessment-framework:
+    purpose: Defines the assessment structure, dimensions, taxonomy, criteria, scales, and rules.
+    attributes:
+      id: { type: string, pattern: "^[a-z][a-z0-9-]*$", value: ama-framework }
+      version: { type: semver, note: catalog version }
+      status: { type: enum[lifecycle], currently: normative }
+      dimensions: { type: reference-list, of: assessment-dimension, multiplicity: 1..* }
+      scales: { type: reference-list, of: assessment-scale, multiplicity: 1..* }
+      rules: { type: reference-list, of: assessment-rule, multiplicity: 1..* }
+      domains: { type: reference-list, of: architecture-domain, multiplicity: 1..* }
+    key_attributes: [id]
+    lifecycle: [draft, modeled, normative, deprecated, retired]
+    constraints:
+      - The framework contains its rules; the rule set is versioned with the catalog.
+      - The catalog is the normative instance of this entity (id ama-framework).
+
+  assessment-dimension:
+    purpose: Organizes a major aspect of modernization assessment.
+    attributes:
+      id: { type: criterion-id, level: dimension, pattern: "^D[1-8]$" }
+      name: { type: string, required: true }
+      objective: { type: text, required: true }
+      subdimensions: { type: reference-list, of: assessment-subdimension, multiplicity: 1..* }
+    key_attributes: [id]
+    lifecycle: [draft, modeled, normative, deprecated, retired]
+    constraints:
+      - Dimension identifiers are stable; renaming a dimension is a MAJOR catalog change.
+
+  assessment-subdimension:
+    purpose: Groups a specific set of concerns within a dimension.
+    attributes:
+      id: { type: criterion-id, level: subdimension, pattern: "^D[1-8]\\.[0-9]+$" }
+      name: { type: string, required: true }
+      criteria: { type: reference-list, of: assessment-criterion, multiplicity: 1..* }
+    key_attributes: [id]
+    lifecycle: [draft, modeled, normative, deprecated, retired]
+
+  assessment-criterion:
+    purpose: A modeled proposition capable of evidence-based evaluation.
+    attributes:
+      id: { type: criterion-id, level: criterion, pattern: "^D[1-8]\\.[0-9]+\\.[0-9]+$" }
+      name: { type: string, required: true }
+      proposition: { type: text, required: true }
+      assessment_type: { type: enum, of: [condition, demand, exposure, readiness, target, criticality, changeability], required: true }
+      status: { type: enum, of: [draft, modeled], note: draft is deprecated since S1 }
+      definition: { type: text, required: true }
+      assessment_intent: { type: text, required: true }
+      assessment_question: { type: text, required: true }
+      applicability_rule: { type: text, required: true }
+      assessment_method: { type: text, required: true }
+      scale_reference: { type: reference, of: assessment-scale, multiplicity: 1..1, required: true }
+      evidence_requirements: { type: text-list, multiplicity: 1..*, required: true }
+      interpretation_guidance: { type: text, required: true }
+      modernization_relevance: { type: text, required: true }
+      domain_applicability: { type: reference-list, of: architecture-domain, multiplicity: 0..* }
+      related_criteria: { type: reference-list, of: assessment-criterion, multiplicity: 0..* }
+      weight: { type: number, optional: true, note: "assessment context specific only, weighted use is prioritization-only" }
+    key_attributes: [id]
+    lifecycle: [draft, modeled, normative, deprecated, retired]
+    constraints:
+      - A modeled criterion carries the full attribute set; no attribute may be empty.
+      - The identifier never encodes an architecture discipline; domain applicability is relationship R-04.
+      - An identifier is never reused after a criterion is retired; a revived proposition is a new criterion.
+
+  assessment-scale:
+    purpose: Defines scoring semantics and interpretation bands.
+    attributes:
+      id: { type: string, value: five-point }
+      levels: { type: list-of-objects, fields: [value, label, meaning], multiplicity: 2..* }
+      direction: { type: enum, of: [uniform-ascending, descending] }
+    key_attributes: [id]
+    lifecycle: [draft, modeled, normative, deprecated, retired]
+    constraints:
+      - Scale changes are MAJOR; levels are referenced by value, never by position title alone.
+
+  architecture-domain:
+    purpose: Identifies the architecture discipline being assessed.
+    attributes:
+      id: { type: string, pattern: "^[a-z][a-z0-9-]*$" }
+      name: { type: string, required: true }
+      concerns: { type: reference-list, of: architecture-concern, multiplicity: 0..* }
+    key_attributes: [id]
+    constraints:
+      - Ten domains in catalog 0.4.0 (enterprise through implementation).
+
+  architecture-concern:
+    purpose: A domain-specific concern to evaluate in the domain vocabulary.
+    attributes:
+      id: { type: string, pattern: "^[a-z][a-z0-9-]+$" }
+      domain: { type: reference, of: architecture-domain, multiplicity: 1..1 }
+      statement: { type: text, required: true }
+      examples: { type: text-list, multiplicity: 0..* }
+    key_attributes: [id]
+    constraints:
+      - Concerns are contextualization aids; they never re-score and never alter a criterion proposition.
+
+  assessment-method:
+    purpose: How a criterion is assessed.
+    attributes:
+      id: { type: string, pattern: "^[a-z][a-z0-9-]+$" }
+      name: { type: string, required: true }
+      description: { type: text, required: true }
+      quantitative: { type: boolean }
+    key_attributes: [id]
+    constraints:
+      - The catalog criterion carries one method text; context-specific variants are additional method records linked by R-07.
+
+  assessment-rule:
+    purpose: Machine-defined applicability, scoring, aggregation, confidence, and interpretation logic.
+    attributes:
+      id: { type: rule-id, pattern: "^R-[A-Z]+-[0-9]+$" }
+      kind: { type: enum, of: [applicability, scoring, confidence, sufficiency, aggregation, gap, weighting, maturity-bridge, finding-class, severity, opportunity, prioritization, dependency, findings-floor, corroboration] }
+      applies_to: { type: enum-list, of: entity ids }
+      statement: { type: text, required: true }
+      parameters: { type: object }
+      expression: { type: text, required: true }
+      normative_source: { type: object, fields: [catalog version, section], required: true }
+      status: { type: enum, of: [normative, draft] }
+    key_attributes: [id]
+    constraints:
+      - The normative rule instances are the catalog assessment_rules (v1) and interpretation_rules (v1), mirrored as the AMAF rule set in rules/amaf-rules.yaml.
+      - A rule must be evaluable by the instrument; prose-only rules are documentation, not model content.
+
+package_relationships:
+  - R-01
+  - R-02
+  - R-03
+  - R-04
+  - R-05
+  - R-06
+  - R-07
+  - R-08
+  - R-09
+
+traversal:
+  # The end-to-end traversal this package contributes to the done-when:
+  # criterion identity and structure exist before any instance is recorded.
+  invariants:
+    - Every criterion traces up through exactly one subdimension, dimension, and framework.
+    - Every criterion is measured on exactly one scale and assessed by at least one method.
+    - Rules carry version pinning; an assessment instance records the rule versions it was assessed under.

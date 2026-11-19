@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Assessment-Models/maturity-model-modernization/framework/schemas/modernization-realization.schema.json",
+  "title": "AMAF Modernization Realization",
+  "description": "Root schema for the realization package document: interventions, capability implications, architecture decisions, initiatives, outcomes, and value realizations closing the chain from criterion to value.",
+  "type": "object",
+  "required": ["schema", "assessment", "interventions", "decisions", "initiatives"],
+  "properties": {
+    "schema": { "const": "amaf-realization" },
+    "metamodel": { "const": "ama-metamodel 1.0.0" },
+    "assessment": { "$ref": "common.schema.json#/$defs/assessmentId" },
+    "interventions": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/intervention" } },
+    "capability_implications": { "type": "array", "items": { "$ref": "#/$defs/capabilityImplication" } },
+    "decisions": { "type": "array", "items": { "$ref": "#/$defs/architectureDecision" } },
+    "initiatives": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/initiative" } },
+    "outcomes": { "type": "array", "items": { "$ref": "#/$defs/outcome" } },
+    "value_realizations": { "type": "array", "items": { "$ref": "#/$defs/valueRealization" } }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "intervention": {
+      "type": "object",
+      "required": ["id", "opportunity", "statement", "rationale", "status"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^IV-[A-Za-z0-9][A-Za-z0-9._:-]*$" },
+        "opportunity": { "type": "string" },
+        "statement": { "type": "string", "minLength": 1 },
+        "rationale": { "type": "string", "minLength": 1 },
+        "profile": { "type": "string", "enum": ["critical", "strategic", "risk_driven", "opportunity_driven"] },
+        "status": { "$ref": "common.schema.json#/$defs/realizationLifecycle" }
+      },
+      "additionalProperties": false
+    },
+    "capabilityImplication": {
+      "type": "object",
+      "required": ["id", "intervention", "capability", "kind"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^CAP-[A-Za-z0-9][A-Za-z0-9._:-]*$" },
+        "intervention": { "type": "string" },
+        "capability": { "type": "string", "minLength": 1 },
+        "kind": { "$ref": "common.schema.json#/$defs/capabilityKind" },
+        "affected_dimension": { "type": "string", "pattern": "^D[1-8](\\.[0-9]+){0,2}$" },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "architectureDecision": {
+      "type": "object",
+      "required": ["id", "statement", "status"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^DEC-[A-Za-z0-9][A-Za-z0-9._:-]*$" },
+        "statement": { "type": "string", "minLength": 1 },
+        "intervention": { "type": "string" },
+        "decides": { "type": "string" },
+        "status": { "$ref": "common.schema.json#/$defs/decisionLifecycle" },
+        "date": { "$ref": "common.schema.json#/$defs/date" },
+        "options_considered": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+        "consequences": { "type": "string" },
+        "decided_by": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "initiative": {
+      "type": "object",
+      "required": ["id", "statement", "status"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^INIT-[A-Za-z0-9][A-Za-z0-9._:-]*$" },
+        "statement": { "type": "string", "minLength": 1 },
+        "intervention": { "type": "string" },
+        "preparatory": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+        "stages": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "name", "status"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "name": { "type": "string", "minLength": 1 },
+              "status": { "$ref": "common.schema.json#/$defs/realizationLifecycle" },
+              "start": { "$ref": "common.schema.json#/$defs/date" },
+              "end": { "$ref": "common.schema.json#/$defs/date" },
+              "dates": { "$ref": "common.schema.json#/$defs/date" },
+              "target": { "type": "string" },
+              "closes": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+              "outputs": { "type": "array", "uniqueItems": true, "items": { "type": "string" } }
+            },
+            "additionalProperties": false
+          }
+        },
+        "objectives": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+        "closes_findings": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+        "depends_on": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+        "status": { "$ref": "common.schema.json#/$defs/realizationLifecycle" }
+      },
+      "additionalProperties": false
+    },
+    "outcome": {
+      "type": "object",
+      "required": ["id", "statement", "status"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^OUT-[A-Za-z0-9][A-Za-z0-9._:-]*$" },
+        "initiative": { "type": "string" },
+        "statement": { "type": "string", "minLength": 1 },
+        "status": { "$ref": "common.schema.json#/$defs/outcomeStatus" },
+        "expected": { "type": "string", "minLength": 1 },
+        "observed": { "type": "string" },
+        "date": { "$ref": "common.schema.json#/$defs/date" },
+        "measure": { "type": "string" },
+        "evidence": { "type": "array", "uniqueItems": true, "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "valueRealization": {
+      "type": "object",
+      "required": ["id", "statement", "status"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^VR-[A-Za-z0-9][A-Za-z0-9._:-]*$" },
+        "outcome": { "type": "string" },
+        "opportunity": { "type": "string" },
+        "statement": { "type": "string", "minLength": 1 },
+        "status": { "$ref": "common.schema.json#/$defs/valueStatus" },
+        "expected": { "type": "string" },
+        "evidenced": { "type": "string" },
+        "measure": { "$ref": "common.schema.json#/$defs/modelReference" },
+        "date": { "$ref": "common.schema.json#/$defs/date" },
+        "successor_assessment": { "type": ["string", "null"] },
+        "basis_findings": { "type": "array", "uniqueItems": true, "items": { "type": "string" } }
+      },
+      "additionalProperties": false
+    }
+  }
+}

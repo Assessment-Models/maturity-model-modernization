@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Assessment-Models/maturity-model-modernization/framework/schemas/relationship.schema.json",
+  "title": "AMAF Typed Relationship",
+  "description": "Schema for one typed model relationship edge as registered in the metamodel manifest (R-01..R-30). Kind names come from the ama_kinds registry; opendea maps each kind to the reference metamodel or null when it is an AMAF extension.",
+  "type": "object",
+  "required": [
+    "id",
+    "kind",
+    "source",
+    "target",
+    "multiplicity"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^R-[0-9]{2}$"
+    },
+    "kind": {
+      "type": "string",
+      "pattern": "^[a-z]+(_[a-z]+)*$"
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target": {
+      "type": "string",
+      "minLength": 1
+    },
+    "multiplicity": {
+      "type": "string",
+      "pattern": "^(\\*|[01])(\\.\\.[01\\*])?$",
+      "description": "Cardinality toward the target kind: 0..1, 1, 1..*, 0..*, or *."
+    },
+    "opendea": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "doc": {
+      "type": [
+        "integer",
+        "string"
+      ],
+      "minimum": 1,
+      "pattern": "^docs/metamodel/relationships\\.md(\\S+)?$",
+      "description": "Relationships.md reference: the numbered entry (integer) or the full docs path."
+    },
+    "constraint": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

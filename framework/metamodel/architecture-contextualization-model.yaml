@@ -1,0 +1,76 @@
+# Architecture Contextualization Model (AMAF artifact 3 of 3, part 2)
+#
+# The fan-out from one modernization opportunity to domain-specific
+# implications through the domain packs. The pack never re-scores;
+# implications derive from findings through templates.
+#
+# Status: normative
+
+artifact:
+  id: modernization-realization-model
+  part: architecture-contextualization
+  metamodel: ama-metamodel 1.0.0
+  package: architecture-contextualization
+  normative_source: https://github.com/Assessment-Models/maturity-model-modernization/blob/main/docs/contextualization/domain-packs.md
+
+entities:
+
+  domain-pack:
+    purpose: The contextualization pack for exactly one architecture domain.
+    attributes:
+      id: { type: string, pattern: "^[a-z][a-z0-9-]*-pack$", required: true }
+      domain: { type: reference, of: architecture-domain, multiplicity: 1..1, required: true }
+      concern_catalog: { type: reference-list, of: architecture-concern, multiplicity: 0..* }
+      vocabulary_mapping: { type: text-list }
+      evidence_sources: { type: text-list, required: true }
+      intervention_patterns: { type: list-of-objects, fields: [pattern, applies to] }
+      implication_templates: { type: reference-list, of: implication-template, multiplicity: 1..* }
+      worked_implication: { type: reference, of: domain-implication, multiplicity: 0..1 }
+    key_attributes: [id]
+    constraints:
+      - Exactly one pack per architecture domain; the pack is owned by docs/contextualization/domain-packs/.
+      - The pack reads findings; it never records scores, targets, or profiles.
+
+  implication-template:
+    purpose: The derivation template that turns a finding into a domain implication statement.
+    attributes:
+      id: { type: string, pattern: "^[a-z][a-z0-9-]+$", required: true }
+      domain: { type: reference, of: architecture-domain, multiplicity: 1..1, required: true }
+      trigger: { type: text, required: true, note: which finding classes or signals trigger the template }
+      statement_pattern: { type: text, required: true }
+      placeholders: { type: text-list, note: filled from the finding basis and pack vocabulary }
+    key_attributes: [id]
+    constraints:
+      - The template statement is faithful to the finding; it never re-scores and never adds unproven claims.
+
+  domain-implication:
+    purpose: One domain-specific implication record derived from a finding.
+    attributes:
+      id: { type: cite-id, prefix: IMP-, required: true }
+      opportunity: { type: reference, of: modernization-opportunity, multiplicity: 1..1, required: true }
+      domain: { type: reference, of: architecture-domain, multiplicity: 1..1, required: true }
+      pack: { type: reference, of: domain-pack, multiplicity: 1..1, required: true }
+      template: { type: reference, of: implication-template, multiplicity: 1..1, required: true }
+      finding: { type: reference, of: assessment-finding, multiplicity: 1..1, required: true, note: "provenance; never re-scoring" }
+      statement: { type: text, required: true }
+      co_occurrence: { type: reference-list, of: domain-implication, multiplicity: 0..* }
+      provenance: { type: text, required: true, note: "opportunity, domain, basis, template" }
+      status: { type: enum, of: [recorded, accepted, superseded] }
+    key_attributes: [id]
+    lifecycle: [recorded, accepted, superseded]
+    constraints:
+      - One implication belongs to exactly one pack; cross-domain overlap is a co-occurrence link, never a duplicated statement.
+      - Implications of the same opportunity share its identifier.
+      - Provenance is preserved: finding, pack, template, and opportunity are all recorded.
+
+package_relationships:
+  - R-26
+  - R-27
+  - R-28
+  - R-29
+  - R-30
+
+traversal:
+  invariants:
+    - Every implication is derivable by re-running its template over its finding; the re-derivation table in docs/examples/integration-architecture.md is the worked proof.
+    - Fan-out is interpretive: ten implications from one opportunity is a normal shape; ten separate assessments is a modeling error.

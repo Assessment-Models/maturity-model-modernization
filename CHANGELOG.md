@@ -224,6 +224,55 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Root README quick start: points the instrument step at v1 capabilities.
 - ROADMAP slice status: S5 done, S6 (metamodel formalization) next.
 
+### Added (S6: metamodel formalization)
+
+- `framework/` populated (ROADMAP S6): metamodel manifest
+  (`metamodel/amaf-metamodel.yaml`) with entity packages, identifier and
+  versioning conventions, lifecycle stages, lineage alignment with the
+  pinned `technehub-labs/dea-metamodel`, contract suite evaluation, and a
+  30-relationship registry covering all 18 documented relationships with
+  multiplicities and OpenDEA mappings.
+- Three interconnected model artifacts: assessment framework model,
+  assessment instance model, and modernization realization model (the
+  realization side split into opportunity, contextualization, and
+  realization packages), all under `framework/metamodel/`.
+- Seven JSON Schema files (draft 2020-12, shared common definitions with
+  identifier/version/modelReference alignment) under `framework/schemas/`:
+  instance, framework, opportunity, contextualization, realization, and
+  relationship shapes.
+- `framework/rules/amaf-rules.yaml`: the machine rule set v1 (37 rules with
+  kind, target, parameters, and evaluable expressions, each tied to its
+  normative catalog source), mirroring assessment_rules v1 and
+  interpretation_rules v1.
+- `framework/examples/integration-instance.yaml`: the docs worked example
+  formalized end to end, criterion to value realization, including the
+  staged rollout with the P-1 preparatory initiative and the re-assessment
+  gate, an observed outcome, and an evidenced value realization.
+- `framework/validate.py`: stdlib-only validator; validates the example
+  against all package schemas and re-derives the machine rules over it
+  (gap arithmetic, corroboration and staleness, finding classes and floors,
+  severity derivation, parking, profile dominance ordering, chain
+  coverage). Validator behavior is locked by negative tests run during
+  development: each rule violation class produces the expected error.
+
+### Changed (S6)
+
+- `docs/metamodel/entities.md` and `docs/metamodel/relationships.md`:
+  the S6 "in formalization" notes now point at the landed artifacts in
+  `framework/`.
+- `docs/realization/model-structure.md`: pointers to the formal artifacts
+  (the five substructures now exist as packages, models, and schemas).
+- `docs/methodology/interpretation-logic.md` and
+  `docs/methodology/prioritization.md`: worked example severity of F-6
+  corrected to material (its basis result is score 2 with a positive gap
+  of 2 on a below-adequacy result, satisfying the Material row of the
+  severity derivation table; the machine rule re-derivation surfaced the
+  mismatch), and RES-07 confidence corrected to high (its evidence meets
+  the high-confidence assignment criteria, which the strength finding F-7
+  requires).
+- Root README and ROADMAP slice status: S6 done, S7 (validation and worked
+  examples) next; framework README rewritten from scaffold to populated.
+
 ### Added (repository operations)
 
 - `.github/workflows/release-tagging.yml`: idempotent workflow that tags released

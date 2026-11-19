@@ -1,0 +1,135 @@
+# Modernization Realization Model (AMAF artifact 3 of 3, part 3)
+#
+# From opportunities to value: interventions, capability implications,
+# architecture decisions, initiatives with their staged paths and gates,
+# outcomes, and value realization. Closes the end-to-end chain the S6
+# done-when demands: criterion to value realization, representable in the
+# model without free-text workarounds.
+#
+# Status: normative
+
+artifact:
+  id: modernization-realization-model
+  part: modernization-realization
+  metamodel: ama-metamodel 1.0.0
+  package: modernization-realization
+  normative_source: https://github.com/Assessment-Models/maturity-model-modernization/blob/main/docs/realization/outputs.md
+
+entities:
+
+  modernization-intervention:
+    purpose: A proposed architectural or organizational response that addresses one or more opportunities.
+    attributes:
+      id: { type: cite-id, prefix: IV-, required: true }
+      assessment: { type: reference, of: assessment, multiplicity: 0..1 }
+      statement: { type: text, required: true }
+      addresses_opportunities: { type: reference-list, of: modernization-opportunity, multiplicity: 1..*, required: true }
+      addresses_findings: { type: reference-list, of: assessment-finding, multiplicity: 0..* }
+      capability_implications: { type: reference-list, of: capability-implication, multiplicity: 0..* }
+      governed_by: { type: reference-list, of: architecture-decision, multiplicity: 0..* }
+      closes_gap_profile: { type: list-of-objects, fields: [criterion, target], multiplicity: 0..*, note: inherits from the opportunity it addresses }
+      status: { type: enum, of: [proposed, committed, superseded] }
+    key_attributes: [id]
+    lifecycle: [proposed, committed, superseded]
+    constraints:
+      - An intervention is a response to findings through its opportunities; a response to a dimension is a modeling error.
+      - Capability implications carry their kind; a capability never changes untyped.
+
+  capability-implication:
+    purpose: A capability required, improved, introduced, retired, or transformed by an intervention.
+    attributes:
+      id: { type: cite-id, prefix: CAP-, required: true }
+      intervention: { type: reference, of: modernization-intervention, multiplicity: 1..1, required: true }
+      capability: { type: string, required: true }
+      kind: { type: enum, of: [requires, introduces, improves, transforms, retires], required: true }
+      statement: { type: text, required: true }
+      grounding: { type: text, note: finding or result that grounds the capability claim }
+      status: { type: enum, of: [proposed, superseded] }
+    key_attributes: [id]
+    lifecycle: [proposed, superseded]
+    constraints:
+      - Retiring a capability is a first-class implication, not an omission.
+
+  architecture-decision:
+    purpose: A decision governing architecture change or realization.
+    attributes:
+      id: { type: cite-id, prefix: DEC-, required: true }
+      assessment: { type: reference, of: assessment, multiplicity: 0..1 }
+      statement: { type: text, required: true }
+      decides: { type: reference-list, of: modernization-intervention, multiplicity: 0..* }
+      context: { type: text, required: true }
+      options_considered: { type: text-list, required: true }
+      consequences: { type: text, required: true }
+      date: { type: date, required: true }
+      status: { type: enum, of: [proposed, accepted, superseded], required: true }
+      supersedes: { type: reference-list, of: architecture-decision, multiplicity: 0..* }
+    key_attributes: [id]
+    lifecycle: [proposed, accepted, superseded]
+    constraints:
+      - An initiative may not commit before a governing decision is accepted.
+      - Superseded decisions stay in place; history is never edited.
+
+  modernization-initiative:
+    purpose: A coordinated effort realizing one or more interventions.
+    attributes:
+      id: { type: cite-id, prefix: INIT-, required: true }
+      statement: { type: text, required: true }
+      realizes_interventions: { type: reference-list, of: modernization-intervention, multiplicity: 1..*, required: true }
+      objectives: { type: reference-list, of: modernization-objective, multiplicity: 0..* }
+      preparatory: { type: reference-list, of: modernization-initiative, multiplicity: 0..*, note: readiness-pattern initiatives or stages run ahead }
+      target: { type: object, note: the initiative's own target and success criterion }
+      stages: { type: list-of-objects, fields: [stage, scope, gate], multiplicity: 1..* }
+      gate: { type: text, note: re-assessment gate rule; readiness re-scored before each subsequent stage commits }
+      status: { type: enum, of: [proposed, committed, in-progress, realized, superseded] }
+    key_attributes: [id]
+    lifecycle: [proposed, committed, in-progress, realized, superseded]
+    constraints:
+      - A preparatory initiative keeps the opportunity's priority and profile; only the path changes.
+      - The first stage fits current readiness; a re-assessment gate precedes each subsequent stage commit.
+      - Dependencies are recorded edges with basis; cycles are sequencing conflicts resolved by rescoping or decomposition.
+
+  outcome:
+    purpose: A result achieved through modernization.
+    attributes:
+      id: { type: cite-id, prefix: OUT-, required: true }
+      initiative: { type: reference, of: modernization-initiative, multiplicity: 1..1, required: true }
+      statement: { type: text, required: true }
+      objective: { type: reference, of: modernization-objective, multiplicity: 0..1, note: evaluatable against a stated objective }
+      before_after: { type: object, note: recorded condition before and measured condition after }
+      status: { type: enum, of: [expected, observed, superseded] }
+    key_attributes: [id]
+    lifecycle: [expected, observed, superseded]
+
+  value-realization:
+    purpose: The value evidenced through an outcome.
+    attributes:
+      id: { type: cite-id, prefix: VR-, required: true }
+      outcome: { type: reference, of: outcome, multiplicity: 1..1, required: true }
+      value_statement: { type: text, required: true }
+      measure: { type: text, required: true, note: how the value is measured or verified }
+      evidence: { type: text-list, required: true, note: cites the outcome's observed record or successor assessment results }
+      date: { type: date, required: true }
+      successor_assessment: { type: reference, of: assessment, multiplicity: 0..1, note: a re-assessment that evidences the value }
+      status: { type: enum, of: [expected, evidenced, superseded] }
+    key_attributes: [id]
+    lifecycle: [expected, evidenced, superseded]
+    constraints:
+      - Value realization claims cite evidence; an uncited value claim is an assertion, not a realization.
+
+package_relationships:
+  - R-20
+  - R-21
+  - R-22
+  - R-23
+  - R-24
+  - R-25
+
+traversal:
+  # The full S6 done-when chain, restated end to end:
+  # criterion -> result (+ evidence) -> finding -> opportunity -> objective /
+  # intervention (+ capability implications, decisions) -> initiative ->
+  # outcome -> value realization.
+  invariants:
+    - Every link is typed and every record is identified; nothing in the chain depends on free text to carry structure.
+    - Initiatives commit only under accepted decisions; outcomes are observed, not declared; value is evidenced, not claimed.
+    - A successor assessment evidencing value realization uses the same model, closing the loop back to instances.
