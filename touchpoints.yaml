@@ -1,0 +1,43 @@
+# =============================================================================
+# touchpoints.yaml — CR-AM-13 Phase 2 DRAFT (mirror record)
+# Contract: maturity-touchpoint-contract v0.1.0-draft (technehub-labs/dea-metamodel)
+# =============================================================================
+id: dea:touchpoints-modernization-v1
+repo_id: maturity-model-modernization
+version: 0.1.0-draft
+status: draft
+metamodel_version: 1.0.0
+contract:
+  id: maturity-touchpoint-contract
+  version: 0.1.0-draft
+  source: { organization: technehub-labs, repository: dea-metamodel }
+
+touchpoints:
+- id: tp-modernization-x-operations
+  mirrors: tp-ops-x-modernization
+  peer_asset: dea:maturity-operations
+  peer_repo: maturity-model-operations
+  peer_touchpoint_id: tp-ops-x-modernization
+  direction: shared-component
+  mapping_type: shared-component
+  summary: >-
+    Both models import the operations-modernization dimension package from
+    maturity-components. Scoring and scale semantics remain owned by each
+    model (component is kind: import). The peer scores deployment/change
+    automation (OPS-D5-SD3-C08) against the component; this model's
+    execution-operations practice area covers modernisation execution.
+  overlap_resolution: >-
+    Shared component content is SINGLE-SOURCED in maturity-components; each
+    model owns only its scoring of it. Duplicated criteria are prohibited.
+  criteria_mapping:
+  - ours: execution-operations     # practice area (15-criterion catalog)
+    theirs: OPS-D5-SD3-C08
+    note: >-
+      Peer catalog ids are practice-area scoped and concern modernisation
+      execution, not deployment automation; the shared component carries
+      the overlap.
+  component:
+    repository: Assessment-Models/maturity-components
+    id: operations-modernization
+    reference: v1.0.0
+  reciprocity: mirrors-tp-ops-x-modernization
