@@ -44,7 +44,7 @@ jobs:
             git tag "$tag" "$sha"
             if ! git push origin "$tag" > push.err 2>&1; then
               cat push.err
-              if grep -q 'workflows permission' push.err; then
+              if grep -Eq 'refusing to allow a GitHub App|without .{0,4}workflows.{0,4} permission' push.err; then
                 git tag -d "$tag" > /dev/null 2>&1 || true
                 echo "::warning title=Manual tag required::CI cannot push $tag because the tagged commit modifies workflow files, which the job token is not allowed to do. Tag it from a local clone instead: git tag $tag $sha && git push origin $tag"
                 continue
