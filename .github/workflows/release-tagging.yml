@@ -22,7 +22,8 @@ jobs:
           fetch-depth: 0
       - name: Tag released versions lacking tags
         run: |
-          set -eu
+          set -eux
+          exec > >(tee tagging.log) 2>&1
           mapfile -t versions < <(grep -E '^## \[[0-9]' CHANGELOG.md | grep -Eo '\[[0-9.]+\]' | tr -d '[]' | sort -urV)
           if [ "${#versions[@]}" -eq 0 ]; then
             echo "No released versions found in CHANGELOG.md"
@@ -43,3 +44,7 @@ jobs:
             git tag "$tag" "$sha"
             git push origin "$tag"
           done
+      - name: Surface tagger output on failure
+        if: failure()
+        run: |
+          tail -12 tagging.log 2>/dev/null | awk '{ printf "::error title=tagger tail %d::%s\n", NR, $0 }' || true

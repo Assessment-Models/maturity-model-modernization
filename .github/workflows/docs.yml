@@ -33,8 +33,12 @@ jobs:
           set -o pipefail
           if ! mkdocs build --strict 2>&1 | tee mkdocs-build.log; then
             echo "Build failed; surfacing output as check annotations:"
-            sed -e 's/%/%25/g' -e 's/\r//' mkdocs-build.log | grep -v '^\s*$' | head -25 | \
-              awk '{ printf "::error title=mkdocs output line %d::$0\n", NR }'
+            {
+              grep -iE 'warning|error|abort|exception|traceback|config|link|deprecat' mkdocs-build.log | head -10 \
+                | awk '{ printf "::error title=mkdocs issue %d::%s\n", NR, $0 }'
+              tail -5 mkdocs-build.log \
+                | awk '{ printf "::error title=mkdocs tail %d::%s\n", NR, $0 }'
+            }
             exit 1
           fi
       - uses: actions/upload-pages-artifact@v3
