@@ -46,6 +46,10 @@ nav:
   - Methodology:
       - Assessment Scales & Attributes: methodology/assessment-scales.md
       - The Evidence Model: methodology/evidence-model.md
+      - Scoring Mechanics: methodology/scoring-mechanics.md
+      - Evidence Mechanics: methodology/evidence-mechanics.md
+      - Aggregation, Gap & Weighting: methodology/aggregation-mechanics.md
+      - The Maturity Model Bridge: methodology/maturity-bridge.md
       - Interpretation Logic: methodology/interpretation-logic.md
       - Prioritization & Decision Logic: methodology/prioritization.md
   - Contextualization:

@@ -15,10 +15,14 @@
 #   condition, criticality, future demand, changeability, are assessed
 #   separately and never collapsed into one measure).
 # - status: modeled (full attributes) | draft (deprecated once S1 completed)
+# - assessment_rules carries the normative assessment mechanics (ROADMAP.md
+#   slice S2): scoring anchors per type, confidence assignment, evidence
+#   sufficiency, aggregation (band profiles only), gap and weighting rules,
+#   and the D7 maturity model bridge.
 # - Terminology follows docs/framework/glossary.md.
 
 catalog: ama-framework
-version: 0.2.0
+version: 0.3.0
 status: normative
 
 scales:
@@ -41,6 +45,118 @@ confidence_scale:
   - low      # assertion-level evidence only
   - medium   # some direct evidence, incomplete coverage
   - high     # direct, sufficient, corroborated evidence
+
+assessment_rules:
+  version: 1
+  source: >-
+    Machine-readable assessment mechanics, matching the prose in
+    docs/methodology/scoring-mechanics.md, evidence-mechanics.md,
+    aggregation-mechanics.md, and maturity-bridge.md.
+  scoring:
+    direction: uniform-ascending
+    rule: >-
+      Every score judges the subject, not the magnitude of a problem or
+      requirement; higher is stronger on the criterion's own assessment type,
+      on all types.
+    reference_expectations:
+      condition: Adequacy for current expectations.
+      demand: Demonstrated capacity against recorded anticipated demand.
+      exposure: Exposure known and inside stated tolerance.
+      criticality: Criticality established and accepted.
+      readiness: Capacity to execute change on the subject.
+      changeability: Change at tolerable effort, speed, cost, and risk.
+      target: Clarity and viability of the defined target position.
+    anchors: >-
+      Score 1 fails the reference expectation materially; score 3 meets it
+      with identified deficiencies or opportunities; score 5 demonstrably
+      exceeds or optimizes for it; scores 2 and 4 are intermediate positions,
+      read per the criterion's interpretation guidance.
+    anchor_rationale_required: true
+  confidence:
+    scale: confidence_scale
+    minimum_informing_findings: medium
+    assignment:
+      high: >-
+        At least two independent evidence items, at least one direct, no
+        unresolved material conflict, all current for the assessed time
+        constraint.
+      medium: At least one direct item, or at least two indirect items from independent sources in agreement.
+      low: >-
+        Assertion-level evidence only, or material conflict resolved by
+        judgment.
+    downgrade:
+      stale: >-
+        The newest supporting item older than 12 months (condition) or older
+        than the recorded anticipated-demand window (demand) downgrades
+        confidence by one level.
+    conflict:
+      unresolved_cap: low
+      resolution_must_be_recorded: true
+  sufficiency:
+    applicability_first: true
+    minimum_items_to_record: 1
+    extreme_score_corroboration:
+      scores: [1, 5]
+      minimum_items: 2
+      minimum_direct_items: 1
+      minimum_independent_sources: 2
+      uncorroborated_cap: medium
+      uncorroborated_note: >-
+        An extreme score without corroboration may not be the sole basis of a
+        finding.
+  aggregation:
+    output: band profile
+    allowed:
+      - criterion results to subdimension profile
+      - subdimension profiles to dimension profile
+    type_partitioning: Profiles never mix assessment types.
+    forbidden:
+      - cross-dimension composite scores
+      - arithmetic means as findings
+      - averaging across subjects, scopes, or assessment types
+      - averaging condition with target scores
+      - averaging confidence levels (report the minimum and the distribution)
+    descriptors:
+      below_adequacy_share: Score 2 or lower over applicable results, descriptive only.
+      median: Descriptive metadata only, never the finding.
+    provenance: >-
+      Every aggregate references the criterion result identifiers it draws
+      from.
+  gap:
+    formula: target score - current score
+    semantics: >-
+      Per applicable criterion with a set target only. Positive is a
+      shortfall (needs closing), zero is no action, negative is an overshoot.
+    overshoot_review_at: -2
+    aggregate_form: gap profile per subdimension and dimension; no arithmetic on aggregates
+  weighting:
+    default: unweighted profiles
+    criticality_role: overlay attribute on profiles, never a score weight
+    permitted_use: prioritization profiles only, never composite scores
+    disclosure: >-
+      Any weighted view states its weights, rationale, and the unweighted
+      comparison; ordering changes relative to the unweighted comparison must
+      be called out.
+  maturity_bridge:
+    reference: >-
+      Architecture Modernization Maturity Model (release 1.1.0), practice
+      bands L0-L4, canonical v2 band instance (dea:maturity-bands-v2 v1.0.0).
+    role: >-
+      A current maturity result enters D7 assessment as one direct-class
+      practice evidence item for readiness criteria; it is indirect context
+      only for subject-level changeability criteria.
+    conversion: prohibited in both directions; no mapping between L0-L4 and the five-point scale
+    calibration_flags:
+      high_readiness_low_practice: >-
+        Readiness scores of 4 or 5 on change-execution criteria with assessed
+        practice maturity at L0 require direct architecture-level corroboration,
+        else the contradiction is recorded and the score is reviewed downward.
+      low_readiness_high_practice: >-
+        Readiness scores of 1 or 2 with practice maturity at L2 or higher
+        require a recorded subject-specific explanation.
+    reporting: >-
+      Maturity results appear in AMAF reports as evidence references and
+      calibration context only, never as substituted criterion results.
 
 domains:
   - { id: enterprise, name: Enterprise Architecture }

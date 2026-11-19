@@ -84,6 +84,45 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   blocker behind the never-passing docs deployment.
 - `tools/README.md`: criterion-catalog status row updated to normative v0.2.0.
 
+### Added (S2: assessment mechanics)
+
+- Assessment mechanics documentation under `docs/methodology/`, normative and
+  added to the docs site navigation:
+  - `scoring-mechanics.md`: scale semantics per assessment type (the shared
+    1-5 scale read differently for condition, demand, exposure, criticality,
+    readiness, changeability, and target criteria), the uniform direction rule,
+    the four-step anchoring procedure, and the reproducibility guards.
+  - `evidence-mechanics.md`: the evidence item (direct/indirect classes,
+    independence rule), rule-based confidence assignment (high/medium/low), the
+    currency and conflict rules, and sufficiency rules (minimum to record,
+    corroboration for extreme scores 1 and 5, findings floor at medium
+    confidence).
+  - `aggregation-mechanics.md`: band profiles as the only aggregate
+    (subdimension and dimension, partitioned by assessment type), forbidden
+    aggregates (cross-dimension composites, arithmetic means, type mixing),
+    provenance rule, gap semantics (target minus current; shortfalls,
+    no-action zeros, overshoot reviews), and weighting guidance (unweighted
+    default, criticality as overlay, disclosure rule).
+  - `maturity-bridge.md`: the relationship between the criterion catalog and
+    the governed maturity model's L0-L4 practice bands: evidence not scores,
+    no conversion, confidence applies, two-direction calibration flags, and
+    separation preserved.
+- `assessment_rules` (version 1) in the criterion catalog: the machine-readable
+  form of all mechanics (scoring anchors per type, confidence assignment and
+  downgrade rules, sufficiency thresholds, aggregation and gap rules,
+  weighting disclosure, maturity bridge calibration flags).
+- Glossary entries: evidence item, band profile, overshoot, practice maturity.
+
+### Changed (S2)
+
+- Criterion catalog version 0.2.0 to 0.3.0 (additive: `assessment_rules`
+  section; all 49 criteria and their attributes unchanged verbatim).
+- `docs/methodology/assessment-scales.md` and `evidence-model.md`: the
+  placeholders stating that scale semantics, confidence, and aggregation were
+  "being formalized" now point to the new mechanics pages.
+- `tools/README.md`: criterion-catalog status row updated to normative v0.3.0
+  with the assessment rules.
+
 ### Added (repository operations)
 
 - `.github/workflows/release-tagging.yml`: idempotent workflow that tags released

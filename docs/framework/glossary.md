@@ -44,6 +44,14 @@ Where a term is also a modeled entity, its authoritative structural description 
 
 **Confidence** — How well-supported a finding is on its evidence, on the three-level confidence scale (low: assertion-level evidence, medium: some direct evidence with incomplete coverage, high: direct, sufficient, corroborated evidence).
 
+**Evidence item** — The unit of evidence: a single, dated, identifiable artifact or testimony, with a class (direct or indirect), a source, and a mapping to the criterion's evidence requirements. Counting, corroboration, and confidence assignment follow the [evidence mechanics](../methodology/evidence-mechanics.md).
+
+**Band profile** — The distribution of criterion results over the scale, reported per subdimension or dimension and partitioned by assessment type. It is the only aggregate the framework produces; composite scores do not exist above the dimension level.
+
+**Overshoot** — A negative gap: the current finding sits above the target score. An overshoot of two or more triggers a deliberate-excess review, and is never reported as headroom to spend.
+
+**Practice maturity** — The organization's modernization practice band (L0-L4, canonical v2), assessed by the governed maturity model, not by the catalog. Practice maturity results enter D7 assessment as evidence under the [maturity model bridge](../methodology/maturity-bridge.md), never as converted scores.
+
 **Applicability** — Whether and under what scope conditions a criterion is assessed for the subject. Non-assessment is a recorded decision with a reason (inapplicable, deferred, or out of scope), never a silent omission.
 
 **Interpretation guidance** — The catalog's normative guidance for how to judge a criterion's evidence, including its score guards, common failure modes, and what not to penalize.

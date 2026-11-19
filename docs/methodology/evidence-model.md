@@ -33,4 +33,4 @@ Collapsing these into one number destroys exactly the information modernization 
 - **Changeability** is established in D7 (Adaptability & Readiness) and is strongly predicted by D5 (Structure).
 - **Target** criteria in D8 (Target State & Modernization Value) carry target condition and value expectations.
 
-Evidence confidence and sufficiency rules are being formalized per [ROADMAP.md](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/ROADMAP.md) slice S2.
+Evidence confidence and sufficiency rules are normative in [Evidence Mechanics](evidence-mechanics.md); scale readings per assessment type are normative in [Scoring Mechanics](scoring-mechanics.md).

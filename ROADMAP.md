@@ -10,8 +10,8 @@ Each slice states its goal, the drill-down areas (the high-level inputs that nee
 |-------|------|--------|
 | S0 | Revamp scaffold | done |
 | S1 | Normative taxonomy & criterion catalog | done |
-| S2 | Assessment mechanics | next |
-| S3 | Interpretation & prioritization logic | planned |
+| S2 | Assessment mechanics | done |
+| S3 | Interpretation & prioritization logic | next |
 | S4 | Architecture domain contextualization packs | planned |
 | S5 | Assessment instrument v1 | planned |
 | S6 | Metamodel formalization | planned |
@@ -56,7 +56,7 @@ The eight dimensions currently carry subdimensions, criteria names, and moderniz
 
 **Status: complete (catalog v0.2.0).** 49 fully modeled criteria (D4.3 and D6.2 each split into independently assessable pairs), glossary at `docs/framework/glossary.md`, taxonomy docs linking the catalog as their normative source.
 
-## S2 · Assessment mechanics
+## S2 · Assessment mechanics (done)
 
 Scales and attributes are defined; the mechanics of using them are not yet fully specified.
 
@@ -72,6 +72,8 @@ Scales and attributes are defined; the mechanics of using them are not yet fully
 **Deliverables**: `docs/methodology/` mechanics pages, machine-readable rules in the catalog (`assessment_rules` section).
 
 **Done when**: two assessors with the same evidence would produce the same scores and confidence, by documented rule.
+
+**Status: complete (catalog v0.3.0).** Four mechanics pages under docs/methodology; normative `assessment_rules` (version 1) in the catalog; scale semantics, confidence, sufficiency, aggregation, gap, weighting, and the D7 maturity bridge are rule-complete.
 
 ## S3 · Interpretation & prioritization logic
 
