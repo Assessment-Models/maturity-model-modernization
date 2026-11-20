@@ -385,6 +385,53 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   next; the site live and deploy-verified conditions recorded in the S8
   status paragraph.
 
+### Added (S9: governance & asset registration)
+
+- Governance decision record (`docs/governance/asset-classification.md`):
+  the AMAF is formally a second, independently versioned asset inside this
+  repository (the repository stays a classified maturity model; the governed
+  assets are untouched); graduation to a taxonomy-named
+  `assessment-model-architecture-modernization` repository is deferred and
+  reviewed at AMAF 1.0, with supersession of the legacy v1-alpha instrument
+  (`dea-assessment-modernization`, CR-AR-05) recorded if it happens; and
+  registry registration in `Assessment-Models/assessment-registry` is
+  deferred until the first AMAF release tag, with a ready-to-submit record
+  draft kept in the decision record.
+- `framework/validate_catalog.py`: catalog validator, the sibling of the
+  maturity model's Level 1 validator: catalog schema (the 16 modeled
+  fields per criterion, types, enums, structure, counts), ID stability
+  against the committed baseline, cross-reference integrity (every
+  `related_criteria` and `domain_applicability` reference resolves), and
+  version coherence (YAML source, JSON export, app embed, and rule-set
+  `catalog_version` pin agree; rule counters agree between source and
+  export). Negative-tested (renamed IDs, rogue records, pin drift,
+  dangling references, status edits break it).
+- `framework/ids/criteria-baseline.txt`: the machine-checked identity
+  baseline for the 8 dimensions, 47 subdimensions, and 49 criteria
+  (ids and names), established at catalog version 0.4.1; an ID change
+  updates the baseline in the same change-set.
+- `.github/workflows/framework-ci.yml`: the AMAF framework battery moves
+  from local execution to CI: catalog validation, framework model
+  validation over the worked bundles, export synchronization (committed
+  exports must match the exporter's regeneration), and the assessment app
+  self test, on every push and pull request.
+
+### Changed (S9)
+
+- `release-tagging.yml`: two release namespaces: maturity model sections
+  `## [x.y.z]` tag `vX.Y.Z` as before, AMAF sections `## AMAF [x.y.z]` tag
+  `ama-vX.Y.Z` (the formalised AMAF versioning scheme: the catalog version
+  is the AMAF version). Existing behavior unchanged; extraction logic
+  tested against both namespaces.
+- `CONTRIBUTING.md`: the AMAF versioning scheme replaces the
+  "until formalised" placeholder; new rules for the CI framework battery
+  and the ID baseline.
+- `docs/governance/versioning.md`: the honest scope note is retired (the
+  framework battery now runs in CI) and the versioning-scheme paragraph now
+  states the release mechanics and the registration trigger.
+- `README.md` and `mkdocs.yml`: tree, CI description, and navigation updated
+  for the new artifacts and the governance decision record.
+
 ### Added (repository operations)
 
 - `.github/workflows/release-tagging.yml`: idempotent workflow that tags released

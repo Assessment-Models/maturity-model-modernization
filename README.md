@@ -71,7 +71,7 @@ Level semantics (characteristics, exit criteria, evidence) live in [`maturity/sc
 
 ## Placement
 
-This repository is the independent home of the `dea:maturity-modernization` maturity model. Under the Assessment-Models organisation taxonomy (CR-AM-11 §8, `.github/GOVERNANCE.md`) a maturity model is an independently versioned asset with its own releases, issues, roadmap and contributors. The maturity model for *enterprise architecture practice itself* is owned by the DEA federation (`technehub-labs`), not by this organisation.
+This repository is the independent home of the `dea:maturity-modernization` maturity model. Under the Assessment-Models organisation taxonomy (CR-AM-11 §8, `.github/GOVERNANCE.md`) a maturity model is an independently versioned asset with its own releases, issues, roadmap and contributors. The maturity model for *enterprise architecture practice itself* is owned by the DEA federation (`technehub-labs`), not by this organisation. The AMAF lives here as a second, independently versioned asset: that classification, its graduation options, and its registry registration policy are decided in the [asset classification decision](docs/governance/asset-classification.md).
 
 ## Status
 
@@ -103,7 +103,7 @@ maturity-model-modernization/
 │   ├── realization/               # outputs, maturity vs modernization, model structure
 │   ├── examples/                   # worked end-to-end examples
 │   ├── validation/                 # validation notes, coverage argument
-│   └── governance/                 # versioning and change policy
+│   └── governance/                # versioning, change policy, asset classification
 ├── maturity/                       # the governed maturity model
 │   ├── scale.yaml                  # model-owned scale (L0..L4)
 │   └── model/
@@ -114,10 +114,10 @@ maturity-model-modernization/
 │   ├── criterion-catalog/          # criterion catalog (YAML) and scoring template
 │   ├── interview-guide/            # discovery and evidence-gathering guides
 │   └── assessment-app/             # interactive assessment instrument (client-side)
-├── framework/                      # AMAF formal model artifacts: metamodel, schemas, machine rules, validated examples (ROADMAP S6, S7)
+├── framework/                      # AMAF formal model artifacts: metamodel, schemas, machine rules, ID baseline, validators, validated examples (ROADMAP S6, S7, S9)
 ├── examples/                       # worked scoring examples (maturity model)
 ├── scripts/                        # local_validate.py (Level 1) and score_assessment.py
-└── .github/workflows/              # local model CI, contract conformance, docs site
+└── .github/workflows/              # local model CI, contract conformance, repository standard, release tagging, AMAF framework CI, docs site
 ```
 
 ## CI levels
@@ -127,6 +127,8 @@ maturity-model-modernization/
 3. **Level 3, ecosystem CI**: the registration record in `Assessment-Models/assessment-registry` is resolved by the ecosystem validator on every registry pull request.
 
 A documentation-site workflow (`.github/workflows/docs.yml`) publishes the AMAF docs corpus via MkDocs Material. The site is at [assessment-models.github.io/maturity-model-modernization](https://assessment-models.github.io/maturity-model-modernization/): a landing page, curated navigation over the whole corpus, and a strict build (`mkdocs build --strict`), so a docs change with a broken link is a failed change. The framework's versioning and change review policy is documented on the site and in the repo ([`docs/governance/versioning.md`](docs/governance/versioning.md)).
+
+The AMAF's own battery is machine-checked in CI alongside the levels above (`.github/workflows/framework-ci.yml`, every push and pull request): the catalog validator ([`framework/validate_catalog.py`](framework/validate_catalog.py); schema, ID stability against [`framework/ids/criteria-baseline.txt`](framework/ids/criteria-baseline.txt), cross-reference integrity, version coherence), the framework model validator ([`framework/validate.py`](framework/validate.py)) over the worked bundles, export synchronization (the committed exports must match the exporter's regeneration), and the assessment app self test. The framework's versioning scheme (catalog version as the AMAF version, tagged `ama-vX.Y.Z`) and its registration policy are decided in the [asset classification decision](docs/governance/asset-classification.md).
 
 ## Quick start
 

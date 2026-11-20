@@ -1,0 +1,48 @@
+# AMAF framework battery CI (ROADMAP slice S9). The sibling of the maturity
+# model's Level 1 workflow: machine-checks the AMAF artifacts to the same
+# standard (ROADMAP done-when) so the framework battery no longer runs only
+# locally:
+#
+# 1. Catalog validation (framework/validate_catalog.py): catalog schema,
+#    ID stability against the committed baseline, cross-reference integrity,
+#    and version coherence across source, JSON export, app embed, rule-set pin.
+# 2. Framework model validation (framework/validate.py): schemas over all
+#    three worked bundles plus semantic re-derivation of the machine rules.
+# 3. Export synchronization: the committed JSON export and app embed must be
+#    exactly what the exporter regenerates from the YAML source (no drift,
+#    no hand edits).
+# 4. Assessment app self test (node tools/assessment-app/selftest.js).
+#
+# Also triggered on pull requests. The governed maturity model assets are
+# untouched by this workflow: their checks stay in local-model-ci.yml and
+# contract-conformance.yml.
+name: AMAF framework CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  framework-battery:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Catalog validation (schema, ID stability, cross-references, versions)
+        run: python3 framework/validate_catalog.py
+      - name: Framework model validation (schemas and rule re-derivation)
+        run: python3 framework/validate.py
+      - name: Export synchronization (committed exports must match the source)
+        run: |
+          python3 tools/criterion-catalog/export-catalog.py
+          git diff --exit-code -- tools/criterion-catalog/criteria-catalog.json tools/assessment-app/catalog.js
+      - name: Assessment app self test
+        run: node tools/assessment-app/selftest.js

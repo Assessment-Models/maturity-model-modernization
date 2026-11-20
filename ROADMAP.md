@@ -17,7 +17,7 @@ Each slice states its goal, the drill-down areas (the high-level inputs that nee
 | S6 | Metamodel formalization | done |
 | S7 | Validation & worked examples | done |
 | S8 | Docs site launch | done |
-| S9 | Governance & asset registration | next |
+| S9 | Governance & asset registration | done |
 
 ## Maturity model track
 
@@ -181,7 +181,7 @@ Entity and relationship lists exist; the formal model needs artifacts.
 
 **Status: complete.** The site is live at https://assessment-models.github.io/maturity-model-modernization/ with GitHub Pages enabled by the repository owner (Source: GitHub Actions) and published from `main` by `.github/workflows/docs.yml` on every docs-touching push. Site polish: a landing page (`docs/index.md`) with the thesis, reading paths, and the machine layer, plus curated navigation (Home, Framework, Taxonomy, Methodology, Contextualization, Metamodel, Realization, Examples, Validation, Governance), theme features (top-of-page return, search highlighting, page edit link), site metadata, and `strict: true` in `mkdocs.yml` so local and CI builds enforce link integrity identically. The governance deliverable is `docs/governance/versioning.md`: the versioned-artifact table (catalog 0.4.1 with independent `assessment_rules`/`interpretation_rules` counters, rule set v2, metamodel 1.0.0, app v1, the untouched governed maturity model), the semver mapping with the two invariants (counters move independently of the patch level; consumers pin consciously and fail loudly on drift), the change review process as practiced since S1 (prose first, machine second, regenerated exports, records that exercise the change, the verification battery with negative tests, cross-reference sync, strict docs build), and the honest scope note that the framework battery runs locally until S9 extends CI. The README now points at the published site; its tree was completed for `docs/validation/` (missed in S7) and the new pages.
 
-## S9 · Governance & asset registration
+## S9 · Governance & asset registration (done)
 
 The AMAF is currently content within this repository, versioned by its catalog (v0.1.0) and changelog notes. Its status under the organisation taxonomy must be decided explicitly.
 
@@ -195,6 +195,8 @@ The AMAF is currently content within this repository, versioned by its catalog (
 **Deliverables**: governance decision record, catalog validator, updated contributing rules if scope changes.
 
 **Done when**: the AMAF's identity, versioning, and CI treatment are explicit and machine-checked to the same standard as the maturity model.
+
+**Status: complete.** The governance decision record (`docs/governance/asset-classification.md`) decides the drill-downs explicitly: the AMAF is a second, independently versioned asset inside this repository (the repository stays a classified maturity model; `model.yaml`, `standard.yaml`, `VERSION`, `maturity/` and the README status line are untouched by framework work); graduation to a taxonomy-named `assessment-model-architecture-modernization` repository is deferred and reviewed at AMAF 1.0, with machine-readable supersession of the legacy v1-alpha instrument (`dea-assessment-modernization`, CR-AR-05) recorded if that happens; and registry registration is deferred until the first AMAF release tag, with a ready-to-submit record draft living in the decision record. The AMAF versioning scheme is formalised (the catalog version is the AMAF version; `## AMAF [x.y.z]` changelog sections tag `ama-vX.Y.Z` via the release tagging workflow, keeping the maturity model's plain `vX.Y.Z` tags separate). CI treatment now matches the maturity model's discipline: `framework/validate_catalog.py` (catalog schema, ID stability against the committed baseline `framework/ids/criteria-baseline.txt`, cross-reference integrity, version coherence, negative-tested), `framework/validate.py`, export synchronization, and the app self test run in `.github/workflows/framework-ci.yml` on every push and pull request, so the framework battery is machine-checked in CI rather than run locally. Contributing rules were updated for the formalised scheme (scope changed, so the "if scope changes" deliverable applied); the governed maturity model assets were left untouched throughout.
 
 ## Sequencing rationale
 

@@ -1,0 +1,119 @@
+# AMAF criterion catalog identity baseline (machine-checked).
+#
+# Checked by framework/validate_catalog.py against the catalog on every run
+# and in CI (.github/workflows/framework-ci.yml). Criterion IDs are stable
+# (CONTRIBUTING.md): an ID is never reworded into a new ID, and an existing
+# ID is never reassigned to a different criterion. Adding, removing or
+# renaming an ID (or a dimension or subdimension) is a deliberate change:
+# update this baseline in the same change-set, and the framework change
+# review process (docs/governance/versioning.md) treats the baseline edit
+# as the visible record of the identity change.
+#
+# Format: one record per line, '<kind> <id> <name>', kinds are dimension,
+# subdimension, criterion. Names are part of the stability contract.
+#
+# Baseline established at catalog version 0.4.1 (49 criteria, 47 subdimensions, 8 dimensions), ROADMAP slice S9.
+dimension D1 Strategic Alignment & Relevance
+subdimension D1.1 Strategic Alignment
+criterion D1.1.1 Strategy alignment
+subdimension D1.2 Business Relevance
+criterion D1.2.1 Business model relevance
+subdimension D1.3 Value Contribution
+criterion D1.3.1 Value contribution
+subdimension D1.4 Future Alignment
+criterion D1.4.1 Future strategic support
+subdimension D1.5 Priority & Criticality
+criterion D1.5.1 Strategic criticality
+dimension D2 Drivers & Environmental Context
+subdimension D2.1 Business Drivers
+criterion D2.1.1 Business drivers identified
+subdimension D2.2 Technology Drivers
+criterion D2.2.1 Technology drivers identified
+subdimension D2.3 Regulatory & Compliance Drivers
+criterion D2.3.1 Compliance drivers identified
+subdimension D2.4 Stakeholder Drivers
+criterion D2.4.1 Stakeholder drivers identified
+subdimension D2.5 Environmental Change
+criterion D2.5.1 Environmental change understood
+subdimension D2.6 Modernization Trigger
+criterion D2.6.1 Trigger characterized
+dimension D3 Architecture Baseline & Condition
+subdimension D3.1 Architecture Inventory
+criterion D3.1.1 Inventory completeness
+subdimension D3.2 Architecture Representation
+criterion D3.2.1 Representation fidelity
+subdimension D3.3 Architecture State
+criterion D3.3.1 Declared vs implemented state
+subdimension D3.4 Lifecycle Condition
+criterion D3.4.1 Lifecycle condition
+subdimension D3.5 Architecture Coverage
+criterion D3.5.1 Concern coverage
+subdimension D3.6 Baseline Integrity
+criterion D3.6.1 Baseline reliability
+dimension D4 Architectural Fitness & Performance
+subdimension D4.1 Functional Adequacy
+criterion D4.1.1 Functional adequacy
+subdimension D4.2 Performance & Efficiency
+criterion D4.2.1 Performance adequacy
+subdimension D4.3 Quality Attributes
+criterion D4.3.1 Service quality attributes
+criterion D4.3.2 Change-supporting quality attributes
+subdimension D4.4 Interoperability & Integration
+criterion D4.4.1 Integration capability
+subdimension D4.5 Operational Effectiveness
+criterion D4.5.1 Operational effectiveness
+subdimension D4.6 Requirement Fulfillment
+criterion D4.6.1 Requirement fulfillment
+dimension D5 Structural Integrity & Complexity
+subdimension D5.1 Architectural Coherence
+criterion D5.1.1 Coherence of elements
+subdimension D5.2 Coupling & Dependencies
+criterion D5.2.1 Independence of change
+subdimension D5.3 Complexity
+criterion D5.3.1 Complexity proportionality
+subdimension D5.4 Fragmentation & Duplication
+criterion D5.4.1 Fragmentation and redundancy
+subdimension D5.5 Modularity & Separation
+criterion D5.5.1 Modularity and separation of concerns
+subdimension D5.6 Architectural Integrity
+criterion D5.6.1 Conformance to architectural intent
+dimension D6 Exposure, Risk & Sustainability
+subdimension D6.1 Technology & Lifecycle Risk
+criterion D6.1.1 Technology lifecycle exposure
+subdimension D6.2 Security & Trust
+criterion D6.2.1 Security exposure
+criterion D6.2.2 Privacy and trust exposure
+subdimension D6.3 Operational Risk
+criterion D6.3.1 Operational risk exposure
+subdimension D6.4 Economic Exposure
+criterion D6.4.1 Economic sustainability
+subdimension D6.5 Compliance & Governance Risk
+criterion D6.5.1 Compliance and governance exposure
+subdimension D6.6 Sustainability
+criterion D6.6.1 Long-term viability
+dimension D7 Adaptability & Modernization Readiness
+subdimension D7.1 Changeability
+criterion D7.1.1 Ease of change
+subdimension D7.2 Extensibility
+criterion D7.2.1 Extensibility
+subdimension D7.3 Migration & Transition
+criterion D7.3.1 Transition feasibility
+subdimension D7.4 Engineering & Delivery Readiness
+criterion D7.4.1 Delivery capacity
+subdimension D7.5 Organizational Readiness
+criterion D7.5.1 Organizational capacity
+subdimension D7.6 Modernization Constraints
+criterion D7.6.1 Constraint exposure
+dimension D8 Target State & Modernization Value
+subdimension D8.1 Target State Definition
+criterion D8.1.1 Target state definition
+subdimension D8.2 Modernization Objectives
+criterion D8.2.1 Objectives and measurable outcomes
+subdimension D8.3 Solution Alternatives
+criterion D8.3.1 Alternatives evaluated
+subdimension D8.4 Value & Benefits
+criterion D8.4.1 Value expectation
+subdimension D8.5 Investment & Economics
+criterion D8.5.1 Economics understood
+subdimension D8.6 Modernization Path
+criterion D8.6.1 Path defined

@@ -97,3 +97,4 @@ nav:
       - Coverage Argument: validation/coverage-argument.md
   - Governance:
       - Versioning & Change Policy: governance/versioning.md
+      - Asset Classification & Registration: governance/asset-classification.md

@@ -23,7 +23,7 @@ The catalog follows semver within the 0.x line: a **minor** bump (0.3.0, 0.4.0) 
 1. **The `assessment_rules` and `interpretation_rules` counters are independent of the catalog version.** A patch bump that changes interpreted machine semantics (0.4.1 rewording the minor severity row) still bumps the affected counter (v1 to v2). Reviews read the counters, not the patch level, to learn whether meaning moved.
 2. **Consumers pin consciously.** The validator and the app self test hard-assert the catalog version and rule counters they expect; a catalog bump without a consumer update fails those checks instead of passing silently.
 
-The AMAF has no released version yet: its additive changes accumulate in the CHANGELOG Unreleased section under slice headings. Whether and how the framework releases independently (as opposed to with the repository) is the explicit subject of ROADMAP slice S9; this page records the current, honest state.
+The AMAF has no released version yet: its additive changes accumulate in the CHANGELOG Unreleased section under slice headings. The versioning scheme itself is formalised: **the catalog version is the AMAF version**. An AMAF release is a `## AMAF [x.y.z]` section in the CHANGELOG, tagged `ama-vX.Y.Z` at the introducing commit by the release tagging workflow (the repository's own `vX.Y.Z` tags remain the maturity model's). Cutting the first release is a content decision, not a tooling one; when it happens, the [registration record draft](asset-classification.md#d3-registration-deferred-until-the-first-amaf-release-tag) is submitted to the assessment registry with the tag as its immutable reference.
 
 ## The framework change review process
 
@@ -37,7 +37,7 @@ Every framework change since S1 has flowed through the same path, and the S7 val
 6. **Cross-references synced.** Every page, README, and ROADMAP slice that names the changed artifact is updated in the same commit; the CHANGELOG gains Added or Changed entries stating what moved and why.
 7. **CI green on push**, including the strict docs build of any documentation that changed.
 
-Honest scope note: CI currently machine-checks the maturity model (Level 1 and Level 2), the repository standard, release tagging, and this site's strict build. The framework's own battery (steps 3 to 5) is executed locally before push, not yet in CI; extending machine checking to the catalog and validator is the explicit subject of ROADMAP slice S9.
+Scope note, updated by slice S9: CI machine-checks the maturity model (Level 1 and Level 2), the repository standard, release tagging, this site's strict build, and now the AMAF's own battery: the [`framework-ci` workflow](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/.github/workflows/framework-ci.yml) runs the catalog validator (schema, ID stability against the committed baseline, cross-reference integrity, version coherence), the framework model validator over all three bundles, an export synchronization check (the committed exports must be exactly what the exporter regenerates), and the app self test, on every push and pull request. The asset's identity decisions behind this machinery are recorded in the [asset classification and registration decision](asset-classification.md).
 
 ## Documentation and site policy
 

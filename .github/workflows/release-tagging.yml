@@ -1,7 +1,10 @@
 # Release tagging: idempotently tags versions marked as released in
-# CHANGELOG.md (sections "## [x.y.z] — date") at the commit that introduced
-# each release note. Runs on changes to CHANGELOG.md and manually. Existing
-# tags are never moved; already-tagged versions are skipped.
+# CHANGELOG.md at the commit that introduced each release note. Two release
+# namespaces share this repository (docs/governance/versioning.md): the
+# maturity model's sections "## [x.y.z]" tag vX.Y.Z, and the AMAF
+# framework's sections "## AMAF [x.y.z]" tag ama-vX.Y.Z (ROADMAP slice S9).
+# Runs on changes to CHANGELOG.md and manually. Existing tags are never
+# moved; already-tagged versions are skipped.
 name: Release tagging
 
 on:
@@ -25,33 +28,42 @@ jobs:
           set -eux
           exec > >(tee tagging.log) 2>&1
           mapfile -t versions < <(grep -E '^## \[[0-9]' CHANGELOG.md | grep -Eo '\[[0-9.]+\]' | tr -d '[]' | sort -urV)
-          if [ "${#versions[@]}" -eq 0 ]; then
-            echo "No released versions found in CHANGELOG.md"
-            exit 0
-          fi
-          for v in "${versions[@]}"; do
-            tag="v$v"
-            if git rev-parse -q --verify "refs/tags/$tag" > /dev/null; then
-              echo "$tag already exists, skipping"
-              continue
+          mapfile -t ama_versions < <(grep -E '^## AMAF \[[0-9]' CHANGELOG.md | grep -Eo '\[[0-9.]+\]' | tr -d '[]' | sort -urV)
+
+          tag_pending () {
+            local label="$1" tprefix="$2" v tag sha
+            if [ "$#" -le 2 ]; then
+              echo "No ${label:+$label }release sections found in CHANGELOG.md"
+              return 0
             fi
-            sha=$(git log --format=%H -S "## [$v]" -- CHANGELOG.md | tail -n 1)
-            if [ -z "${sha:-}" ]; then
-              echo "No introducing commit found for [$v], skipping"
-              continue
-            fi
-            echo "Tagging $tag at $sha"
-            git tag "$tag" "$sha"
-            if ! git push origin "$tag" > push.err 2>&1; then
-              cat push.err
-              if grep -Eq 'refusing to allow a GitHub App|without .{0,4}workflows.{0,4} permission' push.err; then
-                git tag -d "$tag" > /dev/null 2>&1 || true
-                echo "::warning title=Manual tag required::CI cannot push $tag because the tagged commit modifies workflow files, which the job token is not allowed to do. Tag it from a local clone instead: git tag $tag $sha && git push origin $tag"
+            shift 2
+            for v in "$@"; do
+              tag="${tprefix}${v}"
+              if git rev-parse -q --verify "refs/tags/$tag" > /dev/null; then
+                echo "$tag already exists, skipping"
                 continue
               fi
-              exit 1
-            fi
-          done
+              sha=$(git log --format=%H -S "## ${label}[$v]" -- CHANGELOG.md | tail -n 1)
+              if [ -z "${sha:-}" ]; then
+                echo "No introducing commit found for [${label}$v], skipping"
+                continue
+              fi
+              echo "Tagging $tag at $sha"
+              git tag "$tag" "$sha"
+              if ! git push origin "$tag" > push.err 2>&1; then
+                cat push.err
+                if grep -Eq 'refusing to allow a GitHub App|without .{0,4}workflows.{0,4} permission' push.err; then
+                  git tag -d "$tag" > /dev/null 2>&1 || true
+                  echo "::warning title=Manual tag required::CI cannot push $tag because the tagged commit modifies workflow files, which the job token is not allowed to do. Tag it from a local clone instead: git tag $tag $sha && git push origin $tag"
+                  continue
+                fi
+                exit 1
+              fi
+            done
+          }
+
+          tag_pending "" v "${versions[@]}"
+          tag_pending "AMAF " ama-v "${ama_versions[@]}"
       - name: Surface tagger output on failure
         if: failure()
         run: |

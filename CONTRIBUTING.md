@@ -53,10 +53,27 @@ its own conventions:
    AMAF work must not disturb their contracts or version coherence.
 6. The assessment app is intentionally dependency-free and client-side; keep
    it runnable by opening `index.html` directly.
+7. The framework's machine checking runs in CI on every push and pull
+   request (`.github/workflows/framework-ci.yml`):
+   `framework/validate_catalog.py` (catalog schema, ID stability, cross
+   references, version coherence), `framework/validate.py` (schemas and rule
+   re-derivation over the worked bundles), the export regeneration (the
+   committed JSON export and app embed must match the exporter's output
+   byte for byte), and the app self test. A framework change is complete
+   only when that workflow is green.
 
 AMAF framework and catalog changes are recorded in `CHANGELOG.md` under
-`[Unreleased]` until an AMAF versioning scheme is formalised (ROADMAP slice
-S9).
+`[Unreleased]` until an AMAF release is cut. The versioning scheme is
+formalised (ROADMAP slice S9): the catalog version is the AMAF version; an
+AMAF release is a `## AMAF [x.y.z]` changelog section, which the release
+tagging workflow tags `ama-vX.Y.Z` (the repository's plain `vX.Y.Z` tags
+remain the maturity model's releases). Criterion IDs are machine-checked
+against `framework/ids/criteria-baseline.txt`: an ID change updates the
+baseline in the same change-set, and that edit is the visible record of the
+identity change. Registry registration is deferred until the first AMAF
+release tag, per the asset classification decision
+(`docs/governance/asset-classification.md`), which also governs when the
+framework graduates to its own repository.
 
 ## Registering a release
 
