@@ -93,14 +93,17 @@ maturity-model-modernization/
 ├── standard.yaml                   # repository-standard declaration
 ├── VERSION
 ├── mkdocs.yml                      # documentation site configuration
-├── docs/                           # AMAF documentation corpus
+├── docs/                           # AMAF documentation corpus (published as a site)
+│   ├── index.md                    # site landing page
 │   ├── framework/                  # problem, conceptual model, central proposition
 │   ├── taxonomy/                  # D1–D8: subdimensions, criteria, signals
 │   ├── methodology/               # scales, evidence model, interpretation, prioritization
 │   ├── contextualization/         # fan-out to architecture domains, domain packs
 │   ├── metamodel/                 # entities, relationships, criterion model
 │   ├── realization/               # outputs, maturity vs modernization, model structure
-│   └── examples/                   # worked end-to-end examples
+│   ├── examples/                   # worked end-to-end examples
+│   ├── validation/                 # validation notes, coverage argument
+│   └── governance/                 # versioning and change policy
 ├── maturity/                       # the governed maturity model
 │   ├── scale.yaml                  # model-owned scale (L0..L4)
 │   └── model/
@@ -123,7 +126,7 @@ maturity-model-modernization/
 2. **Level 2, contract conformance** (`contract-conformance.yml`): reuses `Assessment-Models/assessment-ci` to resolve the §15 handshake against the published contract suite at the pinned `dea-metamodel` release.
 3. **Level 3, ecosystem CI**: the registration record in `Assessment-Models/assessment-registry` is resolved by the ecosystem validator on every registry pull request.
 
-A documentation-site workflow (`.github/workflows/docs.yml`) publishes the AMAF docs corpus via MkDocs Material.
+A documentation-site workflow (`.github/workflows/docs.yml`) publishes the AMAF docs corpus via MkDocs Material. The site is at [assessment-models.github.io/maturity-model-modernization](https://assessment-models.github.io/maturity-model-modernization/): a landing page, curated navigation over the whole corpus, and a strict build (`mkdocs build --strict`), so a docs change with a broken link is a failed change. The framework's versioning and change review policy is documented on the site and in the repo ([`docs/governance/versioning.md`](docs/governance/versioning.md)).
 
 ## Quick start
 

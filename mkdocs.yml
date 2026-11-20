@@ -1,7 +1,11 @@
 site_name: AMAF
+site_url: https://assessment-models.github.io/maturity-model-modernization/
 site_description: Architecture Modernization Assessment Framework - one modernization assessment foundation, multiple architectural interpretations, coordinated realization.
+site_author: Assessment-Models
 repo_url: https://github.com/Assessment-Models/maturity-model-modernization
 repo_name: Assessment-Models/maturity-model-modernization
+edit_uri: edit/main/docs/
+strict: true
 theme:
   name: material
   palette:
@@ -18,7 +22,16 @@ theme:
   features:
     - navigation.tabs
     - navigation.sections
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.suggest
     - content.code.copy
+    - content.action.edit
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Assessment-Models/maturity-model-modernization
 markdown_extensions:
   - admonition
   - pymdownx.highlight
@@ -28,6 +41,7 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
 nav:
+  - Home: index.md
   - Framework:
       - The Problem: framework/01-the-problem.md
       - Conceptual Model: framework/02-conceptual-model.md
@@ -81,3 +95,5 @@ nav:
   - Validation:
       - Validation Notes: validation/validation-notes.md
       - Coverage Argument: validation/coverage-argument.md
+  - Governance:
+      - Versioning & Change Policy: governance/versioning.md

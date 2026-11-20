@@ -16,8 +16,8 @@ Each slice states its goal, the drill-down areas (the high-level inputs that nee
 | S5 | Assessment instrument v1 | done |
 | S6 | Metamodel formalization | done |
 | S7 | Validation & worked examples | done |
-| S8 | Docs site launch | next |
-| S9 | Governance & asset registration | planned |
+| S8 | Docs site launch | done |
+| S9 | Governance & asset registration | next |
 
 ## Maturity model track
 
@@ -166,7 +166,7 @@ Entity and relationship lists exist; the formal model needs artifacts.
 
 **Status: complete.** The acceptance test was executed as a real inter-rater study: two independent teams assessed the same integration subject (recorded in `framework/examples/integration-instance.yaml` and `framework/examples/integration-reassessment.yaml`); 6 of 7 results agree, the single score-level divergence is preserved with its evidence basis, all finding classes match, and both assessments derive identical opportunity sets and profiles by rule. Two further machine-validated bundles extend the instrument testing: the customer onboarding example (`framework/examples/onboarding-instance.yaml`, a mutual insurer context exercising the sustained deliberate-excess overshoot constraint finding, a standby opportunity, and the maturity bridge in the forward direction) and the reassessment itself (maturity bridge calibration flag, in-record evidence conflict resolution). The consistency review surfaced and fixed four defects in the machine rules and representation: the sustained-overshoot constraint finding is now machine-expressible (catalog v0.4.1, interpretation_rules v2, rule set v2), the minor severity row is reachable, standby opportunities are representable with a profile value and review date, and the stale taxonomy overview version reference was updated. The coverage argument is documented (`docs/validation/coverage-argument.md`), with the empirical record in `docs/validation/validation-notes.md` and the studies in `docs/examples/` (comparability, customer onboarding). All three bundles pass `framework/validate.py`, and the assessment app self-test remains green with five new overshoot probes.
 
-## S8 · Docs site launch
+## S8 · Docs site launch (done)
 
 **Drill-down areas**
 
@@ -178,6 +178,8 @@ Entity and relationship lists exist; the formal model needs artifacts.
 **Deliverables**: published site, governance notes.
 
 **Done when**: the site is live and every framework change flows through the documented process.
+
+**Status: complete.** The site is live at https://assessment-models.github.io/maturity-model-modernization/ with GitHub Pages enabled by the repository owner (Source: GitHub Actions) and published from `main` by `.github/workflows/docs.yml` on every docs-touching push. Site polish: a landing page (`docs/index.md`) with the thesis, reading paths, and the machine layer, plus curated navigation (Home, Framework, Taxonomy, Methodology, Contextualization, Metamodel, Realization, Examples, Validation, Governance), theme features (top-of-page return, search highlighting, page edit link), site metadata, and `strict: true` in `mkdocs.yml` so local and CI builds enforce link integrity identically. The governance deliverable is `docs/governance/versioning.md`: the versioned-artifact table (catalog 0.4.1 with independent `assessment_rules`/`interpretation_rules` counters, rule set v2, metamodel 1.0.0, app v1, the untouched governed maturity model), the semver mapping with the two invariants (counters move independently of the patch level; consumers pin consciously and fail loudly on drift), the change review process as practiced since S1 (prose first, machine second, regenerated exports, records that exercise the change, the verification battery with negative tests, cross-reference sync, strict docs build), and the honest scope note that the framework battery runs locally until S9 extends CI. The README now points at the published site; its tree was completed for `docs/validation/` (missed in S7) and the new pages.
 
 ## S9 · Governance & asset registration
 

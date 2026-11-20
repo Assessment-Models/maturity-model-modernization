@@ -1,0 +1,46 @@
+# Versioning & Change Policy
+
+This repository carries two assets with two change regimes. The governed maturity model follows [CONTRIBUTING](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/CONTRIBUTING.md) (pull requests, immutable references, level semantics protection). The AMAF framework is AMAF-owned content in this repository, versioned by its criterion catalog and reviewed per the process on this page. The two regimes never touch each other's artifacts; the boundary is the load-bearing distinction documented in [Maturity vs Modernization](../realization/maturity-vs-modernization.md).
+
+## Versioned artifacts and their owners
+
+| Artifact | Version now | What moves it |
+|----------|-------------|---------------|
+| [Criterion catalog](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/tools/criterion-catalog/criteria-catalog.yaml) | 0.4.1 (normative) | Any change to modeled criteria, scales, or machine rules; the version and status are printed on every page of the export |
+| Catalog `assessment_rules` | v1 | Bumped when scoring, confidence, sufficiency, aggregation, gap, weighting, or maturity-bridge mechanics change semantically |
+| Catalog `interpretation_rules` | v2 | Bumped when finding class, severity, opportunity synthesis, or prioritization mechanics change semantically |
+| [Machine rule set](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/framework/rules/amaf-rules.yaml) | v2 | Mirrors catalog rule versions; `catalog_version` pins the catalog it was derived from; individual rules carry `normative_source` pointing at the catalog version where their content last changed |
+| [Metamodel manifest](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/framework/metamodel/amaf-metamodel.yaml) and JSON Schema set | ama-metamodel 1.0.0 | Changes to entity shape, identifier conventions, the relationship registry, or schema structure |
+| [Assessment app](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/tools/assessment-app/README.md) | v1 | Instrument behavior; the app self test locks against the catalog version and fails on a catalog bump until the embed is regenerated |
+| Domain packs, methodology docs, this site | Unversioned | The site always describes current `main`; the [CHANGELOG](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/CHANGELOG.md) is the history |
+| Example bundles | Informative | Revised freely, but must pass the validator; a bundle records the catalog and rules version it runs under |
+| Maturity model (`model.yaml`, `standard.yaml`, `VERSION`) | 1.1.0 stable | Only through the governed CONTRIBUTING process; framework changes never touch it |
+
+## How catalog versions move
+
+The catalog follows semver within the 0.x line: a **minor** bump (0.3.0, 0.4.0) adds a new rule family or mode (assessment mechanics in 0.3.0, interpretation rules in 0.4.0); a **patch** bump (0.4.1) makes additive or corrective changes inside existing rule families. Two invariants hold regardless of the bump size:
+
+1. **The `assessment_rules` and `interpretation_rules` counters are independent of the catalog version.** A patch bump that changes interpreted machine semantics (0.4.1 rewording the minor severity row) still bumps the affected counter (v1 to v2). Reviews read the counters, not the patch level, to learn whether meaning moved.
+2. **Consumers pin consciously.** The validator and the app self test hard-assert the catalog version and rule counters they expect; a catalog bump without a consumer update fails those checks instead of passing silently.
+
+The AMAF has no released version yet: its additive changes accumulate in the CHANGELOG Unreleased section under slice headings. Whether and how the framework releases independently (as opposed to with the repository) is the explicit subject of ROADMAP slice S9; this page records the current, honest state.
+
+## The framework change review process
+
+Every framework change since S1 has flowed through the same path, and the S7 validation slice made the discipline explicit. A framework change is complete when all of these hold:
+
+1. **Prose first.** The change is stated in the methodology pages ([evidence](../methodology/evidence-model.md), [interpretation](../methodology/interpretation-logic.md), [prioritization](../methodology/prioritization.md), or the maturity bridge), because the prose is the contract with assessors.
+2. **Machine second.** The same change is expressed in the catalog machine rules (and, when the mechanics change, the rule set), with any counter bumps the table above requires. The exporter runs structural checks on the catalog and hard-asserts the expected catalog version and rule counters on every run, so a bump without a deliberate exporter lock update fails loudly instead of passing silently.
+3. **Exports regenerated.** The JSON export and the embedded catalog in the app are regenerated by that version-locked exporter; never hand-edited.
+4. **Prove it with records.** The worked bundles are extended or corrected until the new or changed rule is actually exercised by an assessment record; a rule no example exercises is flagged in the [validation notes](../validation/validation-notes.md) as future content, never claimed as validated.
+5. **The verification battery runs green:** `python3 framework/validate.py` over all three bundles, the app self test (`node tools/assessment-app/selftest.js`), and negative mutations of the touched rules (a rule that cannot fail is not a rule).
+6. **Cross-references synced.** Every page, README, and ROADMAP slice that names the changed artifact is updated in the same commit; the CHANGELOG gains Added or Changed entries stating what moved and why.
+7. **CI green on push**, including the strict docs build of any documentation that changed.
+
+Honest scope note: CI currently machine-checks the maturity model (Level 1 and Level 2), the repository standard, release tagging, and this site's strict build. The framework's own battery (steps 3 to 5) is executed locally before push, not yet in CI; extending machine checking to the catalog and validator is the explicit subject of ROADMAP slice S9.
+
+## Documentation and site policy
+
+- The site narrates; the repository artifacts are normative. Where a term of art matters, pages link the artifact (catalog, rules, schemas) by absolute GitHub URL rather than restating it as local truth.
+- The site builds strict: internal links must resolve, and the nav is curated. A docs change that breaks the build is a failed change at the same level as a validator failure.
+- The deployment workflow (`.github/workflows/docs.yml`) publishes on every push to `main` that touches the docs corpus, the site configuration, or the workflow itself, and can be dispatched manually.
