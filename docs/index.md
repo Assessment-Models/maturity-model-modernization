@@ -52,4 +52,4 @@ The formal artifacts (metamodel, JSON Schemas, machine rules, example bundles) a
 
 The framework is content-complete and validated: the [ROADMAP](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/ROADMAP.md) slices covering the taxonomy, assessment mechanics, interpretation and prioritization logic, domain packs, the assessment instrument, the metamodel, validation with worked examples, and this site are done. Machine validation, not assertion, is the acceptance bar throughout: see the [validation notes](validation/validation-notes.md).
 
-This site is built with a strict configuration and published from the repository's `main` branch on every docs-touching push by the [deployment workflow](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/.github/workflows/docs.yml).
+This site is built with a strict configuration and published from the repository's `main` branch on every push that touches `docs/` by the [deployment workflow](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/.github/workflows/docs.yml).
