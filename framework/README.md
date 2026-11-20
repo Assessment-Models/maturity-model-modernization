@@ -1,14 +1,14 @@
 # Framework Model Artifacts
 
-Home of the formal AMAF model artifacts: the metamodel, entity schemas, machine rules, and a validated end-to-end example instance, per [ROADMAP.md](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/ROADMAP.md) slice S6. The structure follows the [model structure](../docs/realization/model-structure.md).
+Home of the formal AMAF model artifacts: the metamodel, entity schemas, machine rules, and validated end-to-end example instances, per [ROADMAP.md](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/ROADMAP.md) slices S6 and S7. The structure follows the [model structure](../docs/realization/model-structure.md).
 
-Status: populated (S6). One command validates the whole set:
+Status: populated (S6) and validation-tested (S7). One command validates the whole set:
 
 ```
 python3 framework/validate.py
 ```
 
-Exit 0 and one `ok:` line means the example instance validates against all package schemas and every machine rule re-derivation, the relationship registry, the rule set, and the criterion catalog cross-checks all pass. The validator is stdlib-only and reuses the catalog exporter parser ([`tools/criterion-catalog/export-catalog.py`](../tools/criterion-catalog/export-catalog.py)).
+Exit 0 means every example bundle validates against all package schemas and every machine rule re-derivation, the relationship registry, the rule set, and the criterion catalog cross-checks all pass; the validator prints one `ok:` line with per-bundle coverage (three instance bundles: the docs integration example, its independent re-assessment, and the customer onboarding example). The validator is stdlib-only and reuses the catalog exporter parser ([`tools/criterion-catalog/export-catalog.py`](../tools/criterion-catalog/export-catalog.py)).
 
 ## Three interconnected artifacts
 
@@ -37,8 +37,10 @@ The registry of all three, with lineage, identifier conventions, versioning poli
 | `schemas/architecture-contextualization.schema.json` | Normative | Contextualization document schema (packs, templates, implications) |
 | `schemas/modernization-realization.schema.json` | Normative | Realization document schema |
 | `schemas/relationship.schema.json` | Normative | Typed relationship edge schema (one registry entry) |
-| `rules/amaf-rules.yaml` | Normative | Machine rule set v1: 37 rules (R-SCO-1 .. R-PREP-1) with parameters, expressions, and normative sources, mirroring catalog assessment_rules v1 and interpretation_rules v1 |
-| `examples/integration-instance.yaml` | Informative | The worked end-to-end example: the docs integration instance formalized as model records, from criterion scores and evidence through findings, one opportunity with profiled prioritization, domain implications, an intervention, decision, staged initiatives with a preparatory P-1 and re-assessment gate, to an observed outcome and value realization |
+| `rules/amaf-rules.yaml` | Normative | Machine rule set v2: 37 rules (R-SCO-1 .. R-PREP-1) with parameters, expressions, and normative sources, mirroring catalog v0.4.1 assessment_rules v1 and interpretation_rules v2 (adds the sustained-overshoot constraint class and the reachable minor severity row) |
+| `examples/integration-instance.yaml` | Informative | The worked end-to-end example: the docs integration instance formalized as model records, from criterion scores and evidence through findings, one opportunity with profiled prioritization, domain implications, an intervention, decision, staged initiatives with a preparatory P-1 and re-assessment gate, to an observed outcome and value realization; also assessment A of the S7 comparability study |
+| `examples/integration-reassessment.yaml` | Informative | The S7 comparability study, assessment B: an independent re-assessment of the same subject by a second team, with its own evidence, an in-record evidence conflict resolution, one preserved score-level divergence, and identical derived opportunity profiles |
+| `examples/onboarding-instance.yaml` | Informative | The S7 customer onboarding example in a mutual insurer context: exercises the sustained deliberate-excess overshoot constraint finding, a standby opportunity, and the maturity model bridge in the forward direction |
 | `validate.py` | Derived tool | Stdlib validator: JSON Schema subset checks plus semantic re-derivation of the rules over the example |
 
 The example's assessment and opportunity sections restate the documented worked example ([interpretation logic](../docs/methodology/interpretation-logic.md), [prioritization](../docs/methodology/prioritization.md), the [integration example](../docs/examples/integration-architecture.md)); the realization tail is an illustrative extension, marked informative.

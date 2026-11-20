@@ -26,7 +26,7 @@
 # - Terminology follows docs/framework/glossary.md.
 
 catalog: ama-framework
-version: 0.4.0
+version: 0.4.1
 status: normative
 
 scales:
@@ -163,7 +163,7 @@ assessment_rules:
       calibration context only, never as substituted criterion results.
 
 interpretation_rules:
-  version: 1
+  version: 2
   source: >-
     Machine-readable interpretation and prioritization mechanics, matching the
     prose in docs/methodology/interpretation-logic.md and
@@ -183,7 +183,10 @@ interpretation_rules:
         anticipated demand.
       constraint: >-
         Applicable changeability or readiness result at score 2 or below;
-        constrains the path, not the need.
+        constrains the path, not the need. A sustained deliberate-excess
+        overshoot (a result with a gap of -2 or less whose deliberate-excess
+        review sustains the excess) derives the same class, against the
+        target rationale.
       strength: >-
         Applicable result at score 4 or above with high confidence; an asset,
         never an action item.
@@ -212,8 +215,10 @@ interpretation_rules:
         A basis result at score 2 without further escalation; or a positive
         gap of 2 on a result otherwise adequate today.
       minor: >-
-        Any other qualifying finding, such as an adequate result with a set
-        target above it.
+        Any other qualifying finding; the residual row of the cascade. Its
+        canonical case is the sustained-overshoot constraint finding against
+        the target rationale, which lands here by construction: nothing is
+        wrong with the subject, only with the target's rationale.
     composition: >-
       Highest severity among basis results, with the distribution reported;
       never averaged; strengths carry no severity.

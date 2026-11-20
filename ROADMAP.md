@@ -15,8 +15,8 @@ Each slice states its goal, the drill-down areas (the high-level inputs that nee
 | S4 | Architecture domain contextualization packs | done |
 | S5 | Assessment instrument v1 | done |
 | S6 | Metamodel formalization | done |
-| S7 | Validation & worked examples | next |
-| S8 | Docs site launch | planned |
+| S7 | Validation & worked examples | done |
+| S8 | Docs site launch | next |
 | S9 | Governance & asset registration | planned |
 
 ## Maturity model track
@@ -151,7 +151,7 @@ Entity and relationship lists exist; the formal model needs artifacts.
 
 **Status: complete.** Metamodel formalized under `framework/`: the manifest (`metamodel/amaf-metamodel.yaml`) declares entity packages, identifier and versioning conventions, lifecycle stages, lineage alignment with the pinned `technehub-labs/dea-metamodel`, contract suite evaluation, and a 30-relationship registry covering all 18 documented relationships with multiplicities and OpenDEA mappings; three interconnected artifacts (framework, instance, realization models, the latter as opportunity, contextualization, and realization packages) plus seven JSON Schema files (draft 2020-12, shared common definitions) constrain every entity; `rules/amaf-rules.yaml` expresses the machine rule set (37 rules with parameters and evaluable expressions) mirroring catalog assessment_rules v1 and interpretation_rules v1; `examples/integration-instance.yaml` represents the docs worked example end to end (criterion to value realization, including a preparatory initiative, staged rollout with a re-assessment gate, observed outcome, and value realization); `validate.py` (stdlib only) validates the example against the schemas and re-derives the rules (gap arithmetic, corroboration, classes, floors, severity, parking, dominance, chain coverage). Contract evaluation: conforms now to the conformance and maturity-scale contracts; the assessment contract is the recommended S7 adoption; benchmark and scoring contracts not applicable; the modernization chain is declared AMAF-owned pending an organisation change request. `docs/metamodel/` and `docs/realization/model-structure.md` now point here.
 
-## S7 · Validation & worked examples
+## S7 · Validation & worked examples (done)
 
 **Drill-down areas**
 
@@ -163,6 +163,8 @@ Entity and relationship lists exist; the formal model needs artifacts.
 **Deliverables**: expanded `docs/examples/`, validation notes, catalog revisions.
 
 **Done when**: two independent assessments of the same subject produce comparable profiles, and the framework's coverage argument is documented.
+
+**Status: complete.** The acceptance test was executed as a real inter-rater study: two independent teams assessed the same integration subject (recorded in `framework/examples/integration-instance.yaml` and `framework/examples/integration-reassessment.yaml`); 6 of 7 results agree, the single score-level divergence is preserved with its evidence basis, all finding classes match, and both assessments derive identical opportunity sets and profiles by rule. Two further machine-validated bundles extend the instrument testing: the customer onboarding example (`framework/examples/onboarding-instance.yaml`, a mutual insurer context exercising the sustained deliberate-excess overshoot constraint finding, a standby opportunity, and the maturity bridge in the forward direction) and the reassessment itself (maturity bridge calibration flag, in-record evidence conflict resolution). The consistency review surfaced and fixed four defects in the machine rules and representation: the sustained-overshoot constraint finding is now machine-expressible (catalog v0.4.1, interpretation_rules v2, rule set v2), the minor severity row is reachable, standby opportunities are representable with a profile value and review date, and the stale taxonomy overview version reference was updated. The coverage argument is documented (`docs/validation/coverage-argument.md`), with the empirical record in `docs/validation/validation-notes.md` and the studies in `docs/examples/` (comparability, customer onboarding). All three bundles pass `framework/validate.py`, and the assessment app self-test remains green with five new overshoot probes.
 
 ## S8 · Docs site launch
 

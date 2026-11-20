@@ -273,6 +273,84 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Root README and ROADMAP slice status: S6 done, S7 (validation and worked
   examples) next; framework README rewritten from scaffold to populated.
 
+### Added (S7: validation and worked examples)
+
+- `framework/examples/onboarding-instance.yaml`: second machine-validated
+  worked bundle, a customer onboarding value stream assessed at capability
+  level in a mutual insurer context: 10 results, 17 evidence items, 9
+  findings, 2 opportunities, 5 domain implications, 3 realization stages.
+  Exercises the sustained deliberate-excess overshoot constraint finding
+  (RES-08 score 5 against target 3, deliberate-excess review sustained,
+  finding F-7 minor), a standby opportunity (O-2, review date required,
+  no profile force-fit), and the maturity model bridge in the forward
+  direction (current L2 practice result as direct practice evidence for
+  D7.4.1).
+- `framework/examples/integration-reassessment.yaml`: third bundle, the
+  inter-rater comparability study executed for real: an independent team
+  B assessment of the integration subject (7 results, 13 evidence, 7
+  findings, 2 opportunities) with its own evidence base, an in-record
+  evidence conflict resolution, one preserved score-level divergence
+  (D3.2.1 score 1 versus 2), the maturity bridge calibration flag
+  (readiness 2 against practice L2 with the required subject-specific
+  explanation), and opportunity profiles identical to the first
+  assessment by rule.
+- `docs/examples/customer-onboarding.md`: documentation of the onboarding
+  worked example (results, derived findings, critical-primary and standby
+  opportunities, seven-domain fan-out with derivation from the domain
+  packs, maturity bridge forward direction).
+- `docs/examples/inter-rater-comparability.md`: the comparability study:
+  result-level, finding-level, and profile comparisons, the single
+  divergence localized to its evidence basis, and what the rules force
+  versus permit.
+- `docs/validation/validation-notes.md`: instrument testing matrix
+  (three bundles, 14 criteria, 6 of 7 assessment types, 8 of 10 domain
+  packs, full profile space), consistency review findings with
+  dispositions, maturity model calibration in both exercised directions,
+  negative testing record (nine caught mutations), and verification
+  commands.
+- `docs/validation/coverage-argument.md`: the completeness coverage
+  argument: the derivation from assessment kinds, the decision-to-dimension
+  mapping, deliberate overlaps, gaps by design with named owners, and
+  domain pack coverage as a mapping property.
+- `mkdocs.yml`: navigation for the new example and validation pages.
+
+### Changed (S7)
+
+- `tools/criterion-catalog/criteria-catalog.yaml`: catalog v0.4.1
+  (additive): `interpretation_rules` v2 extends the constraint class row to
+  the sustained deliberate-excess overshoot (gap of -2 or less with the
+  review sustained, against the target rationale), matching the catalog's
+  existing findings.overshoot prose, and rewords the minor severity row to
+  its canonical reachable case (the sustained-overshoot constraint
+  finding); the previous minor row was machine-unreachable. Exported JSON
+  and the assessment app embed regenerated; app scoring logic extended
+  (findingClass carries the overshoot gap; deliberate-excess constraint
+  candidates) with five new self-test probes.
+- `framework/rules/amaf-rules.yaml`: rule set v2 against catalog v0.4.1:
+  R-FND-4 parameters extended for the overshoot branch, R-SEV-4 rewritten
+  against the v0.4.1 normative source.
+- `framework/schemas/common.schema.json`: `standby` added to the profile
+  name enum; standby opportunities are machine-representable (primary
+  profile standby, status standby, review date required, no profile
+  condition satisfied).
+- `framework/validate.py`: multi-bundle validation (all three example
+  bundles, per-bundle coverage reporting), the sustained-overshoot
+  constraint-from-overshoot branch, and standby opportunity checks;
+  negative-test battery re-run, all nine injected violations caught.
+- `docs/methodology/interpretation-logic.md`: synced with interpretation
+  rules v2 (constraint class row, minor severity row, catalog version
+  pin in the header note).
+- `docs/methodology/prioritization.md`: standby now documented as
+  machine-representable.
+- `docs/taxonomy/overview.md`: stale catalog version reference corrected
+  to v0.4.1.
+- `docs/examples/integration-architecture.md`: pointer to the machine
+  bundle and the follow-on examples and validation pages.
+- `framework/README.md`: updated for the three bundles, rule set v2, and
+  multi-bundle validation output.
+- Root README and ROADMAP slice status: S7 done, S8 (docs site launch)
+  next.
+
 ### Added (repository operations)
 
 - `.github/workflows/release-tagging.yml`: idempotent workflow that tags released

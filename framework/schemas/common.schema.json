@@ -81,7 +81,7 @@
     },
     "profileName": {
       "type": "string",
-      "enum": ["critical", "strategic", "risk_driven", "opportunity_driven"]
+      "enum": ["critical", "strategic", "risk_driven", "opportunity_driven", "standby"]
     },
     "domainId": {
       "type": "string",

@@ -284,7 +284,7 @@ def finding_class_ok(finding, results_by_id):
         res = results_by_id.get(rid)
         if res is None:
             continue
-        score, atype = res.get("score"), res.get("assessment_type")
+        score, atype, gap = res.get("score"), res.get("assessment_type"), res.get("gap")
         cls = finding["class"]
         if cls == "deficiency" and atype in ("condition", "target") and score <= 2:
             return True
@@ -293,6 +293,13 @@ def finding_class_ok(finding, results_by_id):
         if cls == "demand" and atype == "demand" and score <= 2:
             return True
         if cls == "constraint" and atype in ("changeability", "readiness") and score <= 2:
+            return True
+        # interpretation_rules v2: a sustained deliberate-excess overshoot
+        # derives the constraint class, against the target rationale; the
+        # sustained review must be recorded on the finding.
+        if (cls == "constraint" and score is not None and score >= 3
+                and gap is not None and gap <= -2
+                and "deliberate-excess" in (finding.get("notes") or "")):
             return True
         if cls == "strength" and score >= 4 and res.get("confidence") == "high":
             return True
@@ -483,12 +490,20 @@ def check_bundle(bundle, cat, errors):
                     known = b in fn_ids or b in res_ids or b in ev_ids or b in opp_ids or b in subj_ids
                     expect(known, "opportunity %s factor %s cites %s which does not exist" % (opp["id"], factor, b))
         sat = [p for p in DOMINANCE if profile_satisfied(p, sig, findings_in, True)]
-        expect(sat, "opportunity %s satisfies no profile; status should be standby (R-PRI-4)" % opp["id"])
-        expect(opp["profile"]["primary"] == sat[0],
-               "opportunity %s: primary %r != first satisfied %r (R-PRI-4 dominance)" % (opp["id"], opp["profile"]["primary"], sat[0]))
-        if "secondary" in opp["profile"]:
-            expect(opp["profile"]["secondary"] in sat[1:],
-                   "opportunity %s: secondary %r not satisfied" % (opp["id"], opp["profile"]["secondary"]))
+        if opp.get("status") == "standby":
+            # R-PRI-4: nothing satisfied is standby with a recorded review
+            # date, never force-fit.
+            expect(not sat, "opportunity %s is standby but satisfies %r (R-PRI-4)" % (opp["id"], sat))
+            expect(opp["profile"]["primary"] == "standby",
+                   "opportunity %s: standby requires profile primary standby (R-PRI-4)" % opp["id"])
+            expect(opp.get("review_date"), "opportunity %s: standby without a review date (R-PRI-4)" % opp["id"])
+        else:
+            expect(sat, "opportunity %s satisfies no profile; status should be standby (R-PRI-4)" % opp["id"])
+            expect(opp["profile"]["primary"] == sat[0],
+                   "opportunity %s: primary %r != first satisfied %r (R-PRI-4 dominance)" % (opp["id"], opp["profile"]["primary"], sat[0]))
+            if "secondary" in opp["profile"]:
+                expect(opp["profile"]["secondary"] in sat[1:],
+                       "opportunity %s: secondary %r not satisfied" % (opp["id"], opp["profile"]["secondary"]))
 
     # R-OPP-2: every severe or material finding drawn in or parked
     drawn = set()
@@ -667,39 +682,59 @@ def check_metamodel(manifest, rules, cat, parser, errors):
     expect(not missing, "metamodel: entity registry missing: %r" % sorted(missing))
 
 
+BUNDLE_FILES = [
+    "framework/examples/integration-instance.yaml",
+    "framework/examples/onboarding-instance.yaml",
+    "framework/examples/integration-reassessment.yaml",
+]
+
+
 def main():
     errors = []
     parser = load_parser()
 
     cat = json.load(open(os.path.join(REPO, "tools", "criterion-catalog", "criteria-catalog.json"), encoding="utf-8"))
-    bundle = load_yaml(parser, "framework/examples/integration-instance.yaml")
     manifest = load_yaml(parser, "framework/metamodel/amaf-metamodel.yaml")
     rules = load_yaml(parser, "framework/rules/amaf-rules.yaml")
 
     # map YAML schema relationships / metamodel entities if present in file form
-    validate_doc(bundle["assessment_instance"], "assessment-instance.schema.json", errors, "instance")
-    validate_doc(bundle["opportunity_set"], "modernization-opportunity.schema.json", errors, "opportunity_set")
-    validate_doc(bundle["contextualization"], "architecture-contextualization.schema.json", errors, "contextualization")
-    validate_doc(bundle["realization"], "modernization-realization.schema.json", errors, "realization")
-
-    # every registered relationship validates against the relationship schema
     rel_schema = load_schema("relationship.schema.json")
     common = load_schema("common.schema.json")
     for r in manifest.get("relationships", []):
         check_schema(r, rel_schema, "relationship %s" % r.get("id"), errors, rel_schema, common)
 
     check_metamodel(manifest, rules, cat, parser, errors)
-    stats = check_bundle(bundle, cat, errors)
+
+    # every worked example bundle validates against the schemas and the
+    # rule set is re-derived over each (S7: multi-bundle validation)
+    total = {}
+    bundle_stats = []
+    for relpath in BUNDLE_FILES:
+        bundle = load_yaml(parser, relpath)
+        label = os.path.basename(relpath)
+        validate_doc(bundle["assessment_instance"], "assessment-instance.schema.json", errors, "%s instance" % label)
+        validate_doc(bundle["opportunity_set"], "modernization-opportunity.schema.json", errors, "%s opportunity_set" % label)
+        validate_doc(bundle["contextualization"], "architecture-contextualization.schema.json", errors, "%s contextualization" % label)
+        validate_doc(bundle["realization"], "modernization-realization.schema.json", errors, "%s realization" % label)
+        stats = check_bundle(bundle, cat, errors)
+        stats["label"] = label
+        bundle_stats.append(stats)
+        for k, v in stats.items():
+            if isinstance(v, int):
+                total[k] = total.get(k, 0) + v
 
     if errors:
         print("NOT OK (%d)" % len(errors))
         for e in errors:
             print("  -", e)
         return 1
-    print("ok: instance bundle, 4 package schemas, relationship registry, rule set, catalog cross-checks; "
-          "chain covers %d results, %d evidence, %d findings, %d opportunities, %d implications, %d stages via initiative records" % (
-              stats["results"], stats["evidence"], stats["findings"], stats["opportunities"],
-              stats["implications"], stats["stages"]))
+    parts = []
+    for st in bundle_stats:
+        parts.append("%s (%d results, %d evidence, %d findings, %d opportunities, %d implications, %d stages)" % (
+            st["label"], st["results"], st["evidence"], st["findings"], st["opportunities"],
+            st["implications"], st["stages"]))
+    print("ok: %d instance bundles, 4 package schemas, relationship registry, rule set, catalog cross-checks; " % len(bundle_stats)
+          + "; ".join(parts))
     return 0
 
 

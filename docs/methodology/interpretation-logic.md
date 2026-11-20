@@ -2,7 +2,7 @@
 
 The framework does not simply produce an assessment score. It produces a reasoned modernization interpretation. A modernization opportunity emerges through the combination of assessment results, evidence, context, strategic demand, criticality, risk, and target-state expectations.
 
-*This page is normative: the rules below state which results and evidence combinations constitute findings, how finding severity is derived, and how findings combine into opportunities. The machine-readable form is the `interpretation_rules` section of the [criterion catalog](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/tools/criterion-catalog/criteria-catalog.yaml). Recording templates are in [output templates](../realization/output-templates.md).*
+*This page is normative: the rules below state which results and evidence combinations constitute findings, how finding severity is derived, and how findings combine into opportunities. The machine-readable form is the `interpretation_rules` section of the [criterion catalog](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/tools/criterion-catalog/criteria-catalog.yaml) (catalog v0.4.1, `interpretation_rules` v2, normative). Recording templates are in [output templates](../realization/output-templates.md).*
 
 ## The interpretation flow
 
@@ -46,7 +46,7 @@ A finding is the atomic interpreted output of the assessment. Not every result w
 | Deficiency | Applicable condition (or target) result at score 2 or below | The subject has a below-adequacy weakness on the proposition |
 | Exposure | Applicable exposure result at score 2 or below | Risk is not adequately known, or sits outside stated tolerance |
 | Demand | Applicable demand result at score 2 or below against recorded anticipated demand | Recorded future duties exceed demonstrated capacity |
-| Constraint | Applicable changeability or readiness result at score 2 or below | The path to change is limited; this constrains *how*, not *whether* |
+| Constraint | Applicable changeability or readiness result at score 2 or below; or a sustained deliberate-excess overshoot (a result at score 3 or above with a gap of -2 or less whose deliberate-excess review sustains the excess) against the target rationale | The path to change is limited; this constrains *how*, not *whether* |
 | Strength | Applicable result at score 4 or above with high confidence | An asset to build on; recorded, never an action item |
 
 **R-I4 Corroboration carry-over.** Sufficiency rules from the [evidence mechanics](evidence-mechanics.md) carry into interpretation: an extreme result (score 1 or 5) without the required corroboration is capped at medium confidence and may not be the sole basis of a finding.
@@ -68,7 +68,7 @@ The ordered severity scale is **minor, moderate, material, severe**. A finding's
 | Severe | A basis result at score 1; or a positive gap of 3 or more; or an exposure finding whose risk sits outside stated tolerance on a subject region carrying high or critical criticality |
 | Material | A basis result at score 2 with high or critical criticality overlay; or a demand finding against demand the organization has committed to; or a positive gap of 2 on a below-adequacy result |
 | Moderate | A basis result at score 2 without further escalation; or a positive gap of 2 on a result otherwise adequate today |
-| Minor | Any other qualifying finding, such as an adequate result (score 3) with a set target above it |
+| Minor | Any other qualifying finding; the residual row of the cascade. Its canonical case is the sustained-overshoot constraint finding against the target rationale, which lands here by construction |
 
 Rules of composition:
 

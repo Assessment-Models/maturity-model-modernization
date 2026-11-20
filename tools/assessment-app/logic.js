@@ -317,13 +317,19 @@
 
   /* ---------- findings (interpretation_rules.findings) ---------- */
 
-  AMAF.findingClass = function (score, assessmentType) {
+  /* interpretation_rules v2: a sustained deliberate-excess overshoot
+   * (gap of -2 or less, score above target both bands) derives the same
+   * class as a path constraint, against the target rationale. */
+  AMAF.findingClass = function (score, assessmentType, gap) {
     if (score <= 2) {
       if (assessmentType === "condition" || assessmentType === "target") return "deficiency";
       if (assessmentType === "exposure") return "exposure";
       if (assessmentType === "demand") return "demand";
       if (assessmentType === "changeability" || assessmentType === "readiness") return "constraint";
       return null;
+    }
+    if (typeof gap === "number" && typeof score === "number" && score >= 3 && gap <= -2) {
+      return "constraint";
     }
     return null;
   };
@@ -353,7 +359,7 @@
       var items = AMAF.evidenceFor(instance, subjectId, cid);
       var eff = AMAF.effectiveConfidence(r, items, assessmentDate, entry.criterion.assessment_type);
       var gap = AMAF.gap(r);
-      var cls = AMAF.findingClass(r.score, entry.criterion.assessment_type);
+      var cls = AMAF.findingClass(r.score, entry.criterion.assessment_type, gap);
       var isStrength = r.score >= 4 && eff.value === "high";
       var extreme = r.score === 1 || r.score === 5;
       var corrob = extreme ? AMAF.corroboration(items) : { ok: true };
@@ -373,6 +379,7 @@
           suggestedSeverity: AMAF.suggestedSeverity(r, entry.criterion.assessment_type, gap),
           belowFloor: eff.value === "low",
           soleExtremeUnverified: extreme && !corrob.ok,
+          deliberateExcess: cls === "constraint" && typeof gap === "number" && gap <= -2 && r.score >= 3,
           notes: eff.notes
         });
       }

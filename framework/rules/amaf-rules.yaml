@@ -1,4 +1,4 @@
-# AMAF rule set v1 (normative machine rule registry)
+# AMAF rule set v2 (normative machine rule registry)
 #
 # Machines need the rules; prose explains them. This file is the model-side
 # instance of the assessment_rule entity: every applicability, scoring,
@@ -6,8 +6,8 @@
 # opportunity, prioritization, and dependency constraint of the framework,
 # expressed with rule ids, parameters, and evaluable expressions.
 #
-# Sources: tools/criterion-catalog/criteria-catalog.yaml v0.4.0,
-# assessment_rules (v1) and interpretation_rules (v1). The assessment
+# Sources: tools/criterion-catalog/criteria-catalog.yaml v0.4.1,
+# assessment_rules (v1) and interpretation_rules (v2). The assessment
 # instrument (tools/assessment-app/logic.js) implements this set and its
 # self test locks behavior against the catalog; framework/validate.py
 # re-derives the key computations over model instances.
@@ -16,8 +16,8 @@
 
 rule_set:
   id: amaf-rules
-  version: 1
-  catalog_version: 0.4.0
+  version: 2
+  catalog_version: 0.4.1
   statement: >-
     Rules are evaluable: each entry binds to the entity kinds it constrains,
     carries concrete parameters, and states its expression in a form the
@@ -227,9 +227,15 @@ rules:
   - id: R-FND-4
     kind: finding-class
     applies_to: [assessment-finding]
-    statement: Constraint is an applicable changeability or readiness result at score 2 or below; it constrains the path, not the need.
-    expression: class == constraint if basis type in {changeability, readiness} and score <= 2.
-    normative_source: { catalog: 0.4.0, section: interpretation_rules.findings.classes }
+    statement: Constraint is an applicable changeability or readiness result at score 2 or below; a sustained deliberate-excess overshoot derives the same class, against the target rationale.
+    parameters:
+      overshoot_gap_at: -2
+      review_required: deliberate-excess review sustained
+    expression: >-
+      class == constraint if basis type in {changeability, readiness} and
+      score <= 2, or if basis gap <= -2 with the deliberate-excess review
+      sustained and recorded on the finding.
+    normative_source: { catalog: 0.4.1, section: interpretation_rules.findings.classes }
 
   - id: R-FND-5
     kind: finding-class
@@ -289,9 +295,13 @@ rules:
   - id: R-SEV-4
     kind: severity
     applies_to: [assessment-finding]
-    statement: Minor covers any other qualifying finding.
-    expression: severity == minor otherwise (e.g. score 3 with a target above it).
-    normative_source: { catalog: 0.4.0, section: interpretation_rules.severity.derivation.minor }
+    statement: Minor is the residual row; its canonical case is the sustained-overshoot constraint finding.
+    expression: >-
+      severity == minor otherwise; canonically reached by the
+      sustained-overshoot constraint finding against the target rationale
+      (basis score above target, gap <= -2), where nothing is wrong with the
+      subject, only with the target's rationale.
+    normative_source: { catalog: 0.4.1, section: interpretation_rules.severity.derivation.minor }
 
   - id: R-SEV-5
     kind: severity

@@ -201,7 +201,7 @@ def check(cat, fail):
         err("catalog")
     if cat.get("status") != "normative":
         err("status")
-    if cat.get("version") != "0.4.0":
+    if cat.get("version") != "0.4.1":
         err("version: %r" % cat.get("version"))
     labels = [lv["label"] for lv in cat["scales"]["criterion"]["levels"]]
     if labels != ["Inadequate", "Weak", "Adequate", "Strong", "Leading"]:
@@ -212,7 +212,7 @@ def check(cat, fail):
         err("confidence_scale")
     if cat["assessment_rules"].get("version") != 1:
         err("assessment_rules.version")
-    if cat["interpretation_rules"].get("version") != 1:
+    if cat["interpretation_rules"].get("version") != 2:
         err("interpretation_rules.version")
     dom_ids = [d["id"] for d in cat["domains"]]
     if len(dom_ids) != 10 or len(set(dom_ids)) != 10:

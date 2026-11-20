@@ -77,7 +77,7 @@ This repository is the independent home of the `dea:maturity-modernization` matu
 
 `1.1.0` · stable — canonical v2 bands, independently released
 
-(maturity model version, coherent with `model.yaml`, `standard.yaml` and `VERSION`; see [`CHANGELOG.md`](CHANGELOG.md). The AMAF content is a revamp scaffold: framework catalog v0.4.0, developed per [`ROADMAP.md`](ROADMAP.md).)
+(maturity model version, coherent with `model.yaml`, `standard.yaml` and `VERSION`; see [`CHANGELOG.md`](CHANGELOG.md). The AMAF content is a revamp scaffold: framework catalog v0.4.1, developed per [`ROADMAP.md`](ROADMAP.md).)
 
 ## Repository layout
 
@@ -111,7 +111,7 @@ maturity-model-modernization/
 │   ├── criterion-catalog/          # criterion catalog (YAML) and scoring template
 │   ├── interview-guide/            # discovery and evidence-gathering guides
 │   └── assessment-app/             # interactive assessment instrument (client-side)
-├── framework/                      # AMAF formal model artifacts: metamodel, schemas, machine rules, validated example (ROADMAP S6)
+├── framework/                      # AMAF formal model artifacts: metamodel, schemas, machine rules, validated examples (ROADMAP S6, S7)
 ├── examples/                       # worked scoring examples (maturity model)
 ├── scripts/                        # local_validate.py (Level 1) and score_assessment.py
 └── .github/workflows/              # local model CI, contract conformance, docs site

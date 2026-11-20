@@ -70,3 +70,7 @@ The domain packs ([slice S4](https://github.com/Assessment-Models/maturity-model
 | [Implementation](../contextualization/domain-packs/implementation.md) | Automate configuration, testing, deployment, and operational realization | Constraint and demand templates, basis F-1, F-2, F-6 |
 
 The derivation is the validation test: every implication above is the pack's worked implication, produced by its templates with no step that is not in the pack or the [interpretation logic](../methodology/interpretation-logic.md).
+
+## Machine record and follow-on examples
+
+This example exists as a machine-validated bundle, [`framework/examples/integration-instance.yaml`](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/framework/examples/integration-instance.yaml), which also carries the opportunity, contextualization, and realization structures and passes [`framework/validate.py`](https://github.com/Assessment-Models/maturity-model-modernization/blob/main/framework/validate.py). Two further worked examples extend it: a second, independent assessment of this same subject forms the [comparability study](inter-rater-comparability.md), and a different subject and organisational context, the onboarding stream of a mutual insurer, is worked in [customer onboarding](customer-onboarding.md). The instrument coverage exercised by all three is tabulated in the [validation notes](../validation/validation-notes.md).

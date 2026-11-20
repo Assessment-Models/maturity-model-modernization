@@ -64,7 +64,7 @@ Ordering rules for assignment:
 
 1. **Dominance order.** An opportunity may satisfy several conditions. The primary profile is the first satisfied in the order: Critical, then Strategic, then Risk-Driven, then Opportunity-Driven. Criticality of need dominates; efficiency never outranks a critical modernization.
 2. **Secondary profiles are recorded, not merged.** Satisfied secondary profiles are listed with the rationale; there is no blended profile and no averaging of conditions.
-3. **No forced fit.** An opportunity satisfying no condition is reported as **standby**, with a recorded review date. It is not pushed into a profile to make the set look cohesive.
+3. **No forced fit.** An opportunity satisfying no condition is reported as **standby**, with a recorded review date. It is not pushed into a profile to make the set look cohesive. Standby is representable in the machine model: the opportunity records `primary: standby`, its status as standby, and a required review date, and the validator rejects a standby opportunity that satisfies any profile condition (exercised by the [customer onboarding example](../examples/customer-onboarding.md)).
 4. **Conditions are auditable.** Each assigned profile cites the factor levels and, through them, the findings and results that ground the condition.
 
 ## Dependency mapping

@@ -26,7 +26,7 @@ function eq(actual, expected, label) {
 
 /* catalog */
 ok(CATALOG && CATALOG.catalog === "ama-framework", "catalog identity");
-eq(CATALOG.version, "0.4.0", "catalog version");
+eq(CATALOG.version, "0.4.1", "catalog version");
 var flat = A.flatten(CATALOG);
 eq(flat.length, 49, "49 criteria");
 ok(flat.every(function (e) { return e.criterion.status === "modeled"; }), "all criteria modeled");
@@ -35,7 +35,7 @@ flat.forEach(function (e) { dims[e.dimensionId] = true; });
 eq(Object.keys(dims).sort(), ["D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8"], "dimensions D1 to D8");
 ok(["D4.3.1", "D4.3.2", "D6.2.1", "D6.2.2"].every(function (id) { return A.criterionById(CATALOG, id); }), "split subdimension ids exist");
 eq(CATALOG.assessment_rules.version, 1, "assessment_rules v1");
-eq(CATALOG.interpretation_rules.version, 1, "interpretation_rules v1");
+eq(CATALOG.interpretation_rules.version, 2, "interpretation_rules v2");
 eq(CATALOG.scales.criterion.levels.map(function (l) { return l.label; }),
   ["Inadequate", "Weak", "Adequate", "Strong", "Leading"], "scale labels");
 
@@ -121,6 +121,14 @@ var sevTol = A.suggestedSeverity({ applicable: "yes", score: 2, criticality: "cr
 eq(sevTol, "severe", "exposure outside tolerance at critical criticality -> severe");
 var sevMod = A.suggestedSeverity({ applicable: "yes", score: 2, criticality: "low", committed: false, tolerance: "" }, "condition", null);
 eq(sevMod, "moderate", "score 2 without escalation -> moderate");
+
+/* interpretation_rules v2: sustained deliberate-excess overshoot derives a
+   constraint candidate (against the target rationale) at minor severity */
+eq(A.findingClass(5, "exposure", -2), "constraint", "overshoot gap -2 -> constraint class (target rationale)");
+eq(A.findingClass(5, "exposure", 0), null, "no overshoot, no class at score 5");
+eq(A.findingClass(4, "condition", null), null, "score 4 without gap -> no class");
+eq(A.findingClass(2, "changeability", null), "constraint", "score 2 changeability -> constraint (unchanged)");
+eq(A.suggestedSeverity({ applicable: "yes", score: 5, criticality: "high", committed: false, tolerance: "" }, "exposure", -2), "minor", "sustained-overshoot constraint lands in minor");
 
 /* strength class needs score >= 4 with high confidence */
 A.setResult(inst, sid, "D2.1.1", { applicable: "yes", score: 5, confidence: "high" });

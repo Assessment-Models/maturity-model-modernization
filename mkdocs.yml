@@ -76,3 +76,8 @@ nav:
       - Model Structure & Sequence: realization/model-structure.md
   - Examples:
       - Integration Architecture: examples/integration-architecture.md
+      - Customer Onboarding: examples/customer-onboarding.md
+      - Comparability Study: examples/inter-rater-comparability.md
+  - Validation:
+      - Validation Notes: validation/validation-notes.md
+      - Coverage Argument: validation/coverage-argument.md

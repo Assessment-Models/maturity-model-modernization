@@ -1,0 +1,619 @@
+# AMAF worked example instance: customer onboarding modernization.
+# A multi-domain subject in a different organisational context than the
+# integration example: one value stream (customer onboarding) assessed as
+# one capability-level subject, fanning out into business, data, software,
+# technology, and implementation implications (ROADMAP S7).
+# Sections: assessment_instance (package: assessment), opportunity_set
+# (package: modernization opportunity), contextualization (package:
+# architecture contextualization), realization (package: modernization
+# realization). The realization tail is an illustrative extension marked
+# informative in the framework README.
+# This assessment runs under assessment_rules v1 and interpretation_rules v2
+# (catalog v0.4.1): it exercises the sustained-overshoot constraint finding
+# (RES-08, F-7), the standby opportunity (O-2), and the maturity bridge
+# evidence path (EV-12 into RES-07).
+
+assessment_instance:
+  metamodel: "ama-metamodel 1.0.0"
+  assessment:
+    id: AS-EXAMPLE-onboarding
+    organization: "Example mutual insurer (worked example)"
+    date: "2026-05-20"
+    framework: { id: ama-framework, version: "0.4.1" }
+    rules: { assessment_rules: 1, interpretation_rules: 2 }
+    scope: "The customer onboarding value stream end to end: journey front end, identity verification and KYC checks, policy issuance, and the applications and data stores that support them, assessed as one capability-level subject."
+    out_of_scope: ["Claims processing", "Product pricing and actuarial systems", "Intermediary-facing portals"]
+    status: recorded
+  subjects:
+    - id: SUB-1
+      name: "Customer onboarding (value stream and supporting architecture)"
+      kind: capability
+  results:
+    - id: RES-01
+      subject: SUB-1
+      criterion: D2.3.1
+      assessment_type: exposure
+      applicable: yes
+      score: 2
+      target: 3
+      gap: 1
+      criticality: critical
+      confidence: high
+      tolerance: outside
+      commentary: "Incoming digital identity verification regulation lands with a fixed 2027 deadline; a majority of KYC checks in the onboarding stream are manual, outside stated compliance tolerance on a critical region."
+      recommendation: "Automate identity verification checks ahead of the regulatory deadline; see the implication set of opportunity O-1."
+      status: recorded
+    - id: RES-02
+      subject: SUB-1
+      criterion: D4.1.1
+      assessment_type: condition
+      applicable: yes
+      score: 2
+      target: 3
+      gap: 1
+      criticality: high
+      confidence: high
+      commentary: "Onboarding journeys stall on incomplete customer data and manual re-entry; the straight-through rate is 31 percent against a 70 percent design intent."
+      recommendation: "Redesign the journey on captured-once customer data behind a single identity."
+      status: recorded
+    - id: RES-03
+      subject: SUB-1
+      criterion: D5.4.1
+      assessment_type: condition
+      applicable: yes
+      score: 1
+      target: 4
+      gap: 3
+      criticality: high
+      confidence: high
+      anchor_rationale: "Anchor: customer identity and eligibility logic duplicated across three onboarding applications with no consolidation decision; two of them re-implement the same identity-proofing flow independently."
+      commentary: "Customer identity and eligibility logic is fragmented and duplicated across the onboarding estate."
+      recommendation: "Consolidate onto a single customer identity service; retire duplicated proofing logic."
+      status: recorded
+    - id: RES-04
+      subject: SUB-1
+      criterion: D2.4.1
+      assessment_type: demand
+      applicable: yes
+      score: 2
+      target: 3
+      gap: 1
+      criticality: high
+      confidence: medium
+      committed: true
+      commentary: "The distribution strategy commits to same-week digital onboarding; support analytics attribute churn partly to onboarding friction."
+      recommendation: "Grow digital onboarding capacity on the consolidated design rather than adding manual checkers."
+      status: recorded
+    - id: RES-05
+      subject: SUB-1
+      criterion: D4.3.2
+      assessment_type: changeability
+      applicable: yes
+      score: 2
+      target: 4
+      gap: 2
+      criticality: medium
+      confidence: high
+      commentary: "Journey changes require coordinated releases across the three onboarding applications; change lead time on the stream is long and risky."
+      recommendation: "Decouple the journey assembly from the three applications; introduce independently changeable components."
+      status: recorded
+    - id: RES-06
+      subject: SUB-1
+      criterion: D1.1.1
+      assessment_type: condition
+      applicable: yes
+      score: 4
+      target: 4
+      gap: 0
+      criticality: high
+      confidence: high
+      commentary: "The onboarding value stream carries the growth strategy's distribution objectives; its target journey design is an agreed strategic asset."
+      recommendation: "Hold the strategic anchor; use it as the target position for consolidation."
+      status: recorded
+    - id: RES-07
+      subject: SUB-1
+      criterion: D7.4.1
+      assessment_type: readiness
+      applicable: yes
+      score: 3
+      target: 4
+      gap: 1
+      criticality: medium
+      confidence: high
+      commentary: "Delivery capacity is adequate: CI/CD and automated regression exist on the front end; the organization's modernization practice sits at band L2 (Systematic), corroborating the delivery record as practice evidence under the maturity bridge."
+      recommendation: "Use the existing pipeline and automation assets for the consolidation; no preparatory initiative required."
+      status: recorded
+    - id: RES-08
+      subject: SUB-1
+      criterion: D6.2.1
+      assessment_type: exposure
+      applicable: yes
+      score: 5
+      target: 3
+      gap: -2
+      criticality: high
+      confidence: high
+      tolerance: inside
+      anchor_rationale: "Anchor: the identity-proofing and fraud control stack materially exceeds the assurance profile the stream is required to meet; the deliberate-excess review sustains the overshoot because the committed regulatory direction (D2.3.1) will consume the headroom."
+      commentary: "Fraud and trust controls overshoot the stated target assurance level; the deliberate-excess review sustains the excess deliberately."
+      recommendation: "Hold the controls; review the target rationale upward instead of trimming capability."
+      status: recorded
+    - id: RES-09
+      subject: SUB-1
+      criterion: D8.1.1
+      assessment_type: target
+      applicable: yes
+      score: 4
+      target: 4
+      gap: 0
+      criticality: high
+      confidence: high
+      commentary: "The target journey design (straight-through digital onboarding on a single customer identity with automated KYC orchestration) is defined and agreed with compliance."
+      recommendation: "Hold the target; anchor the staged consolidation on it."
+      status: recorded
+    - id: RES-10
+      subject: SUB-1
+      criterion: D3.5.1
+      assessment_type: condition
+      applicable: yes
+      score: 2
+      target: 3
+      gap: 1
+      criticality: low
+      confidence: medium
+      commentary: "Onboarding architecture documentation covers the front-end journeys only; the KYC routing decision paths and the issuance interfaces are undocumented."
+      recommendation: "Record the decision paths and interfaces for the onboarding stream."
+      status: recorded
+  evidence:
+    - id: EV-01
+      subject: SUB-1
+      criterion: D2.3.1
+      result: RES-01
+      description: "Compliance readiness review: 62 percent of KYC checks in the onboarding stream are executed manually; the regulator consultation paper sets a fixed 2027 enforcement date for automated digital identity verification."
+      class: direct
+      source: "Regulatory readiness review worksheet"
+      date: "2026-04-14"
+      relation: supports
+      status: recorded
+    - id: EV-02
+      subject: SUB-1
+      criterion: D2.3.1
+      result: RES-01
+      description: "Internal audit extract: manual check error rates cluster at the same steps the regulator names; the compliance tolerance statement marks the region critical."
+      class: indirect
+      source: "Internal audit report 2026-Q1"
+      date: "2026-04-03"
+      relation: supports
+      status: recorded
+    - id: EV-03
+      subject: SUB-1
+      criterion: D4.1.1
+      result: RES-02
+      description: "Journey telemetry extract: straight-through processing rate 31 percent against the 70 percent design intent; median onboarding cycle time 18 days."
+      class: direct
+      source: "Journey telemetry dashboard 2026-Q2"
+      date: "2026-05-08"
+      relation: supports
+      status: recorded
+    - id: EV-04
+      subject: SUB-1
+      criterion: D4.1.1
+      result: RES-02
+      description: "Complaint and rework analysis: the dominant complaint theme is repeated document requests caused by incomplete captured data."
+      class: indirect
+      source: "Complaint register analysis 2026-Q1"
+      date: "2026-04-20"
+      relation: supports
+      status: recorded
+    - id: EV-05
+      subject: SUB-1
+      criterion: D5.4.1
+      result: RES-03
+      description: "Application portfolio review: identity and eligibility logic implemented in three onboarding applications; two re-implement the same identity-proofing flow; no consolidation decision recorded for any of them."
+      class: direct
+      source: "Onboarding estate inventory worksheet 2026-04"
+      date: "2026-04-28"
+      relation: supports
+      status: recorded
+    - id: EV-06
+      subject: SUB-1
+      criterion: D5.4.1
+      result: RES-03
+      description: "The last compliance rule change required a coordinated three-team change across all three implementations; the coordination record shows four weeks of alignment work for one shared rule."
+      class: indirect
+      source: "Compliance change coordination record 2026-Q1"
+      date: "2026-03-30"
+      relation: supports
+      status: recorded
+    - id: EV-07
+      subject: SUB-1
+      criterion: D2.4.1
+      result: RES-04
+      description: "Distribution strategy 2026 commits to same-week digital onboarding for direct channels; churn survey attributes 9 percent of early-tenure churn to onboarding friction."
+      class: direct
+      source: "Distribution strategy 2026 and churn survey 2026-Q1"
+      date: "2026-04-10"
+      relation: supports
+      status: recorded
+    - id: EV-08
+      subject: SUB-1
+      criterion: D4.3.2
+      result: RES-05
+      description: "Release records: a journey-affecting change requires coordinated releases in three applications; median lead time nine weeks against a two-week portfolio median."
+      class: direct
+      source: "Release train records 2025-Q4 to 2026-Q2"
+      date: "2026-05-12"
+      relation: supports
+      status: recorded
+    - id: EV-09
+      subject: SUB-1
+      criterion: D4.3.2
+      result: RES-05
+      description: "Change advisory queue analysis: onboarding journey changes accumulate sequencing waits triggered by the tri-application coupling."
+      class: indirect
+      source: "Change advisory analysis 2026-Q1"
+      date: "2026-04-25"
+      relation: supports
+      status: recorded
+    - id: EV-10
+      subject: SUB-1
+      criterion: D1.1.1
+      result: RES-06
+      description: "Strategy map review: the 2026 growth strategy names digital onboarding as a headline capability with dedicated distribution outcomes."
+      class: direct
+      source: "Growth strategy map 2026"
+      date: "2026-05-02"
+      relation: supports
+      status: recorded
+    - id: EV-11
+      subject: SUB-1
+      criterion: D1.1.1
+      result: RES-06
+      description: "Investment committee minutes reference the onboarding target journey design verbatim in the 2026 modernization envelope."
+      class: indirect
+      source: "Investment committee minutes 2026-05"
+      date: "2026-05-15"
+      relation: supports
+      status: recorded
+    - id: EV-12
+      subject: SUB-1
+      criterion: D7.4.1
+      result: RES-07
+      description: "Architecture Modernization Maturity Model result: practice band L2 Systematic (canonical instance dea:maturity-bands-v2), dated 2026-04-30, scoped to the organization's modernization practice; enters as one direct-class practice evidence item for the readiness criterion under the maturity bridge (R-MB1, R-MAT-1)."
+      class: direct
+      source: "Maturity model assessment record 2026-04"
+      date: "2026-04-30"
+      relation: supports
+      status: recorded
+    - id: EV-13
+      subject: SUB-1
+      criterion: D7.4.1
+      result: RES-07
+      description: "Corroborating delivery records from the subject's own change history: the journey front end ships through CI/CD with automated regression suites in the pipeline."
+      class: indirect
+      source: "Front-end delivery records 2026-Q1 to Q2"
+      date: "2026-05-10"
+      relation: supports
+      status: recorded
+    - id: EV-14
+      subject: SUB-1
+      criterion: D6.2.1
+      result: RES-08
+      description: "Assurance profile mapping: the deployed identity-proofing and fraud controls sit two levels above the assurance profile the stream is required to meet."
+      class: direct
+      source: "Security assurance review worksheet"
+      date: "2026-05-05"
+      relation: supports
+      status: recorded
+    - id: EV-15
+      subject: SUB-1
+      criterion: D6.2.1
+      result: RES-08
+      description: "Fraud loss trend is near zero against peer benchmarks at the same product mix, corroborating the overshoot reading rather than a scoring error."
+      class: indirect
+      source: "Fraud benchmark report 2025"
+      date: "2026-02-15"
+      relation: supports
+      status: recorded
+    - id: EV-16
+      subject: SUB-1
+      criterion: D8.1.1
+      result: RES-09
+      description: "Target journey design workshop: the agreed target statement names straight-through digital onboarding on a single customer identity with automated KYC orchestration, reviewed with compliance against the regulatory timeline."
+      class: direct
+      source: "Target journey design workshop notes"
+      date: "2026-05-10"
+      relation: supports
+      status: recorded
+    - id: EV-17
+      subject: SUB-1
+      criterion: D3.5.1
+      result: RES-10
+      description: "Documentation coverage review: front-end journey documentation exists; the KYC routing decision paths and issuance interfaces have no current documentation."
+      class: direct
+      source: "Documentation coverage review worksheet"
+      date: "2026-04-22"
+      relation: supports
+      status: recorded
+  findings:
+    - id: F-1
+      subject: SUB-1
+      class: exposure
+      severity: severe
+      statement: "Manual KYC checks sit outside stated compliance tolerance on a critical region, against a fixed 2027 regulatory deadline."
+      basis: [RES-01]
+      evidence: [EV-01, EV-02]
+      status: recorded
+    - id: F-2
+      subject: SUB-1
+      class: deficiency
+      severity: material
+      statement: "Onboarding journeys stall on incomplete customer data; straight-through processing is 31 percent against intent."
+      basis: [RES-02]
+      evidence: [EV-03, EV-04]
+      status: recorded
+    - id: F-3
+      subject: SUB-1
+      class: deficiency
+      severity: severe
+      statement: "Customer identity and eligibility logic is fragmented and duplicated across three applications (gap 3)."
+      basis: [RES-03]
+      evidence: [EV-05, EV-06]
+      status: recorded
+    - id: F-4
+      subject: SUB-1
+      class: demand
+      severity: material
+      statement: "Committed same-week digital onboarding demand exceeds the demonstrated capacity of the stream."
+      basis: [RES-04]
+      evidence: [EV-07]
+      status: recorded
+    - id: F-5
+      subject: SUB-1
+      class: constraint
+      severity: material
+      statement: "Journey changes require coordinated tri-application releases; the path to change is tightly coupled."
+      basis: [RES-05]
+      evidence: [EV-08, EV-09]
+      notes: "R-SEV-2: score 2 with a positive gap of 2 on a below-adequacy result."
+      status: recorded
+    - id: F-6
+      subject: SUB-1
+      class: strength
+      statement: "The onboarding value stream carries the growth strategy's distribution objectives; an agreed strategic anchor."
+      basis: [RES-06]
+      evidence: [EV-10, EV-11]
+      notes: "Strengths carry no severity (R-FND-5)."
+      status: recorded
+    - id: F-7
+      subject: SUB-1
+      class: constraint
+      severity: minor
+      statement: "The fraud and trust control target rationale understates the sustained assurance posture of the stream."
+      basis: [RES-08]
+      evidence: [EV-14, EV-15]
+      notes: "R-GAP-2 deliberate-excess review note on RES-08, sustained: the finding constrains the target rationale, not the subject, and lands in the residual minor row (R-FND-4, R-SEV-4, interpretation_rules v2)."
+      status: recorded
+    - id: F-8
+      subject: SUB-1
+      class: strength
+      statement: "The target journey design is defined and agreed with compliance, viable against exposures and readiness."
+      basis: [RES-09]
+      evidence: [EV-16]
+      notes: "Strengths carry no severity (R-FND-5)."
+      status: recorded
+    - id: F-9
+      subject: SUB-1
+      class: deficiency
+      severity: moderate
+      statement: "Onboarding decision paths and issuance interfaces are undocumented."
+      basis: [RES-10]
+      evidence: [EV-17]
+      notes: "Moderate by R-SEV-3 (score 2, low criticality, no escalation); this is the basis of the standby opportunity O-2 (R-PRI-4)."
+      status: recorded
+
+opportunity_set:
+  metamodel: "ama-metamodel 1.0.0"
+  assessment: AS-EXAMPLE-onboarding
+  opportunities:
+    - id: O-1
+      statement: "Onboarding consolidation onto a single customer identity."
+      narrative: "Consolidate the three onboarding applications onto a single customer identity service with automated KYC orchestration, closing the compliance exposure, the fitness gap, and the fragmentation, while meeting the committed digital onboarding demand."
+      finding_ids: [F-1, F-2, F-3, F-4]
+      asset_findings: [F-6, F-8]
+      constraint_findings: [F-5]
+      dimensions: [D1, D2, D4, D5, D8]
+      closes_gap_profile:
+        - { criterion: D2.3.1, result: RES-01, target: 3 }
+        - { criterion: D4.1.1, result: RES-02, target: 3 }
+        - { criterion: D5.4.1, result: RES-03, target: 4 }
+        - { criterion: D2.4.1, result: RES-04, target: 3 }
+      target_position: TGT-1
+      option_set:
+        - { id: OPT-1, description: "Single customer identity service with automated KYC orchestration, staged journey by journey." }
+        - { id: OPT-2, description: "Front-end-only journey rework; leaves the tri-application split and closes little of the gap profile." }
+        - { id: OPT-3, description: "Package replacement of all three applications in one big bang; conflicts with constraint F-5 and the fixed regulatory timeline." }
+      significance:
+        strategic_importance: { level: high, basis: ["Criticality overlay critical on the compliance-critical paths", "Growth strategy names digital onboarding as a headline capability (F-6)"] }
+        modernization_need: { level: high, basis: [F-1, F-3] }
+        future_demand: { level: high, basis: [F-4] }
+        exposure: { level: high, basis: [F-1] }
+        value_potential: { level: medium, basis: [RES-09] }
+        urgency: { level: high, basis: ["Fixed 2027 regulatory deadline (RES-01); committed trigger with a fixed date"] }
+        feasibility: { level: medium, basis: [F-5] }
+        readiness: { level: medium, basis: [RES-07] }
+        dependency: { level: low, basis: ["No other recorded opportunity in this assessment is enabled or blocked"] }
+      profile:
+        primary: critical
+        secondary: strategic
+        rationale: "Need high (F-1, F-3), strategic importance high, material-or-severe exposure finding inside (F-1 severe): Critical Modernization satisfied and, by dominance order, primary (R-PRI-2). Strategic also holds (future demand high via F-4, value potential medium, target defined via RES-09), recorded as secondary."
+      status: active
+      review_date: "2026-08-20"
+    - id: O-2
+      statement: "Onboarding decision-path documentation consolidation."
+      narrative: "Record the KYC routing decision paths and the issuance interfaces for the onboarding stream; deliberately recorded as standby: no profile condition is satisfied and the finding is moderate, so it is scheduled for review rather than force-fit (R-PRI-4)."
+      finding_ids: [F-9]
+      asset_findings: []
+      constraint_findings: []
+      dimensions: [D3]
+      closes_gap_profile:
+        - { criterion: D3.5.1, result: RES-10, target: 3 }
+      target_position: TGT-2
+      option_set:
+        - { id: OPT-4, description: "Lightweight decision records and an interface inventory covering the onboarding stream." }
+      significance:
+        strategic_importance: { level: low, basis: ["Criticality overlay low on the decision-path region (RES-10)"] }
+        modernization_need: { level: medium, basis: [F-9] }
+        future_demand: { level: low, basis: ["No recorded anticipated demand on this subject region"] }
+        exposure: { level: low, basis: ["Risks known and within stated tolerance; no exposure finding in this region"] }
+        value_potential: { level: low, basis: ["No documented value expectation for documentation consolidation"] }
+        urgency: { level: low, basis: ["No characterized trigger within the planning horizon"] }
+        feasibility: { level: high, basis: [OPT-4] }
+        readiness: { level: medium, basis: [RES-07] }
+        dependency: { level: low, basis: ["Enables or blocks nothing else in this assessment"] }
+      profile:
+        primary: standby
+        rationale: "No profile condition satisfied: need medium (one moderate finding), future demand low, exposure low, value potential low, urgency low; reported as standby with a recorded review date, never force-fit (R-PRI-4)."
+      status: standby
+      review_date: "2026-11-20"
+  objectives:
+    - id: OBJ-1
+      opportunity: O-1
+      statement: "Consolidate onboarding onto a single customer identity with automated KYC orchestration."
+      success_criterion: "Every new journey and the two highest-volume journeys onboard through the identity service with automated KYC checks inside stated tolerance."
+      barrier_removed: "Journey changes stop requiring coordinated tri-application releases; F-5 is removed by decoupling."
+      domain_criterion: D4.1.1
+      effort: medium
+      recommended_timestamp: "2026-H2"
+      recency: high
+      rating: "Primary modernization objective of O-1"
+      reviewing: "Architecture Review Board (insurer)"
+      review: "Reviewed with the compliance readiness envelope; scheduled"
+      review_date: "2026-08-20"
+      dependencies:
+        - { type: enables, listed_in: dependencies, id: O-2, basis: "A consolidated identity service retires the undocumented tri-application decision paths, making the standby documentation work trivial." }
+  target_positions:
+    - id: TGT-1
+      statement: "Straight-through digital onboarding on a single customer identity, with KYC checks automated inside stated tolerance."
+      derived_from_results: [RES-09]
+      opportunity: O-1
+      date: "2026-05-10"
+    - id: TGT-2
+      statement: "Documented decision paths and interfaces for the onboarding stream."
+      derived_from_results: [RES-10]
+      opportunity: O-2
+      date: "2026-05-20"
+
+contextualization:
+  metamodel: "ama-metamodel 1.0.0"
+  assessment: AS-EXAMPLE-onboarding
+  packs: []
+  templates:
+    - { id: IT-BUSINESS-DEFICIENCY, domain: business, phrasing: "Simplify or consolidate the journey and its manual bridges, re-anchoring the value stream.", criterion_cap: D4.1 }
+    - { id: IT-DATA-DEFICIENCY, domain: data, phrasing: "Standardize identity semantics and put an owner on the result.", criterion_cap: D5.4 }
+    - { id: IT-SOFTWARE-DEFICIENCY, domain: software, phrasing: "Introduce modular components and decoupled interfaces.", criterion_cap: D5.4 }
+    - { id: IT-TECHNOLOGY-DEMAND, domain: technology, phrasing: "Scale identity and KYC execution to the committed digital load.", criterion_cap: D2.4 }
+    - { id: IT-IMPLEMENTATION-CONSTRAINT, domain: implementation, phrasing: "Automate the paths the change will travel; gate the seams first.", criterion_cap: D4.3 }
+  implications:
+    - id: IMP-BUS-1
+      domain: business
+      criterion: D4.1.1
+      implication: "Simplify partner and customer onboarding journeys; remove manual KYC bridges from the value stream."
+      template: IT-BUSINESS-DEFICIENCY
+      co_occurrence_with: [D2.4.1]
+      assessment_impact: "Reads F-2 and F-4; manual checks and re-entry loops create journey friction against committed digital expectations."
+      provenance: "Business domain pack, deficiency template, basis findings F-2, F-4 (docs/examples/customer-onboarding.md fan-out table)."
+      status: recorded
+    - id: IMP-DAT-1
+      domain: data
+      criterion: D5.4.1
+      implication: "Standardize customer identity semantics, quality, and ownership."
+      template: IT-DATA-DEFICIENCY
+      co_occurrence_with: [D4.1.1]
+      assessment_impact: "Reads F-3; duplicated identity and eligibility logic means ungoverned copies of customer semantics."
+      provenance: "Data domain pack, deficiency template, basis finding F-3 (docs/examples/customer-onboarding.md fan-out table)."
+      status: recorded
+    - id: IMP-SW-1
+      domain: software
+      criterion: D5.4.1
+      implication: "Introduce modular onboarding components and decouple the three applications."
+      template: IT-SOFTWARE-DEFICIENCY
+      co_occurrence_with: [D4.3.2]
+      assessment_impact: "Reads F-3; constraint F-5 stages it: the decoupling is the path condition of the consolidation."
+      provenance: "Software domain pack, deficiency template, basis finding F-3; constraint F-5 stages it."
+      status: recorded
+    - id: IMP-TEC-1
+      domain: technology
+      criterion: D2.4.1
+      implication: "Scale identity verification and KYC execution for the committed digital onboarding load."
+      template: IT-TECHNOLOGY-DEMAND
+      co_occurrence_with: [D2.3.1]
+      assessment_impact: "Reads F-1 and F-4; the 2027 deadline and the committed onboarding demand set the execution floor; the sustained overshoot F-7 supplies headroom, not a deficiency."
+      provenance: "Technology domain pack, demand template, basis findings F-1, F-4; overshoot context F-7."
+      status: recorded
+    - id: IMP-IMP-1
+      domain: implementation
+      criterion: D4.3.2
+      implication: "Automate configuration, testing, and deployment for the staged consolidation."
+      template: IT-IMPLEMENTATION-CONSTRAINT
+      co_occurrence_with: [D5.4.1]
+      assessment_impact: "Reads constraint F-5 against severe findings F-1 and F-3; existing front-end automation (RES-07) is the wiring point, not a fork."
+      provenance: "Implementation domain pack, constraint template, constraint F-5, basis findings F-1, F-3."
+      status: recorded
+
+realization:
+  metamodel: "ama-metamodel 1.0.0"
+  assessment: AS-EXAMPLE-onboarding
+  interventions:
+    - id: IV-1
+      opportunity: O-1
+      statement: "Consolidate onboarding onto a single customer identity service with automated KYC orchestration."
+      rationale: "Closes the gap profile of O-1 (RES-01..RES-04) onto the target position anchored by RES-09; the staged shape respects constraint F-5 and the fixed regulatory timeline; readiness is adequate (RES-07, practice band L2 corroborated), so no preparatory initiative is required."
+      profile: critical
+      status: committed
+  capability_implications:
+    - { id: CAP-1, intervention: IV-1, capability: "KYC orchestration service", kind: introduces, affected_dimension: D2.3.1, notes: "Automates identity verification checks, closing F-1 and moving compliance inside tolerance." }
+    - { id: CAP-2, intervention: IV-1, capability: "Single customer identity and journey assembly", kind: introduces, affected_dimension: D4.1.1, notes: "Anchors the fan-out implications IMP-BUS-1..IMP-IMP-1." }
+  decisions:
+    - id: DEC-1
+      statement: "Adopt the single customer identity service with automated KYC orchestration."
+      intervention: IV-1
+      decides: IV-1
+      status: accepted
+      date: "2026-06-30"
+      options_considered: [OPT-1, OPT-2, OPT-3]
+      consequences: "Option set of O-1 resolved in favor of OPT-1; staged journey rollout with a re-assessment gate before the estate wave commits."
+      decided_by: "Architecture Review Board (insurer)"
+  initiatives:
+    - id: INIT-1
+      statement: "Staged onboarding consolidation onto the identity service."
+      intervention: IV-1
+      objectives: [OBJ-1]
+      stages:
+        - { id: stage-1, name: "Automated KYC orchestration on the two highest-volume journeys", status: realized, start: "2026-06-15", end: "2026-09-30", target: "Automated checks live on the two highest-volume journeys, compliance inside tolerance", closes: [F-1, F-4], outputs: ["KYC orchestration service", "Compliance readiness dashboard"] }
+        - { id: stage-1-gate, name: "Re-assessment gate", status: realized, target: "Readiness re-scored before the estate wave commits (D7.4.1)", outputs: [] }
+        - { id: stage-2, name: "Journey and application consolidation wave", status: in-progress, start: "2026-10-01", target: "The three applications consolidated onto the identity service; journeys decoupled", closes: [F-2, F-3, F-5], outputs: ["Decoupled journey components", "Retired duplicate identity logic"] }
+      depends_on: []
+      status: in-progress
+  outcomes:
+    - id: OUT-1
+      initiative: INIT-1
+      statement: "High-volume journeys onboard through automated KYC orchestration inside tolerance."
+      status: observed
+      expected: "Automated checks clear the regulatory readiness bar on the pilot journeys."
+      observed: "Since go-live, automated KYC cleared 97.6 percent of checks on the pilot journeys; the regulator readiness spot check recorded no findings; the straight-through rate rose from 31 to 58 percent."
+      date: "2026-10-15"
+      measure: "Straight-through rate and compliance findings per regulatory readiness review, per the OBJ-1 success criterion."
+      evidence: ["KYC orchestration service telemetry 2026-Q3", "Regulator readiness review minutes 2026-10"]
+  value_realizations:
+    - id: VR-1
+      outcome: OUT-1
+      opportunity: O-1
+      statement: "Faster, compliant digital onboarding with automated checks."
+      status: evidenced
+      expected: "Reduced onboarding cycle time and compliance exposure, consistent with the value factors recorded for O-1."
+      evidenced: "Median onboarding cycle time reduced from 18 days to 6 days on pilot journeys; zero compliance findings in the readiness spot check."
+      measure: { id: onboarding-straight-through-rate, version: "1.0.0" }
+      date: "2026-10-15"
+      successor_assessment: null
+      basis_findings: [F-1, F-4]
