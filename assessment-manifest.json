@@ -1,0 +1,23 @@
+{
+  "id": "maturity-model-modernization",
+  "title": "Architecture Modernization Maturity Model",
+  "layer": "maturity-model",
+  "architectural_concern": "Architecture Modernization",
+  "version": "v1.1.0",
+  "license": "MIT",
+  "conformance_status": "structural",
+  "standards_alignment": [
+    "OpenDEA",
+    "AM-MODEL-REPOSITORY-STANDARD"
+  ],
+  "locales": [
+    "en"
+  ],
+  "dimensions": [
+    "Strategy & Direction",
+    "Sequencing & Migration Patterns",
+    "Execution & Operations",
+    "Technical Debt & Outcomes"
+  ],
+  "description": "Architecture Modernization Maturity Model — assesses the capability to modernise legacy estates and platforms: strategy, sequencing, execution and technical-debt reduction."
+}
