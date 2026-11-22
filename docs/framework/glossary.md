@@ -50,7 +50,7 @@ Where a term is also a modeled entity, its authoritative structural description 
 
 **Overshoot** — A negative gap: the current finding sits above the target score. An overshoot of two or more triggers a deliberate-excess review, and is never reported as headroom to spend.
 
-**Practice maturity** — The organization's modernization practice band (L0-L4, canonical v2), assessed by the governed maturity model, not by the catalog. Practice maturity results enter D7 assessment as evidence under the [maturity model bridge](../methodology/maturity-bridge.md), never as converted scores.
+**Practice maturity** — The organization's modernization practice band (L-1-L-5, canonical v2), assessed by the governed maturity model, not by the catalog. Practice maturity results enter D7 assessment as evidence under the [maturity model bridge](../methodology/maturity-bridge.md), never as converted scores.
 
 **Applicability** — Whether and under what scope conditions a criterion is assessed for the subject. Non-assessment is a recorded decision with a reason (inapplicable, deferred, or out of scope), never a silent omission.
 

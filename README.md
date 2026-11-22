@@ -5,7 +5,7 @@
 This repository is the home of **architecture modernization assessment** under the Assessment-Models organisation. It carries two coordinated assets:
 
 1. **AMAF, the Architecture Modernization Assessment Framework** (new, scaffold slice). A common, architecture-agnostic framework for assessing architecture modernization: what needs to modernize, why, how significantly, and toward what desired state, then contextualized into the specific architecture domains, capabilities, decisions, and interventions required to realize it.
-2. **The Architecture Modernization Maturity Model** (`dea:maturity-modernization`, 1.1.0 stable). The governed maturity model assessing the organisation's *capability to modernise* legacy estates and platforms: strategy, sequencing, execution, and technical-debt reduction.
+2. **The Architecture Modernization Maturity Model** (`dea:maturity-modernization`, 2.0.0, scale renumbering adopted pending ratification). The governed maturity model assessing the organisation's *capability to modernise* legacy estates and platforms: strategy, sequencing, execution, and technical-debt reduction.
 
 The two assets are deliberately distinct, and the distinction is load-bearing: AMAF assesses the **modernization need of architectures**; the maturity model assesses the **maturity of the modernization practice**. Under AMAF, maturity is an input, not the organizing principle: practice capability feeds dimension D7 (Adaptability & Modernization Readiness) and shapes the modernization path. See [`docs/realization/maturity-vs-modernization.md`](docs/realization/maturity-vs-modernization.md).
 
@@ -50,7 +50,7 @@ AMAF's central proposition separates **the assessment of modernization** (common
 
 ## The maturity model (established asset)
 
-`dea:maturity-modernization` assesses the capability to modernise: five levels (L0..L4) scored against the canonical v2 bands. As of 1.1.0 the model is full-fledged: **15 criteria across 4 practice areas**, each with a definition, assessment question, evidence expectations, weight, and observable level anchors L0-L4 coherent with the scale ([`maturity/model/criteria.yaml`](maturity/model/criteria.yaml)); a **scoring model** that aggregates the 0-100 criterion scores by weighted mean, resolves the canonical v2 band, and derives the effort-adjusted value ([`maturity/model/scoring.yaml`](maturity/model/scoring.yaml)); two **worked examples** ([`examples/`](examples/)); and a **scoring CLI** ([`scripts/score_assessment.py`](scripts/score_assessment.py)).
+`dea:maturity-modernization` assesses the capability to modernise: five levels (L-1..L-5) scored against the canonical v2 bands. As of 1.1.0 the model is full-fledged: **15 criteria across 4 practice areas**, each with a definition, assessment question, evidence expectations, weight, and observable level anchors L-1-L-5 coherent with the scale ([`maturity/model/criteria.yaml`](maturity/model/criteria.yaml)); a **scoring model** that aggregates the 0-100 criterion scores by weighted mean, resolves the canonical v2 band, and derives the effort-adjusted value ([`maturity/model/scoring.yaml`](maturity/model/scoring.yaml)); two **worked examples** ([`examples/`](examples/)); and a **scoring CLI** ([`scripts/score_assessment.py`](scripts/score_assessment.py)).
 
 | Practice area | Weight | Criteria |
 |---|---|---|
@@ -75,7 +75,7 @@ This repository is the independent home of the `dea:maturity-modernization` matu
 
 ## Status
 
-`1.1.0` · stable — canonical v2 bands, independently released
+`2.0.0` · adoption pending [dea-metamodel #214] — canonical v2 bands, scale renumbering adopted
 
 (maturity model version, coherent with `model.yaml`, `standard.yaml` and `VERSION`; see [`CHANGELOG.md`](CHANGELOG.md). The AMAF content is a revamp scaffold: framework catalog v0.4.1, developed per [`ROADMAP.md`](ROADMAP.md).)
 
@@ -105,10 +105,10 @@ maturity-model-modernization/
 │   ├── validation/                 # validation notes, coverage argument
 │   └── governance/                # versioning, change policy, asset classification
 ├── maturity/                       # the governed maturity model
-│   ├── scale.yaml                  # model-owned scale (L0..L4)
+│   ├── scale.yaml                  # model-owned scale (L-1..L-5)
 │   └── model/
 │       ├── modernization.yaml      # model register
-│       ├── criteria.yaml           # criteria catalog: 4 areas, 15 criteria, L0-L4 anchors
+│       ├── criteria.yaml           # criteria catalog: 4 areas, 15 criteria, L-1-L-5 anchors
 │       └── scoring.yaml            # scoring model: weighted mean, v2 band mirror, EAV
 ├── tools/                          # AMAF instrument surface
 │   ├── criterion-catalog/          # criterion catalog (YAML) and scoring template

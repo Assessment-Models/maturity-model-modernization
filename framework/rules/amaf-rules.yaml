@@ -17,7 +17,7 @@
 rule_set:
   id: amaf-rules
   version: 2
-  catalog_version: 0.4.1
+  catalog_version: 2.0.0
   statement: >-
     Rules are evaluable: each entry binds to the entity kinds it constrains,
     carries concrete parameters, and states its expression in a form the
@@ -177,15 +177,15 @@ rules:
     applies_to: [assessment-result, evidence]
     statement: Practice maturity enters D7 readiness as evidence only; conversion is prohibited both ways.
     parameters:
-      practice_scale: "maturity bands L0-L4 (dea:maturity-bands-v2)"
+      practice_scale: "maturity bands L-1-L-5 (dea:maturity-bands-v2)"
       conversion: prohibited
     expression: >-
       a maturity result may appear as one direct-class evidence item for
       D7 readiness criteria; for changeability criteria it is indirect
       context only; no mapping between practice bands and the five-point
-      scale is representable. Readiness 4 or 5 with practice at L0 requires
+      scale is representable. Readiness 4 or 5 with practice at L-1 requires
       direct corroboration or a recorded contradiction and downward review;
-      readiness 1 or 2 with practice at L2 or higher requires a recorded
+      readiness 1 or 2 with practice at L-3 or higher requires a recorded
       subject-specific explanation.
     normative_source: { catalog: 0.4.0, section: assessment_rules.maturity_bridge }
 

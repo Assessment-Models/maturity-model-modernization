@@ -26,7 +26,7 @@ The divergence is genuine, and the framework localizes it precisely. Team A's ev
 
 ## The one confidence difference
 
-RES-06/RES-06B score identically (2) but Team B records high confidence where Team A recorded medium. This is mechanical, not judgment drift: Team B's evidence window includes a current maturity-model practice result (band L2, evidence EV-B11) which corroborates the readiness result per the [maturity bridge](../methodology/maturity-bridge.md). The same bridge fact triggers the R-MB4 practice-versus-readiness flag, and the record carries the required subject-specific explanation: the automated-testing readiness gap is subject-specific, not a practice-wide pattern. So the confidence gain and the calibration flag are both rule-driven consequences of a richer evidence set.
+RES-06/RES-06B score identically (2) but Team B records high confidence where Team A recorded medium. This is mechanical, not judgment drift: Team B's evidence window includes a current maturity-model practice result (band L-3, evidence EV-B11) which corroborates the readiness result per the [maturity bridge](../methodology/maturity-bridge.md). The same bridge fact triggers the R-MB4 practice-versus-readiness flag, and the record carries the required subject-specific explanation: the automated-testing readiness gap is subject-specific, not a practice-wide pattern. So the confidence gain and the calibration flag are both rule-driven consequences of a richer evidence set.
 
 ## Finding-level comparison
 

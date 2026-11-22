@@ -107,7 +107,7 @@ assessment_instance:
       gap: 2
       criticality: medium
       confidence: high
-      commentary: "Delivery capacity for integration change is limited, chiefly by absent automated integration testing. Calibration flag resolved per the maturity bridge: the organization's modernization practice holds band L2, so a readiness score of 2 carries a recorded subject-specific explanation, namely that the estate's automated integration testing gap is subject-specific and not a practice-wide pattern."
+      commentary: "Delivery capacity for integration change is limited, chiefly by absent automated integration testing. Calibration flag resolved per the maturity bridge: the organization's modernization practice holds band L-3, so a readiness score of 2 carries a recorded subject-specific explanation, namely that the estate's automated integration testing gap is subject-specific and not a practice-wide pattern."
       recommendation: "Build automated integration testing capability before staged standardization commits."
       status: recorded
     - id: RES-07B
@@ -228,7 +228,7 @@ assessment_instance:
       subject: SUB-1
       criterion: D7.4.1
       result: RES-06B
-      description: "Architecture Modernization Maturity Model result: practice band L2 Systematic (canonical instance dea:maturity-bands-v2), dated 2026-02-15, scoped to the organization's modernization practice; recorded as one direct-class practice evidence item for the readiness criterion under the maturity bridge (R-MB1), with the R-MB4 calibration flag resolved by the subject-specific explanation on the result."
+      description: "Architecture Modernization Maturity Model result: practice band L-3 Systematic (canonical instance dea:maturity-bands-v2), dated 2026-02-15, scoped to the organization's modernization practice; recorded as one direct-class practice evidence item for the readiness criterion under the maturity bridge (R-MB1), with the R-MB4 calibration flag resolved by the subject-specific explanation on the result."
       class: direct
       source: "Maturity model assessment record 2026-02"
       date: "2026-02-15"
@@ -303,7 +303,7 @@ assessment_instance:
       statement: "Delivery capacity for integration change is limited, chiefly by absent automated testing."
       basis: [RES-06B]
       evidence: [EV-B10, EV-B11]
-      notes: "R-SEV-2 (score 2 with positive gap 2 on a below-adequacy result). Maturity bridge calibration flag resolved: readiness 2 against practice band L2 requires a subject-specific explanation, recorded on the result (R-MB4, R-MAT-1); practice maturity enters as evidence, never as a score, in either direction."
+      notes: "R-SEV-2 (score 2 with positive gap 2 on a below-adequacy result). Maturity bridge calibration flag resolved: readiness 2 against practice band L-3 requires a subject-specific explanation, recorded on the result (R-MB4, R-MAT-1); practice maturity enters as evidence, never as a score, in either direction."
       status: recorded
     - id: F-B7
       subject: SUB-1
