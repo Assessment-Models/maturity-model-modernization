@@ -26,7 +26,7 @@ function eq(actual, expected, label) {
 
 /* catalog */
 ok(CATALOG && CATALOG.catalog === "ama-framework", "catalog identity");
-eq(CATALOG.version, "0.4.1", "catalog version");
+eq(CATALOG.version, "2.0.0", "catalog version");
 var flat = A.flatten(CATALOG);
 eq(flat.length, 49, "49 criteria");
 ok(flat.every(function (e) { return e.criterion.status === "modeled"; }), "all criteria modeled");

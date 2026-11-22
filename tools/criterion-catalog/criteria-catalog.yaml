@@ -26,7 +26,7 @@
 # - Terminology follows docs/framework/glossary.md.
 
 catalog: ama-framework
-version: 0.4.1
+version: 2.0.0
 status: normative
 
 scales:
@@ -144,19 +144,19 @@ assessment_rules:
   maturity_bridge:
     reference: >-
       Architecture Modernization Maturity Model (release 1.1.0), practice
-      bands L0-L4, canonical v2 band instance (dea:maturity-bands-v2 v1.0.0).
+      bands L-1-L-5, canonical v2 band instance (dea:maturity-bands-v2 v1.0.0).
     role: >-
       A current maturity result enters D7 assessment as one direct-class
       practice evidence item for readiness criteria; it is indirect context
       only for subject-level changeability criteria.
-    conversion: prohibited in both directions; no mapping between L0-L4 and the five-point scale
+    conversion: prohibited in both directions; no mapping between L-1-L-5 and the five-point scale
     calibration_flags:
       high_readiness_low_practice: >-
         Readiness scores of 4 or 5 on change-execution criteria with assessed
-        practice maturity at L0 require direct architecture-level corroboration,
+        practice maturity at L-1 require direct architecture-level corroboration,
         else the contradiction is recorded and the score is reviewed downward.
       low_readiness_high_practice: >-
-        Readiness scores of 1 or 2 with practice maturity at L2 or higher
+        Readiness scores of 1 or 2 with practice maturity at L-3 or higher
         require a recorded subject-specific explanation.
     reporting: >-
       Maturity results appear in AMAF reports as evidence references and

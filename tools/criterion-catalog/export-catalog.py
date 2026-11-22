@@ -201,7 +201,7 @@ def check(cat, fail):
         err("catalog")
     if cat.get("status") != "normative":
         err("status")
-    if cat.get("version") != "0.4.1":
+    if cat.get("version") != "2.0.0":
         err("version: %r" % cat.get("version"))
     labels = [lv["label"] for lv in cat["scales"]["criterion"]["levels"]]
     if labels != ["Inadequate", "Weak", "Adequate", "Strong", "Leading"]:

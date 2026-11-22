@@ -38,6 +38,6 @@ aggregation:
   weights_source: maturity/model/criteria.yaml
 aggregated_score: 62.0
 resolved_band: level-3-systematic
-resolved_level: L2
+resolved_level: L-3
 effort_adjusted_value: 155.0
 notes: 'Profile: pattern and execution practice is strong (pattern reuse 74, pattern library 70, metrics 68); investment economics lags (ROI discipline 50, cost of delay 52). Consistent with a Systematic practice still building quantified-outcome muscle.'

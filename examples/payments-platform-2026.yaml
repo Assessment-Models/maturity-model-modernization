@@ -38,6 +38,6 @@ aggregation:
   weights_source: maturity/model/criteria.yaml
 aggregated_score: 34.0
 resolved_band: level-2-structured
-resolved_level: L1
+resolved_level: L-2
 effort_adjusted_value: 51.0
 notes: 'Profile: strategy documentation has started (42) and pattern reuse is emerging (45), but the economics are unmanaged (ROI discipline 24, cost of delay 21) and learning is not retained (25). Typical Structured-band entry profile.'

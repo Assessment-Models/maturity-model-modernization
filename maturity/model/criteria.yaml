@@ -9,7 +9,7 @@
 # semantics at criterion granularity; they never contradict it.
 id: dea:criteria-modernization-v1
 model: dea:maturity-modernization
-version: 1.1.0
+version: 2.0.0
 status: stable
 name: Architecture Modernization Maturity Model Criteria Catalog
 description: '15 criteria across 4 practice areas, scored 0-100 and aggregated by the scoring model (maturity/model/scoring.yaml) into the canonical v2 bands.'
@@ -36,11 +36,11 @@ practice_areas:
     - Initiative business cases tracing to strategy goals
     - Leadership review minutes
     level_anchors:
-      L0: 'No documented strategy; modernisation happens as opportunistic big-bang rewrites driven by individuals.'
-      L1: 'A roadmap is published but not enforced; initiatives may proceed without tracing to it.'
-      L2: 'Strategy is documented and approved by leadership; initiatives are checked against it at intake.'
-      L3: 'Strategy is metrics-driven; ROI per initiative feeds sequencing and portfolio decisions.'
-      L4: 'Strategy evolves continuously as part of ongoing architecture practice; modernisation is business as usual.'
+      L-1: 'No documented strategy; modernisation happens as opportunistic big-bang rewrites driven by individuals.'
+      L-2: 'A roadmap is published but not enforced; initiatives may proceed without tracing to it.'
+      L-3: 'Strategy is documented and approved by leadership; initiatives are checked against it at intake.'
+      L-4: 'Strategy is metrics-driven; ROI per initiative feeds sequencing and portfolio decisions.'
+      L-5: 'Strategy evolves continuously as part of ongoing architecture practice; modernisation is business as usual.'
   - id: portfolio_visibility
     name: Portfolio visibility of legacy estate
     weight: 10
@@ -51,11 +51,11 @@ practice_areas:
     - System inventory with disposition (retain, replatform, replace, retire)
     - Quarterly portfolio review records
     level_anchors:
-      L0: 'No consistent view of which legacy systems exist or need modernisation.'
-      L1: 'A shared modernisation backlog register exists but is incomplete or stale.'
-      L2: 'All legacy systems have a modernisation roadmap entry, reviewed quarterly.'
-      L3: 'Roadmap entries carry quantified debt and cost-of-delay inputs that drive prioritisation.'
-      L4: 'The portfolio is continuously re-evaluated; new systems enter the modernisation practice by default.'
+      L-1: 'No consistent view of which legacy systems exist or need modernisation.'
+      L-2: 'A shared modernisation backlog register exists but is incomplete or stale.'
+      L-3: 'All legacy systems have a modernisation roadmap entry, reviewed quarterly.'
+      L-4: 'Roadmap entries carry quantified debt and cost-of-delay inputs that drive prioritisation.'
+      L-5: 'The portfolio is continuously re-evaluated; new systems enter the modernisation practice by default.'
   - id: roi_discipline
     name: ROI discipline on modernisation investment
     weight: 10
@@ -66,11 +66,11 @@ practice_areas:
     - Benefits realisation tracking
     - Investment decision records
     level_anchors:
-      L0: 'No ROI calculation; spend is approved ad hoc and outcomes surprise stakeholders.'
-      L1: 'Business cases exist for some initiatives but benefits are rarely verified afterwards.'
-      L2: 'Business cases are mandatory and benefits are reviewed at wave completion.'
-      L3: 'ROI is measured per project and exceeds 2x within 24 months; results shape the portfolio.'
-      L4: 'Investment allocation self-corrects from verified outcome data across the whole portfolio.'
+      L-1: 'No ROI calculation; spend is approved ad hoc and outcomes surprise stakeholders.'
+      L-2: 'Business cases exist for some initiatives but benefits are rarely verified afterwards.'
+      L-3: 'Business cases are mandatory and benefits are reviewed at wave completion.'
+      L-4: 'ROI is measured per project and exceeds 2x within 24 months; results shape the portfolio.'
+      L-5: 'Investment allocation self-corrects from verified outcome data across the whole portfolio.'
 - id: sequencing-patterns
   name: Sequencing & Migration Patterns
   description: 'How modernisation is ordered into waves and executed through documented, reused migration patterns.'
@@ -85,11 +85,11 @@ practice_areas:
     - Migration design documents referencing patterns
     - Pattern reuse metrics
     level_anchors:
-      L0: 'No documented migration patterns; each initiative invents its own approach.'
-      L1: 'Some patterns are documented but not standardised; the library has fewer than 3 entries or is unused.'
-      L2: 'A pattern library with at least 3 documented patterns is the standard reference for all migrations.'
-      L3: 'Pattern selection is data-driven; failure modes per pattern are catalogued and feed the library.'
-      L4: 'New patterns are evaluated in the modernisation context first and contributed back externally.'
+      L-1: 'No documented migration patterns; each initiative invents its own approach.'
+      L-2: 'Some patterns are documented but not standardised; the library has fewer than 3 entries or is unused.'
+      L-3: 'A pattern library with at least 3 documented patterns is the standard reference for all migrations.'
+      L-4: 'Pattern selection is data-driven; failure modes per pattern are catalogued and feed the library.'
+      L-5: 'New patterns are evaluated in the modernisation context first and contributed back externally.'
   - id: wave_planning
     name: Risk-adjusted wave planning
     weight: 8
@@ -100,11 +100,11 @@ practice_areas:
     - Roadmap with sequencing rationale
     - Wave retrospectives
     level_anchors:
-      L0: 'No wave planning; single big-bang replacements dominate.'
-      L1: 'Waves are identified informally; the sequencing rationale is undocumented.'
-      L2: 'Wave planning with a risk-adjusted roadmap is standard practice across the portfolio.'
-      L3: 'Wave sequencing optimises measured velocity and ROI, adjusted from prior wave outcomes.'
-      L4: 'Wave boundaries dissolve into continuous, incremental modernisation governed by architecture practice.'
+      L-1: 'No wave planning; single big-bang replacements dominate.'
+      L-2: 'Waves are identified informally; the sequencing rationale is undocumented.'
+      L-3: 'Wave planning with a risk-adjusted roadmap is standard practice across the portfolio.'
+      L-4: 'Wave sequencing optimises measured velocity and ROI, adjusted from prior wave outcomes.'
+      L-5: 'Wave boundaries dissolve into continuous, incremental modernisation governed by architecture practice.'
   - id: coexistence_strategy
     name: Legacy/new coexistence strategy
     weight: 7
@@ -115,11 +115,11 @@ practice_areas:
     - Cutover and dual-running plans
     - Data reconciliation approach
     level_anchors:
-      L0: 'Coexistence is not considered; cutovers are unplanned.'
-      L1: 'A coexistence strategy is documented for some waves but unclear across initiatives.'
-      L2: 'A coexistence strategy is documented per migration wave as standard practice.'
-      L3: 'Coexistence costs and duration are predicted from prior wave data.'
-      L4: 'Coexistence is a first-class architecture capability with reusable facilities.'
+      L-1: 'Coexistence is not considered; cutovers are unplanned.'
+      L-2: 'A coexistence strategy is documented for some waves but unclear across initiatives.'
+      L-3: 'A coexistence strategy is documented per migration wave as standard practice.'
+      L-4: 'Coexistence costs and duration are predicted from prior wave data.'
+      L-5: 'Coexistence is a first-class architecture capability with reusable facilities.'
   - id: exit_criteria
     name: Wave exit criteria and dual-running discipline
     weight: 7
@@ -130,11 +130,11 @@ practice_areas:
     - Decommissioning records
     - Time-to-replace metrics
     level_anchors:
-      L0: 'No exit criteria; legacy lingers after rewrites with no retirement plan.'
-      L1: 'Exit criteria exist for some waves; dual-running happens reactively.'
-      L2: 'All waves have explicit exit criteria; dual-running is planned, not reactive.'
-      L3: 'Exit criteria are measurable and time-to-replace per wave is tracked against prediction.'
-      L4: 'Retirement of legacy is continuous and verified; the estate carries no undocumented legacy.'
+      L-1: 'No exit criteria; legacy lingers after rewrites with no retirement plan.'
+      L-2: 'Exit criteria exist for some waves; dual-running happens reactively.'
+      L-3: 'All waves have explicit exit criteria; dual-running is planned, not reactive.'
+      L-4: 'Exit criteria are measurable and time-to-replace per wave is tracked against prediction.'
+      L-5: 'Retirement of legacy is continuous and verified; the estate carries no undocumented legacy.'
 - id: execution-operations
   name: Execution & Operations
   description: 'Whether modernisation execution is measured, reused, and improved through captured learning.'
@@ -149,11 +149,11 @@ practice_areas:
     - Quarterly progress reports
     - Metric definitions and data sources
     level_anchors:
-      L0: 'No modernisation metrics; success is anecdotal.'
-      L1: 'Some metrics are collected per initiative but not aggregated or reviewed.'
-      L2: 'Modernisation metrics are on a leadership dashboard and reviewed quarterly.'
-      L3: 'Metrics are predictive; duration models guide commitments.'
-      L4: 'Metrics drive autonomous improvement actions without programme intervention.'
+      L-1: 'No modernisation metrics; success is anecdotal.'
+      L-2: 'Some metrics are collected per initiative but not aggregated or reviewed.'
+      L-3: 'Modernisation metrics are on a leadership dashboard and reviewed quarterly.'
+      L-4: 'Metrics are predictive; duration models guide commitments.'
+      L-5: 'Metrics drive autonomous improvement actions without programme intervention.'
   - id: pattern_reuse
     name: Pattern and anti-corruption layer reuse
     weight: 5
@@ -164,11 +164,11 @@ practice_areas:
     - Shared anti-corruption layer components
     - Migration design reviews
     level_anchors:
-      L0: 'No reuse; every migration builds its own integration approach.'
-      L1: 'Reuse is incidental and person-dependent.'
-      L2: 'Anti-corruption layer reuse in at least 80% of migrations that need one.'
-      L3: 'The reuse rate is measured per wave and improving.'
-      L4: 'Shared facilities evolve automatically from accumulated pattern experience.'
+      L-1: 'No reuse; every migration builds its own integration approach.'
+      L-2: 'Reuse is incidental and person-dependent.'
+      L-3: 'Anti-corruption layer reuse in at least 80% of migrations that need one.'
+      L-4: 'The reuse rate is measured per wave and improving.'
+      L-5: 'Shared facilities evolve automatically from accumulated pattern experience.'
   - id: lessons_learned
     name: Lessons learned and failure mode management
     weight: 5
@@ -179,11 +179,11 @@ practice_areas:
     - Failure mode catalogue
     - Applied mitigations in later waves
     level_anchors:
-      L0: 'No retrospectives; failures repeat.'
-      L1: 'Retrospectives happen occasionally but findings are not retained or applied.'
-      L2: 'Lessons learned are captured per wave and applied to the pattern library and plans.'
-      L3: 'Failure modes are catalogued with mitigations and feed predictive planning.'
-      L4: 'Learning loops are continuous and contribute to external practice (publications, tooling).'
+      L-1: 'No retrospectives; failures repeat.'
+      L-2: 'Retrospectives happen occasionally but findings are not retained or applied.'
+      L-3: 'Lessons learned are captured per wave and applied to the pattern library and plans.'
+      L-4: 'Failure modes are catalogued with mitigations and feed predictive planning.'
+      L-5: 'Learning loops are continuous and contribute to external practice (publications, tooling).'
   - id: readiness_assessment
     name: Readiness assessment before major modernisations
     weight: 5
@@ -194,11 +194,11 @@ practice_areas:
     - Go/no-go decision records
     - 'AMAF dimension D7 profile, or equivalent readiness evidence'
     level_anchors:
-      L0: 'No readiness assessment; initiatives start on optimism.'
-      L1: 'Readiness is discussed informally for some initiatives.'
-      L2: 'A readiness assessment (including practice maturity) is required before each major modernisation.'
-      L3: 'Readiness assessments are quantified and calibrate wave commitments and risk buffers.'
-      L4: 'Readiness signals are sensed continuously from practice telemetry, not per-project reviews.'
+      L-1: 'No readiness assessment; initiatives start on optimism.'
+      L-2: 'Readiness is discussed informally for some initiatives.'
+      L-3: 'A readiness assessment (including practice maturity) is required before each major modernisation.'
+      L-4: 'Readiness assessments are quantified and calibrate wave commitments and risk buffers.'
+      L-5: 'Readiness signals are sensed continuously from practice telemetry, not per-project reviews.'
 - id: debt-outcomes
   name: Technical Debt & Outcomes
   description: 'Whether legacy debt economics are quantified and modernisation outcomes are verified.'
@@ -213,11 +213,11 @@ practice_areas:
     - Debt trend reports
     - Portfolio decisions citing debt data
     level_anchors:
-      L0: 'Technical debt is not discussed as a quantified concern.'
-      L1: 'Debt is listed qualitatively in backlogs without cost estimates.'
-      L2: 'Debt is quantified for major systems and visible in portfolio decisions.'
-      L3: 'The cost of legacy technical debt is quantified and decreasing year over year.'
-      L4: 'Debt levels are managed within continuous tolerance bands, not programmes.'
+      L-1: 'Technical debt is not discussed as a quantified concern.'
+      L-2: 'Debt is listed qualitatively in backlogs without cost estimates.'
+      L-3: 'Debt is quantified for major systems and visible in portfolio decisions.'
+      L-4: 'The cost of legacy technical debt is quantified and decreasing year over year.'
+      L-5: 'Debt levels are managed within continuous tolerance bands, not programmes.'
   - id: cost_of_delay
     name: Cost of delay for legacy systems
     weight: 4
@@ -228,11 +228,11 @@ practice_areas:
     - Sequencing decisions citing delay cost
     - Benefits models
     level_anchors:
-      L0: 'Cost of delay is not a concept in use.'
-      L1: 'Delay costs are acknowledged qualitatively for urgent cases only.'
-      L2: 'Cost of delay is calculated for prioritised systems and used in wave ordering.'
-      L3: 'Cost of delay is calculated portfolio-wide and drives sequencing economics.'
-      L4: 'Delay economics are embedded in continuous investment decisions.'
+      L-1: 'Cost of delay is not a concept in use.'
+      L-2: 'Delay costs are acknowledged qualitatively for urgent cases only.'
+      L-3: 'Cost of delay is calculated for prioritised systems and used in wave ordering.'
+      L-4: 'Cost of delay is calculated portfolio-wide and drives sequencing economics.'
+      L-5: 'Delay economics are embedded in continuous investment decisions.'
   - id: velocity_trend
     name: Modernisation velocity measured and improving
     weight: 5
@@ -243,11 +243,11 @@ practice_areas:
     - Duration prediction models
     - Trend reports
     level_anchors:
-      L0: 'Velocity is not measured.'
-      L1: 'Velocity is visible per initiative but not compared over time.'
-      L2: 'Velocity is measured across waves and reported with the portfolio.'
-      L3: 'Velocity improves each wave; predictive models estimate duration.'
-      L4: 'Velocity is self-sustaining; modernisation capacity scales without programme pressure.'
+      L-1: 'Velocity is not measured.'
+      L-2: 'Velocity is visible per initiative but not compared over time.'
+      L-3: 'Velocity is measured across waves and reported with the portfolio.'
+      L-4: 'Velocity improves each wave; predictive models estimate duration.'
+      L-5: 'Velocity is self-sustaining; modernisation capacity scales without programme pressure.'
   - id: outcome_verification
     name: Outcome and benefits verification
     weight: 5
@@ -258,8 +258,8 @@ practice_areas:
     - Continuity verification records
     - Post-implementation reviews
     level_anchors:
-      L0: 'Outcomes are not verified; business stakeholders are surprised by project outcomes.'
-      L1: 'Outcomes are reviewed informally for some initiatives.'
-      L2: 'Benefits and continuity are verified at wave exit against the business case.'
-      L3: 'ROI is verified per modernisation, with predictive benefit models calibrated by results.'
-      L4: 'Outcome verification is continuous and feeds external practice benchmarking.'
+      L-1: 'Outcomes are not verified; business stakeholders are surprised by project outcomes.'
+      L-2: 'Outcomes are reviewed informally for some initiatives.'
+      L-3: 'Benefits and continuity are verified at wave exit against the business case.'
+      L-4: 'ROI is verified per modernisation, with predictive benefit models calibrated by results.'
+      L-5: 'Outcome verification is continuous and feeds external practice benchmarking.'

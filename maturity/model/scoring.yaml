@@ -9,7 +9,7 @@
 # table without a change request against the upstream owner.
 id: dea:scoring-modernization-v1
 model: dea:maturity-modernization
-version: 1.1.0
+version: 2.0.0
 status: stable
 name: Architecture Modernization Maturity Model Scoring Model
 description: 'Weighted-mean scoring over the criteria catalog, resolved against the canonical v2 bands with effort-adjusted value.'
@@ -38,27 +38,27 @@ band_resolution:
     name: Emergent
     range: [0, 20]
     effort_multiplier: 1.0
-    scale_level: L0
+    scale_level: L-1
   - id: level-2-structured
     name: Structured
     range: [21, 45]
     effort_multiplier: 1.5
-    scale_level: L1
+    scale_level: L-2
   - id: level-3-systematic
     name: Systematic
     range: [46, 70]
     effort_multiplier: 2.5
-    scale_level: L2
+    scale_level: L-3
   - id: level-4-adaptive
     name: Adaptive
     range: [71, 88]
     effort_multiplier: 4.0
-    scale_level: L3
+    scale_level: L-4
   - id: level-5-self-optimising
     name: Self-Optimising
     range: [89, 100]
     effort_multiplier: 6.0
-    scale_level: L4
+    scale_level: L-5
 effort_adjusted_value:
   definition: 'effort_adjusted_value = aggregated_score * effort_multiplier of the resolved band, rounded to 2 decimals'
   purpose: 'An effort-weighted value signal for comparing assessments; it is a derived signal, not a maturity level.'

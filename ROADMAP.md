@@ -67,7 +67,7 @@ Scales and attributes are defined; the mechanics of using them are not yet fully
 - Evidence sufficiency rules: how many and what kinds of evidence constitute a defensible result.
 - Aggregation rules: what may be aggregated (subdimension to dimension profiles) and what must not be (cross-dimension composite scores), plus gap semantics between current and target scores.
 - Weighting guidance: when weighting is appropriate and how criticality interacts with weights.
-- Relationship to the maturity model's canonical v2 band scheme: where the 1-5 criterion scale and the L0-L4 practice levels meet (D7), without collapsing one into the other.
+- Relationship to the maturity model's canonical v2 band scheme: where the 1-5 criterion scale and the L-1-L-5 practice levels meet (D7), without collapsing one into the other.
 
 **Deliverables**: `docs/methodology/` mechanics pages, machine-readable rules in the catalog (`assessment_rules` section).
 
@@ -158,7 +158,7 @@ Entity and relationship lists exist; the formal model needs artifacts.
 - Instrument testing against different architecture domains (at least: enterprise, data, software) and organisational contexts.
 - End-to-end worked examples: the integration architecture example (in `docs/examples/`) plus at least one more (e.g., customer onboarding, spanning multiple domains).
 - Completeness and consistency review: does the taxonomy cover architecture modernization holistically; do the dimensions overlap or leave gaps.
-- Calibration with the maturity model: confirm the L0-L4 practice capability scores integrate cleanly as D7 evidence, in both directions.
+- Calibration with the maturity model: confirm the L-1-L-5 practice capability scores integrate cleanly as D7 evidence, in both directions.
 
 **Deliverables**: expanded `docs/examples/`, validation notes, catalog revisions.
 

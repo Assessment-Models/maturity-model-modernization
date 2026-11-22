@@ -11,7 +11,7 @@ Checks:
      references resolve against the scale, and its version is coherent with
      the manifest
   5. maturity/model/criteria.yaml (v1.1.0+): catalog identity, 4 practice
-     areas, fully formed criteria with L0..L4 anchors, unique ids, weights
+     areas, fully formed criteria with L-1..L-5 anchors, unique ids, weights
      summing to 100
   6. maturity/model/scoring.yaml: weighted-mean aggregation contract and a
      band-resolution mirror that matches the canonical v2 bands exactly
@@ -66,7 +66,7 @@ if not src.get("organization") or not src.get("repository"):
     errors.append("model.yaml: conformance.source organization+repository are required")
 
 # 3 — scale
-EXPECTED_LEVELS = ['L0', 'L1', 'L2', 'L3', 'L4']
+EXPECTED_LEVELS = ['L-0', 'L-1', 'L-2', 'L-3', 'L-4', 'L-5']
 levels_actual = scale.get("levels") or []
 if len(levels_actual) != len(EXPECTED_LEVELS):
     errors.append(f"scale: expected {len(EXPECTED_LEVELS)} levels, found {len(levels_actual)}")
@@ -77,6 +77,8 @@ for i, lvl in enumerate(levels_actual):
         errors.append(f"scale: unexpected level id {lvl.get('id')!r}")
     if not lvl.get("name") or not lvl.get("definition"):
         errors.append(f"scale: level {lvl.get('id')} requires name and definition")
+if levels_actual and levels_actual[0].get("name") != "Not Assessed":
+    errors.append("scale: level ordinal 0 must be the Not Assessed entry (L-0) (dea-metamodel #214)")
 if scale.get("ordering") != "ascending":
     errors.append("scale: ordering must be 'ascending'")
 prog = scale.get("progression") or {}
@@ -145,7 +147,7 @@ else:
             else:
                 catalog_weight_total += float(w)
             anchors = c.get("level_anchors") or {}
-            for lvl in EXPECTED_LEVELS:
+            for lvl in EXPECTED_LEVELS[1:]:  # L-0 Not Assessed carries no practice anchors (dea-metamodel #214)
                 if not str(anchors.get(lvl) or "").strip():
                     errors.append(f"criterion {cid}: missing level anchor for {lvl}")
             if not (c.get("evidence") or []):
@@ -158,7 +160,7 @@ else:
         )
 
 # 6 — scoring model (band mirror checked against the CANONICAL v2 bands)
-V2_BANDS = [('level-1-emergent', (0, 20), 'Emergent', 1.0, 'L0'), ('level-2-structured', (21, 45), 'Structured', 1.5, 'L1'), ('level-3-systematic', (46, 70), 'Systematic', 2.5, 'L2'), ('level-4-adaptive', (71, 88), 'Adaptive', 4.0, 'L3'), ('level-5-self-optimising', (89, 100), 'Self-Optimising', 6.0, 'L4')]
+V2_BANDS = [('level-1-emergent', (0, 20), 'Emergent', 1.0, 'L-1'), ('level-2-structured', (21, 45), 'Structured', 1.5, 'L-2'), ('level-3-systematic', (46, 70), 'Systematic', 2.5, 'L-3'), ('level-4-adaptive', (71, 88), 'Adaptive', 4.0, 'L-4'), ('level-5-self-optimising', (89, 100), 'Self-Optimising', 6.0, 'L-5')]
 
 
 def band_for(score: float):

@@ -120,7 +120,7 @@ assessment_instance:
       gap: 1
       criticality: medium
       confidence: high
-      commentary: "Delivery capacity is adequate: CI/CD and automated regression exist on the front end; the organization's modernization practice sits at band L2 (Systematic), corroborating the delivery record as practice evidence under the maturity bridge."
+      commentary: "Delivery capacity is adequate: CI/CD and automated regression exist on the front end; the organization's modernization practice sits at band L-3 (Systematic), corroborating the delivery record as practice evidence under the maturity bridge."
       recommendation: "Use the existing pipeline and automation assets for the consolidation; no preparatory initiative required."
       status: recorded
     - id: RES-08
@@ -279,7 +279,7 @@ assessment_instance:
       subject: SUB-1
       criterion: D7.4.1
       result: RES-07
-      description: "Architecture Modernization Maturity Model result: practice band L2 Systematic (canonical instance dea:maturity-bands-v2), dated 2026-04-30, scoped to the organization's modernization practice; enters as one direct-class practice evidence item for the readiness criterion under the maturity bridge (R-MB1, R-MAT-1)."
+      description: "Architecture Modernization Maturity Model result: practice band L-3 Systematic (canonical instance dea:maturity-bands-v2), dated 2026-04-30, scoped to the organization's modernization practice; enters as one direct-class practice evidence item for the readiness criterion under the maturity bridge (R-MB1, R-MAT-1)."
       class: direct
       source: "Maturity model assessment record 2026-04"
       date: "2026-04-30"
@@ -568,7 +568,7 @@ realization:
     - id: IV-1
       opportunity: O-1
       statement: "Consolidate onboarding onto a single customer identity service with automated KYC orchestration."
-      rationale: "Closes the gap profile of O-1 (RES-01..RES-04) onto the target position anchored by RES-09; the staged shape respects constraint F-5 and the fixed regulatory timeline; readiness is adequate (RES-07, practice band L2 corroborated), so no preparatory initiative is required."
+      rationale: "Closes the gap profile of O-1 (RES-01..RES-04) onto the target position anchored by RES-09; the staged shape respects constraint F-5 and the fixed regulatory timeline; readiness is adequate (RES-07, practice band L-3 corroborated), so no preparatory initiative is required."
       profile: critical
       status: committed
   capability_implications:
