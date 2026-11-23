@@ -94,8 +94,6 @@ Every stage retains traceability to its basis. An opportunity is synthesized fro
 
 A common finding may have implications for several architecture disciplines. AMAF contextualizes it without duplicating the underlying assessment or forcing all domains into one architecture model.
 
-<box></box>
-
 ```mermaid
 flowchart TB
     A["Common AMAF Assessment"] --> B["Modernization Finding / Opportunity"]
