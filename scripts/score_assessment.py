@@ -31,6 +31,32 @@ def load(path: Path):
     return yaml.safe_load(path.read_text()) or {}
 
 
+def marginal_band_points(score: float) -> list[float]:
+    """Allocate a continuous score progressively across canonical v2 bands."""
+    boundaries = (20.0, 45.0, 70.0, 88.0, 100.0)
+    lower = 0.0
+    points: list[float] = []
+    for upper in boundaries:
+        points.append(max(0.0, min(score, upper) - lower))
+        lower = upper
+    return points
+
+
+def effort_adjusted_value(score: float) -> float:
+    multipliers = (1.0, 1.5, 2.5, 4.0, 6.0)
+    return sum(points / multiplier for points, multiplier
+               in zip(marginal_band_points(score), multipliers))
+
+
+def band_for_score(score: float, bands: list[dict]) -> dict | None:
+    """Resolve continuous scores using upper boundaries, without integer gaps."""
+    upper_bounds = (20.0, 45.0, 70.0, 88.0, 100.0)
+    for band, upper in zip(bands, upper_bounds):
+        if score <= upper:
+            return band
+    return None
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("assessment", help="path to an assessment YAML file")
@@ -97,18 +123,14 @@ def main() -> int:
 
     total_value, _ = weighted_mean(list(scores))
     aggregate = round(total_value, 2)
-
-    band = None
-    for b in (scoring.get("band_resolution") or {}).get("bands") or []:
-        lo, hi = b.get("range") or [0, -1]
-        if lo <= aggregate <= hi:
-            band = b
-            break
+    bands = (scoring.get("band_resolution") or {}).get("bands") or []
+    band = band_for_score(total_value, bands)
     if band is None:
         print(f"FAIL — aggregate {aggregate} resolves to no band", file=sys.stderr)
         return 1
 
     multiplier = float(band["effort_multiplier"])
+    eav = effort_adjusted_value(total_value)
     result = {
         "model": assessment.get("model") or catalog.get("model"),
         "assessment": assessment.get("id") or assessment_path.name,
@@ -116,11 +138,13 @@ def main() -> int:
         "criteria_total": len(criteria),
         "practice_areas": area_results,
         "aggregated_score": aggregate,
+        "aggregated_score_unrounded": total_value,
         "resolved_band": band["id"],
         "band_name": band["name"],
         "resolved_level": band["scale_level"],
         "effort_multiplier": multiplier,
-        "effort_adjusted_value": round(aggregate * multiplier, 2),
+        "effort_adjusted_value": round(eav, 2),
+        "effort_adjusted_value_unrounded": eav,
     }
 
     if args.json:
@@ -134,8 +158,8 @@ def main() -> int:
         print(f"  {a['name']:<38} {a['score']:>6.2f}")
     print(f"Aggregated score : {aggregate:.2f}")
     print(f"Resolved band    : {band['id']} ({band['name']}), scale level {band['scale_level']}")
-    print(f"Effort multiplier: {multiplier}x")
-    print(f"Effort-adj. value: {result['effort_adjusted_value']:.2f}")
+    print(f"Effort multiplier: {multiplier}x (resolved band; not applied to the full score)")
+    print(f"Effort-adj. value: {result['effort_adjusted_value']:.2f} (marginal band contributions)")
     return 0
 
 
