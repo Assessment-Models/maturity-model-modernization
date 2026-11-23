@@ -8,6 +8,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- CR-AM-13 Phase 2: increment the draft touchpoint manifest to v0.1.1 and declare `touchpoints.yaml` through the model's typed manifest path. Preserve the shared `operations-modernization` component boundary and existing peer mapping; practice-area-to-criterion resolution remains an explicit granularity limitation, not a validated criterion-level mirror.
+
+### Changed
+
 - CR-AM-14: define EAV as marginal score-point contributions across canonical v2 bands divided by their respective effort multipliers; EAV is supplementary and does not determine maturity level.
 - Update the scoring utility, local validator and both worked examples to use the unrounded aggregate and marginal-band EAV; resolve continuous scores without gaps between integer-labelled bands.
 
