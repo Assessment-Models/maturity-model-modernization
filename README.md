@@ -1,147 +1,259 @@
 # Architecture Modernization Assessment
 
-> One modernization assessment foundation. Multiple architectural interpretations. Coordinated realization.
+**A common assessment foundation for architecture modernization. Multiple architectural interpretations. Coordinated realization.**
 
-This repository is the home of **architecture modernization assessment** under the Assessment-Models organisation. It carries two coordinated assets:
+This repository brings together two distinct but complementary assets maintained by the [Assessment-Models organisation](https://github.com/Assessment-Models):
 
-1. **AMAF, the Architecture Modernization Assessment Framework** (new, scaffold slice). A common, architecture-agnostic framework for assessing architecture modernization: what needs to modernize, why, how significantly, and toward what desired state, then contextualized into the specific architecture domains, capabilities, decisions, and interventions required to realize it.
-2. **The Architecture Modernization Maturity Model** (`dea:maturity-modernization`, 2.0.0, scale renumbering adopted pending ratification). The governed maturity model assessing the organisation's *capability to modernise* legacy estates and platforms: strategy, sequencing, execution, and technical-debt reduction.
+1. **AMAF — Architecture Modernization Assessment Framework:** assesses the modernization need and opportunity of an architecture, establishes why change matters, and traces findings into architecture-specific implications and realization.
+2. **Architecture Modernization Maturity Model:** assesses the organization's capability to modernize legacy estates and platforms through strategy, sequencing, execution and technical-debt reduction.
 
-The two assets are deliberately distinct, and the distinction is load-bearing: AMAF assesses the **modernization need of architectures**; the maturity model assesses the **maturity of the modernization practice**. Under AMAF, maturity is an input, not the organizing principle: practice capability feeds dimension D7 (Adaptability & Modernization Readiness) and shapes the modernization path. See [`docs/realization/maturity-vs-modernization.md`](docs/realization/maturity-vs-modernization.md).
+They are not two versions of the same assessment. **AMAF assesses the architecture and its modernization opportunity; the maturity model assesses the organization's modernization practice.** The maturity result can inform AMAF's D7 Adaptability & Modernization Readiness dimension as evidence, but it does not replace or numerically determine an AMAF criterion score.
 
-## The problem AMAF solves
+---
 
-Architecture modernization is usually assessed through the lens of a single architecture discipline. An enterprise architect assesses enterprise architecture, a business architect assesses business architecture, a technology team assesses infrastructure, and software teams assess applications. These perspectives are individually valid but collectively fragmented: overlapping needs, different criteria, conflicting priorities, and initiatives that trace to no common modernization objective.
+## Find your starting point
 
-AMAF's central proposition separates **the assessment of modernization** (common, consistent, comparable, evidence-based) from **the architecture of modernization** (domain-specific implications, decisions, capabilities, interventions, realization paths).
+| If you are a... | Start with |
+|---|---|
+| Executive, sponsor or portfolio leader | [What the assessment establishes](#what-the-assessment-establishes) and [Using assessment outputs](#using-assessment-outputs) |
+| Enterprise architect or architecture leader | [AMAF architecture](#amaf-architecture-modernization-assessment-framework), [Eight dimensions](#the-eight-assessment-dimensions) and the [AMAF documentation site](https://assessment-models.github.io/maturity-model-modernization/) |
+| Business, data, technology, systems or software architect | [Architecture contextualization](#from-common-assessment-to-architecture-specific-change) and [Domain packs](docs/contextualization/domain-packs.md) |
+| Transformation or modernization leader | [Assessment-to-realization flow](#from-assessment-to-realization) and [Prioritization](docs/methodology/prioritization.md) |
+| Modernization practice owner | [Maturity model](#architecture-modernization-maturity-model) and [Quick start](#quick-start) |
+| Assessor or assessment team | [Assessment method](#how-amaf-assessment-works), [Evidence model](docs/methodology/evidence-model.md) and [Worked examples](#worked-examples) |
+| Model architect, contributor or maintainer | [Formal model and validation](#formal-model-and-validation) and [Governance](#governance-and-contribution) |
 
-## The backbone
+## What the assessment establishes
 
-```
-01 · Common Modernization Assessment
-     Drivers · Context · Current State · Gaps · Risks · Value · Readiness · Direction
-02 · Architecture Contextualization
-     Findings translated into domain-specific concerns, objectives, and target states
-03 · Modernization Intervention
-     Architecture changes · Capabilities · Decisions · Roadmaps · Programs · Projects
-04 · Outcome & Realization
-     Modernized architecture · Measurable outcomes · Verified value · Sustained improvement
-```
+Architecture modernization is often assessed separately by architecture discipline. Enterprise, business, data, information systems, technology, systems, service, software, solution and implementation architects may each identify legitimate needs, but their assessments can use different criteria, create overlapping initiatives and produce priorities that are difficult to reconcile.
 
-## The eight assessment dimensions
+AMAF provides a **common, architecture-agnostic assessment** of modernization need and opportunity. It establishes:
 
-| ID | Dimension | Establishes |
-|----|-----------|-------------|
-| D1 | Strategic Alignment & Relevance | Why modernization matters and the strategic outcomes it should enable |
-| D2 | Drivers & Environmental Context | Internal and external forces creating the need or opportunity to modernize |
-| D3 | Architecture Baseline & Condition | The current architecture, its characteristics, condition, and operational reality |
-| D4 | Architectural Fitness & Performance | How effectively the architecture fulfills its intended purpose |
-| D5 | Structural Integrity & Complexity | Coherence, dependencies, coupling, consistency, and accumulated complexity |
-| D6 | Exposure, Risk & Sustainability | Operational, strategic, technical, economic, security, and lifecycle exposure |
-| D7 | Adaptability & Modernization Readiness | The ability to change the architecture and the organisation's capacity to do so |
-| D8 | Target State & Modernization Value | The desired state, alternatives, expected value, and transformation direction |
+- Why modernization matters and which strategic or environmental drivers are relevant.
+- What the current architecture is, how it performs and where its condition is deficient.
+- How well the architecture can meet current and anticipated needs.
+- Which structural, operational, economic, security and lifecycle exposures matter.
+- How critical the assessed architecture is to the organization.
+- How changeable the architecture is and how ready the organization is to act.
+- What target state and modernization value should guide the response.
 
-## What makes it different
+The framework deliberately distinguishes four assessment perspectives: **condition, criticality, future demand and changeability**. They are related, but they are not interchangeable and must not be collapsed into a single maturity score.
 
-1. **Four independent evidence types, never collapsed into one maturity score.** Condition, criticality, future demand, and changeability are assessed separately.
-2. **No composite score as the primary outcome.** Prioritization derives from independent factors and produces prioritization profiles, not a false-precision rank.
-3. **Common criteria, domain relationships.** A criterion is a modeled proposition; architecture domains attach to it by relationship, not by encoding the discipline into the criterion.
-4. **Assessment outputs are actionable artifacts.** Assessment profiles, findings, opportunities, architecture implication profiles, priorities, and a modernization roadmap, with traceability from criterion to evidence to finding to opportunity to initiative to outcome.
+AMAF is intended to support modernization decisions across architecture domains and organizational contexts. It is not a technology inventory, a generic architecture maturity ladder, a product certification or a substitute for architecture design and governance.
 
-## The maturity model (established asset)
+## AMAF: Architecture Modernization Assessment Framework
 
-`dea:maturity-modernization` assesses the capability to modernise: five levels (L-1..L-5) scored against the canonical v2 bands. As of 1.1.0 the model is full-fledged: **15 criteria across 4 practice areas**, each with a definition, assessment question, evidence expectations, weight, and observable level anchors L-1-L-5 coherent with the scale ([`maturity/model/criteria.yaml`](maturity/model/criteria.yaml)); a **scoring model** that aggregates the 0-100 criterion scores by weighted mean, resolves the canonical v2 band, and derives the effort-adjusted value ([`maturity/model/scoring.yaml`](maturity/model/scoring.yaml)); two **worked examples** ([`examples/`](examples/)); and a **scoring CLI** ([`scripts/score_assessment.py`](scripts/score_assessment.py)).
+AMAF's central proposition is to separate the common assessment of modernization from the architecture-specific interpretation and realization of the resulting change.
 
-| Practice area | Weight | Criteria |
+### The eight assessment dimensions
+
+| ID | Dimension | Assessment concern |
 |---|---|---|
-| Strategy & Direction | 30 | strategy documented and approved, portfolio visibility, ROI discipline |
-| Sequencing & Migration Patterns | 30 | pattern library, wave planning, coexistence strategy, exit criteria |
-| Execution & Operations | 20 | metrics visibility, pattern reuse, lessons learned, readiness assessment |
-| Technical Debt & Outcomes | 20 | debt quantified, cost of delay, velocity trend, outcome verification |
+| **D1** | Strategic Alignment & Relevance | Why modernization matters and how the architecture supports strategic intent and business relevance |
+| **D2** | Drivers & Environmental Context | Internal and external forces creating the need or opportunity to change |
+| **D3** | Architecture Baseline & Condition | The current architecture, its characteristics, condition and operational reality |
+| **D4** | Architectural Fitness & Performance | How effectively the architecture fulfils its intended purpose and current expectations |
+| **D5** | Structural Integrity & Complexity | Coherence, dependencies, coupling, consistency and accumulated complexity |
+| **D6** | Exposure, Risk & Sustainability | Operational, strategic, technical, economic, security and lifecycle exposure |
+| **D7** | Adaptability & Modernization Readiness | The architecture's changeability and the organization's capacity to execute and sustain change |
+| **D8** | Target State & Modernization Value | The desired state, alternatives, expected value and direction of modernization |
 
-| Band id | Name | Range | Width | Effort multiplier | Legacy (v1) name |
-|---|---|---|---|---|---|
-| `level-1-emergent` | Emergent | 0–20 | 21 | 1.0× | Ad Hoc |
-| `level-2-structured` | Structured | 21–45 | 25 | 1.5× | Defined |
-| `level-3-systematic` | Systematic | 46–70 | 25 | 2.5× | Managed |
-| `level-4-adaptive` | Adaptive | 71–88 | 18 | 4.0× | Quantitatively Managed |
-| `level-5-self-optimising` | Self-Optimising | 89–100 | 12 | 6.0× | Optimising |
+The dimensions are common across architecture types. The criterion catalog expresses the propositions to assess; architecture-domain applicability is modeled as a relationship rather than embedded in criterion identity.
 
-Level semantics (characteristics, exit criteria, evidence) live in [`maturity/scale.yaml`](maturity/scale.yaml) and are carried verbatim from the authoritative source. Under the revamp, the model is read as the readiness instrument for AMAF's D7.
+### How AMAF assessment works
 
-## Placement
+AMAF uses a five-point criterion scale, with assessment type determining what each score means. The catalog defines the criterion's proposition, intent, question, applicability, assessment method, evidence requirements and interpretation guidance.
 
-This repository is the independent home of the `dea:maturity-modernization` maturity model. Under the Assessment-Models organisation taxonomy (CR-AM-11 §8, `.github/GOVERNANCE.md`) a maturity model is an independently versioned asset with its own releases, issues, roadmap and contributors. The maturity model for *enterprise architecture practice itself* is owned by the DEA federation (`technehub-labs`), not by this organisation. The AMAF lives here as a second, independently versioned asset: that classification, its graduation options, and its registry registration policy are decided in the [asset classification decision](docs/governance/asset-classification.md).
+Assessment types include condition, demand, exposure, criticality, readiness, changeability and target. The four conceptual evidence perspectives remain distinct in the resulting profiles.
+
+Evidence is recorded with provenance and confidence. Applicability is determined before scoring; inapplicable, deferred and out-of-scope criteria are recorded with reasons rather than treated as deficiencies. Findings are derived from qualifying results and evidence, not invented from an overall average.
+
+**AMAF does not produce a composite modernization score as its primary result.** It produces profiles by assessment type and scope, evidence-backed findings, modernization opportunities and prioritization profiles. This preserves the distinctions needed to make sound modernization decisions.
+
+### From assessment to realization
+
+The framework connects assessment to action through a traceable chain:
+
+```mermaid
+flowchart TB
+    A["Common Modernization Assessment"] --> B["Criterion Results and Evidence"]
+    B --> C["Findings"]
+    X["Strategic Context · Criticality · Future Demand · Target Expectations"] --> C
+    C --> D["Modernization Opportunities"]
+    D --> E["Objectives and Target Positions"]
+    E --> F["Architecture Contextualization"]
+    F --> G["Architecture Implications"]
+    G --> H["Interventions · Decisions · Capability Changes"]
+    H --> I["Initiatives and Roadmaps"]
+    I --> J["Outcomes and Verified Value"]
+```
+
+Every stage retains traceability to its basis. An opportunity is synthesized from findings that can be addressed through a coherent course of change; it is not created simply by grouping criteria within the same dimension.
+
+### From common assessment to architecture-specific change
+
+A common finding may have implications for several architecture disciplines. AMAF contextualizes it without duplicating the underlying assessment or forcing all domains into one architecture model.
+
+```mermaid
+flowchart TB
+    A["Common AMAF Assessment"] --> B["Modernization Finding / Opportunity"]
+    B --> C["Architecture Contextualization"]
+    C --> D1["Enterprise Architecture"]
+    C --> D2["Business Architecture"]
+    C --> D3["Data Architecture"]
+    C --> D4["Information Systems Architecture"]
+    C --> D5["Technology Architecture"]
+    C --> D6["Systems Architecture"]
+    C --> D7["Service Architecture"]
+    C --> D8["Software Architecture"]
+    C --> D9["Solution Architecture"]
+    C --> D10["Implementation Architecture"]
+    D1 --> R["Coordinated Modernization Realization"]
+    D2 --> R
+    D3 --> R
+    D4 --> R
+    D5 --> R
+    D6 --> R
+    D7 --> R
+    D8 --> R
+    D9 --> R
+    D10 --> R
+```
+
+Domain packs explain the concerns, vocabulary, evidence sources, intervention patterns and implication templates relevant to each architecture domain. See the [domain-pack index](docs/contextualization/domain-packs.md) and [fan-out model](docs/contextualization/fan-out-model.md).
+
+## Architecture Modernization Maturity Model
+
+The maturity model is a separate, governed assessment asset in this repository. Its subject is the **organization's modernization practice**, not an individual architecture being considered for modernization.
+
+It assesses 15 criteria across four practice areas:
+
+| Practice area | Weight | What it examines |
+|---|---:|---|
+| Strategy & Direction | 30% | Approved modernization strategy, portfolio visibility and investment discipline |
+| Sequencing & Migration Patterns | 30% | Migration patterns, wave planning, coexistence strategy and exit criteria |
+| Execution & Operations | 20% | Execution metrics, pattern reuse, lessons learned and readiness practices |
+| Technical Debt & Outcomes | 20% | Debt quantification, cost of delay, modernization velocity and outcome verification |
+| **Total** | **100%** | |
+
+The five capability levels are aligned to the canonical maturity bands. L-0 is a separate Not Assessed sentinel, not a capability level.
+
+| Level | Band | Score range | Practice interpretation |
+|---|---|---:|---|
+| L-1 | Emergent | 0–20 | Modernization is opportunistic and person-dependent |
+| L-2 | Structured | 21–45 | Practices are documented but inconsistently applied |
+| L-3 | Systematic | 46–70 | Modernization is governed and managed as a portfolio |
+| L-4 | Adaptive | 71–88 | Outcomes and execution are measured and adapted |
+| L-5 | Self-Optimising | 89–100 | Continuous modernization is embedded in architecture practice |
+
+The maturity model uses a weighted-mean scoring model over criterion scores, resolves the canonical band, and reports an effort-adjusted value as a supplementary signal. That value is not a maturity score or a financial valuation. The normative definitions are maintained in [the maturity scale](maturity/scale.yaml), [criteria catalog](maturity/model/criteria.yaml) and [scoring model](maturity/model/scoring.yaml).
+
+### How the two assets work together
+
+The maturity model provides evidence about organizational readiness and modernization practice. AMAF uses that evidence in D7 where relevant, while still requiring architecture-specific evidence about the subject's own changeability.
+
+The bridge is deliberately non-arithmetic: there is **no conversion** between the maturity model's L-1…L-5 bands and AMAF's five-point criterion scale. A strong modernization practice does not prove that a particular architecture is easy to change; a difficult architecture does not necessarily mean the organization has a weak modernization practice.
+
+Read [Maturity vs Modernization](docs/realization/maturity-vs-modernization.md) and [The Maturity Model Bridge](docs/methodology/maturity-bridge.md) for the normative boundary and evidence rules.
+
+## Using assessment outputs
+
+AMAF is designed to produce decision-support artifacts rather than a single headline score.
+
+| Output | Purpose |
+|---|---|
+| Assessment profile | Shows results by dimension, subdimension, assessment type and subject |
+| Evidence record | Preserves source, provenance, confidence and the rationale for each result |
+| Finding | States an evidence-backed deficiency, exposure, demand, constraint or strength |
+| Modernization opportunity | Groups findings into a coherent course of architectural change |
+| Prioritization profile | Describes strategic importance, need, demand, exposure, value, urgency, feasibility, readiness and dependency |
+| Architecture implication profile | Translates a common opportunity into domain-specific concerns and target positions |
+| Modernization roadmap | Connects decisions and interventions to initiatives, outcomes and value realization |
+
+Prioritization is based on explicit qualitative factors and profiles, not a false-precision composite rank. Criticality is an overlay that informs attention; it is not used as a score weight. The [prioritization method](docs/methodology/prioritization.md) explains how opportunities are classified, ordered and staged.
+
+## Worked examples
+
+The repository includes examples that demonstrate the assessment and realization mechanics:
+
+- [Integration architecture](docs/examples/integration-architecture.md): an end-to-end assessment from criterion results and evidence through findings, opportunity synthesis and contextualized implications.
+- [Customer onboarding](docs/examples/customer-onboarding.md): applies the framework in a business-service context and exercises additional interpretation cases.
+- [Inter-rater comparability](docs/examples/inter-rater-comparability.md): records independent assessments of the same subject, including evidence differences and the resulting interpretation.
+
+The maturity model has separate worked assessment records in [examples/](examples/), which can be scored using the repository CLI.
+
+## How to run an assessment
+
+For an AMAF assessment:
+
+1. **Define the assessment context and scope.** Identify the organization, architecture subject or subjects, assessment period, relevant domains and exclusions.
+2. **Review the taxonomy and applicability.** Use the [D1–D8 taxonomy](docs/taxonomy/overview.md) and the criterion catalog to establish which propositions apply.
+3. **Gather and record evidence.** Capture direct and indirect evidence, provenance, currency, corroboration and conflicts.
+4. **Assess each applicable criterion.** Apply its assessment type, method and five-point anchors; record rationale and confidence.
+5. **Build profiles and interpret results.** Follow the aggregation and interpretation rules. Do not create a cross-dimension composite score.
+6. **Derive findings and opportunities.** Use the normative rules to identify modernization needs and coherent change opportunities.
+7. **Contextualize and plan realization.** Translate opportunities into domain implications, target positions, interventions, decisions, initiatives and outcomes.
+
+The interactive [AMAF assessment instrument](tools/assessment-app/README.md) supports criterion scoring, evidence capture, profile views and JSON/CSV export. Open [tools/assessment-app/index.html](tools/assessment-app/index.html) in a browser to use the client-side application.
+
+For the modernization maturity model, review [its criteria](maturity/model/criteria.yaml), score a supplied assessment with:
+
+```bash
+python scripts/score_assessment.py examples/modernization-2026.yaml
+```
+
+You can also score the [payments platform example](examples/payments-platform-2026.yaml). Validate the maturity model locally with `python scripts/local_validate.py`; validate AMAF's formal model and examples with `python3 framework/validate.py`.
+
+## Formal model and validation
+
+AMAF is supported by a machine-readable criterion catalog, rule set, assessment instrument, metamodel, schemas, validators and worked assessment bundles.
+
+| Asset | Role |
+|---|---|
+| [Criterion catalog](tools/criterion-catalog/criteria-catalog.yaml) | Normative assessment propositions, dimensions, scales, applicability and assessment/interpretation rules |
+| [Machine rule set](framework/rules/amaf-rules.yaml) | Machine-readable rules and parameters |
+| [Assessment app](tools/assessment-app/) | Interactive instrument and self-test |
+| [AMAF metamodel](framework/metamodel/amaf-metamodel.yaml) | Entity packages, identifiers, lifecycle and relationship registry |
+| [Framework and instance models](framework/metamodel/) | Formal assessment framework, assessment instance and modernization realization structures |
+| [Schemas](framework/schemas/) | Structural constraints for framework, instance, opportunity, contextualization and realization records |
+| [Validators](framework/validate.py) | Re-derives rules over worked bundles and checks formal model conformance |
+| [Maturity model register](maturity/model/modernization.yaml) | Governed maturity model identity and artifact references |
+
+The AMAF catalog contains 49 fully modeled criteria across D1–D8. Its machine rule set contains 37 rules. The worked bundles test assessment interpretation, evidence, finding derivation, opportunity synthesis, prioritization and realization traceability. The framework validator, catalog validator, export synchronization and assessment-app self-test run through the AMAF framework CI workflow.
+
+The repository also runs maturity-model Level 1 validation, Level 2 contract conformance and repository-standard conformance. The documentation site is built with MkDocs Material using strict link checking and is published at the [AMAF documentation site](https://assessment-models.github.io/maturity-model-modernization/).
+
+## Repository contents
+
+| Location | Purpose |
+|---|---|
+| [MANIFESTO.md](MANIFESTO.md) | Full AMAF thesis and conceptual foundation |
+| [docs/](docs/) | Framework, taxonomy, methodology, contextualization, metamodel, realization, examples, validation and governance |
+| [tools/criterion-catalog/](tools/criterion-catalog/) | Criterion catalog and scoring template |
+| [tools/assessment-app/](tools/assessment-app/) | Interactive AMAF assessment instrument |
+| [tools/interview-guide/](tools/interview-guide/) | Discovery and evidence-gathering guide |
+| [framework/](framework/) | Formal metamodel, schemas, machine rules, validators and validated examples |
+| [maturity/](maturity/) | Governed Architecture Modernization Maturity Model |
+| [examples/](examples/) | Worked maturity-model assessment records |
+| [scripts/](scripts/) | Local validation and maturity scoring CLI |
+| [ROADMAP.md](ROADMAP.md) | Framework evolution and planned work |
+| [CHANGELOG.md](CHANGELOG.md) | Repository and framework change history |
+
+## Governance and contribution
+
+The repository contains two assets with separate change regimes:
+
+- **Maturity model changes** follow the repository's governed change-control process. Changes to model identity, practice areas, criteria, maturity definitions, scoring or band interpretation require the appropriate change request and validation.
+- **AMAF changes** follow the framework review process. Changes to criteria, assessment mechanics, interpretation, prioritization, domain relationships, metamodel or machine rules must update the relevant normative prose and machine-readable artifacts, regenerate exports, exercise the changed behavior in examples and pass the framework verification battery.
+
+Documentation should explain the adopted model state and remain aligned with the authoritative artifacts. It should not be used to introduce unapproved model semantics. See [CONTRIBUTING.md](CONTRIBUTING.md), [AMAF versioning and change policy](docs/governance/versioning.md) and [asset classification](docs/governance/asset-classification.md).
 
 ## Status
 
-`2.0.0` · adoption pending [dea-metamodel #214] — canonical v2 bands, scale renumbering adopted
+**Repository maturity-model release: 2.0.0** · **Repository standard:** AM-MODEL-REPOSITORY-STANDARD v1.0.1 (structural conformance)
 
-(maturity model version, coherent with `model.yaml`, `standard.yaml` and `VERSION`; see [`CHANGELOG.md`](CHANGELOG.md). The AMAF content is a revamp scaffold: framework catalog v0.4.1, developed per [`ROADMAP.md`](ROADMAP.md).)
-
-## Repository layout
-
-```
-maturity-model-modernization/
-├── README.md                       # this file
-├── MANIFESTO.md                    # the AMAF framework in full prose
-├── ROADMAP.md                      # phased plan of work, slice by slice
-├── CHANGELOG.md                    # versioned change history
-├── CONTRIBUTING.md                 # change control and rules
-├── LICENSE                         # MIT
-├── model.yaml                      # CR-AM-11 §15 contract handshake (maturity model)
-├── standard.yaml                   # repository-standard declaration
-├── VERSION
-├── mkdocs.yml                      # documentation site configuration
-├── docs/                           # AMAF documentation corpus (published as a site)
-│   ├── index.md                    # site landing page
-│   ├── framework/                  # problem, conceptual model, central proposition
-│   ├── taxonomy/                  # D1–D8: subdimensions, criteria, signals
-│   ├── methodology/               # scales, evidence model, interpretation, prioritization
-│   ├── contextualization/         # fan-out to architecture domains, domain packs
-│   ├── metamodel/                 # entities, relationships, criterion model
-│   ├── realization/               # outputs, maturity vs modernization, model structure
-│   ├── examples/                   # worked end-to-end examples
-│   ├── validation/                 # validation notes, coverage argument
-│   └── governance/                # versioning, change policy, asset classification
-├── maturity/                       # the governed maturity model
-│   ├── scale.yaml                  # model-owned scale (L-1..L-5)
-│   └── model/
-│       ├── modernization.yaml      # model register
-│       ├── criteria.yaml           # criteria catalog: 4 areas, 15 criteria, L-1-L-5 anchors
-│       └── scoring.yaml            # scoring model: weighted mean, v2 band mirror, EAV
-├── tools/                          # AMAF instrument surface
-│   ├── criterion-catalog/          # criterion catalog (YAML) and scoring template
-│   ├── interview-guide/            # discovery and evidence-gathering guides
-│   └── assessment-app/             # interactive assessment instrument (client-side)
-├── framework/                      # AMAF formal model artifacts: metamodel, schemas, machine rules, ID baseline, validators, validated examples (ROADMAP S6, S7, S9)
-├── examples/                       # worked scoring examples (maturity model)
-├── scripts/                        # local_validate.py (Level 1) and score_assessment.py
-└── .github/workflows/              # local model CI, contract conformance, repository standard, release tagging, AMAF framework CI, docs site
-```
-
-## CI levels
-
-1. **Level 1, local model CI** (`local-model-ci.yml`): runs `scripts/local_validate.py`: manifest contract, handshake shape, scale integrity, register-to-scale resolution and version coherence, criteria catalog (identity, fully formed criteria, weights summing to 100), scoring model (weighted-mean contract, machine-checked mirror of the canonical v2 bands), and every worked example's scoring math.
-2. **Level 2, contract conformance** (`contract-conformance.yml`): reuses `Assessment-Models/assessment-ci` to resolve the §15 handshake against the published contract suite at the pinned `dea-metamodel` release.
-3. **Level 3, ecosystem CI**: the registration record in `Assessment-Models/assessment-registry` is resolved by the ecosystem validator on every registry pull request.
-
-A documentation-site workflow (`.github/workflows/docs.yml`) publishes the AMAF docs corpus via MkDocs Material. The site is at [assessment-models.github.io/maturity-model-modernization](https://assessment-models.github.io/maturity-model-modernization/): a landing page, curated navigation over the whole corpus, and a strict build (`mkdocs build --strict`), so a docs change with a broken link is a failed change. The framework's versioning and change review policy is documented on the site and in the repo ([`docs/governance/versioning.md`](docs/governance/versioning.md)).
-
-The AMAF's own battery is machine-checked in CI alongside the levels above (`.github/workflows/framework-ci.yml`, every push and pull request): the catalog validator ([`framework/validate_catalog.py`](framework/validate_catalog.py); schema, ID stability against [`framework/ids/criteria-baseline.txt`](framework/ids/criteria-baseline.txt), cross-reference integrity, version coherence), the framework model validator ([`framework/validate.py`](framework/validate.py)) over the worked bundles, export synchronization (the committed exports must match the exporter's regeneration), and the assessment app self test. The framework's versioning scheme (catalog version as the AMAF version, tagged `ama-vX.Y.Z`) and its registration policy are decided in the [asset classification decision](docs/governance/asset-classification.md).
-
-## Quick start
-
-1. Read the [`MANIFESTO.md`](MANIFESTO.md) for the full AMAF thesis, or [`docs/framework/02-conceptual-model.md`](docs/framework/02-conceptual-model.md) for the short version.
-2. Browse the [assessment taxonomy](docs/taxonomy/overview.md) (D1 through D8).
-3. Open `tools/assessment-app/index.html` in a browser to run the assessment instrument (v1) against a real or hypothetical architecture: score, capture evidence, view rule-based band profiles, export JSON or scoring-template CSV.
-4. For the maturity model: browse the [criteria catalog](maturity/model/criteria.yaml), then score an assessment with `python scripts/score_assessment.py examples/modernization-2026.yaml` (or `examples/payments-platform-2026.yaml`). Validate everything locally with `python scripts/local_validate.py`.
-5. Track what lands next in [`ROADMAP.md`](ROADMAP.md).
-
-## Provenance
-
-`technehub-labs/dea-metamodel` — `assessment-models/maturity/v2-beta/modernization.yaml` (the v2-beta port of the frozen v1-alpha catalog entry). The AMAF is formalized from its founding assessment document; the framework, taxonomy, criterion catalog, methodology, contextualization, metamodel and realization documentation are harvested and elaborated from it, with this repository as their working home.
+This repository maintains the Architecture Modernization Maturity Model as its registered maturity-model asset and AMAF as a separately versioned framework asset. See the [change history](CHANGELOG.md) and [asset classification decision](docs/governance/asset-classification.md) for governance records.
 
 ## Licence
 
-MIT, see [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).
