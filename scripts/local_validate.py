@@ -164,10 +164,25 @@ V2_BANDS = [('level-1-emergent', (0, 20), 'Emergent', 1.0, 'L-1'), ('level-2-str
 
 
 def band_for(score: float):
-    for band_id, rng, name, mult, lvl in V2_BANDS:
-        if rng[0] <= score <= rng[1]:
-            return band_id, name, mult, lvl
+    upper_bounds = (20.0, 45.0, 70.0, 88.0, 100.0)
+    for band, upper in zip(V2_BANDS, upper_bounds):
+        if score <= upper:
+            return band[0], band[2], band[3], band[4]
     return None, None, None, None
+
+
+def marginal_points(score: float) -> list[float]:
+    lower = 0.0
+    points = []
+    for upper in (20.0, 45.0, 70.0, 88.0, 100.0):
+        points.append(max(0.0, min(score, upper) - lower))
+        lower = upper
+    return points
+
+
+def effort_adjusted_value(score: float) -> float:
+    multipliers = (1.0, 1.5, 2.5, 4.0, 6.0)
+    return sum(p / m for p, m in zip(marginal_points(score), multipliers))
 
 
 if not scoring:
@@ -262,11 +277,10 @@ for ex_path in example_files:
         errors.append(f"{label}: resolved_level {declared_lvl!r} != computed {lvl!r}")
     eav = ex.get("effort_adjusted_value")
     if eav is not None and mult is not None:
-        expected = round(float(agg) * float(mult), 2)
+        expected = round(effort_adjusted_value(float(agg)), 2)
         if abs(float(eav) - expected) > 0.01:
             errors.append(
-                f"{label}: effort_adjusted_value {eav} != aggregated_score * "
-                f"effort_multiplier ({expected})"
+                f"{label}: effort_adjusted_value {eav} != marginal-band EAV ({expected})"
             )
 
 if errors:

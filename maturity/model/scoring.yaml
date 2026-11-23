@@ -60,5 +60,14 @@ band_resolution:
     effort_multiplier: 6.0
     scale_level: L-5
 effort_adjusted_value:
-  definition: 'effort_adjusted_value = aggregated_score * effort_multiplier of the resolved band, rounded to 2 decimals'
-  purpose: 'An effort-weighted value signal for comparing assessments; it is a derived signal, not a maturity level.'
+  definition: 'EAV(S) = sum(P_k(S) / M_k), where S is the unrounded aggregate, P_k is the marginal score-point contribution within canonical band k, and M_k is that band''s effort multiplier.'
+  purpose: 'A supplementary effort-adjusted index. It is distinct from the 0-100 maturity score and does not determine the resolved maturity level.'
+  allocation: 'Allocate points progressively over [0,20], (20,45], (45,70], (70,88], (88,100]. Each point is counted once. Do not multiply the entire aggregate by the resolved-band multiplier.'
+  intervals:
+  - { band: level-1-emergent, upper_boundary: 20, multiplier: 1.0 }
+  - { band: level-2-structured, upper_boundary: 45, multiplier: 1.5 }
+  - { band: level-3-systematic, upper_boundary: 70, multiplier: 2.5 }
+  - { band: level-4-adaptive, upper_boundary: 88, multiplier: 4.0 }
+  - { band: level-5-self-optimising, upper_boundary: 100, multiplier: 6.0 }
+  maximum_unrounded_value: 53.1666666667
+  reporting_precision: 2
