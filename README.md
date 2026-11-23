@@ -146,7 +146,7 @@ The five capability levels are aligned to the canonical maturity bands. L-0 is a
 | L-4 | Adaptive | 71–88 | Outcomes and execution are measured and adapted |
 | L-5 | Self-Optimising | 89–100 | Continuous modernization is embedded in architecture practice |
 
-The maturity model uses a weighted-mean scoring model over criterion scores, resolves the canonical band, and reports an effort-adjusted value as a supplementary signal. That value is not a maturity score or a financial valuation. The normative definitions are maintained in [the maturity scale](maturity/scale.yaml), [criteria catalog](maturity/model/criteria.yaml) and [scoring model](maturity/model/scoring.yaml).
+The maturity model uses a weighted-mean scoring model over criterion scores and resolves the canonical band using the unrounded aggregate. It also reports an effort-adjusted value (EAV) as a supplementary index, not as a maturity score or financial valuation. EAV allocates the score progressively across the canonical bands and sums each marginal band's points divided by its effort multiplier; it does not multiply the full aggregate by the multiplier of the resolved band. For example, a score of 62.0 yields EAV 43.47. The normative definitions are maintained in [the maturity scale](maturity/scale.yaml), [criteria catalog](maturity/model/criteria.yaml) and [scoring model](maturity/model/scoring.yaml).
 
 ### How the two assets work together
 
