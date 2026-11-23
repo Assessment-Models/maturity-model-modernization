@@ -6,6 +6,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+
+- CR-AM-14: define EAV as marginal score-point contributions across canonical v2 bands divided by their respective effort multipliers; EAV is supplementary and does not determine maturity level.
+- Update the scoring utility, local validator and both worked examples to use the unrounded aggregate and marginal-band EAV; resolve continuous scores without gaps between integer-labelled bands.
+
+
 ### Changed — BREAKING
 
 - **Scale level renumbering adopted (dea-metamodel #214): `L-0 Not Assessed` + `L-1..L-5`.** Release 2.0.0 — blocked on upstream ratification of dea-metamodel #214; do not merge before the renumbered canonical scale instance is released and CI pins are bumped.
